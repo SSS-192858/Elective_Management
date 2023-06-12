@@ -48,7 +48,7 @@ CREATE TABLE subjects(
 CREATE TABLE request(
     slno INTEGER,
     student_id INTEGER,
-    subject_code varchar(20),
+    subject_code INTEGER,
     start_date timestamp NOT NULL DEFAULT current_timestamp(),
     end_date datetime DEFAULT NULL,
     constraint pk_request PRIMARY KEY (slno)
@@ -57,7 +57,7 @@ CREATE TABLE request(
 CREATE TABLE student_subject(
     slno INTEGER,
     student_id INTEGER,
-    subject_code varchar(20),
+    subject_code INTEGER,
     start_date timestamp NOT NULL DEFAULT current_timestamp(),
     end_date datetime DEFAULT NULL,
     constraint pk_cust_cab PRIMARY KEY (slno)
