@@ -21,7 +21,7 @@ CREATE TABLE user_roles (
 
 CREATE TABLE student(
     student_id INTEGER,
-    user_id INTEGER,
+    user_id INTEGER UNIQUE NOT NULL,
     student_name varchar(100) DEFAULT NULL,
     student_email varchar(100) DEFAULT NULL,
     student_phno varchar(100) DEFAULT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE student(
 
 CREATE TABLE instructor(
     instructor_code INTEGER,
-    user_id INTEGER,
+    user_id INTEGER UNIQUE NOT NULL,
     instructor_name varchar(100) DEFAULT NULL,
     instructor_email varchar(100) DEFAULT NULL,
     instructor_phno varchar(100) DEFAULT NULL,
@@ -104,3 +104,6 @@ INSERT INTO user values (3,"student","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55f
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 1 FROM user WHERE user.username = "admin";
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "instructor";
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 3 FROM user WHERE user.username = "student";
+
+INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "admin";
+INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 3 FROM user WHERE user.username = "admin";
