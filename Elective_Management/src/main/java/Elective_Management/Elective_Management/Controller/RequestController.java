@@ -26,10 +26,13 @@ public class RequestController {
     private SubjectService subjectService;
 
     @Autowired
-    public RequestController(RequestService requestService, JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+    public RequestController(RequestService requestService, JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil,InstructorService instructorService,StudentService studentService,SubjectService subjectService) {
         this.requestService = requestService;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.instructorService = instructorService;
+        this.subjectService = subjectService;
+        this.studentService = studentService;
     }
 
     @GetMapping("/getAll")

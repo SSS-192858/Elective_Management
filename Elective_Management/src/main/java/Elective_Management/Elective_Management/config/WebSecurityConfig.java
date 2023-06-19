@@ -62,6 +62,8 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.POST,"/subject/save").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.PUT,"/subject/update/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/subject/getByInstructorId/{id}").permitAll()
+                            .requestMatchers(HttpMethod.GET,"/subject/getInstructor/{id}").permitAll()
+                            .requestMatchers(HttpMethod.PUT,"/subject/assignInstructor/{id}").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/studentSubject/getAll").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/studentSubject/getbyID/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/studentSubject/save").hasRole("ADMIN")

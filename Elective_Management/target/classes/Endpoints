@@ -16,7 +16,8 @@
 /subject/update
 /subject/getByInstructorId/{id}
 /subject/save
-/subject/updateInstructor/{code}
+/subject/getInstructor/{id}
+/subject/assignInstructor/{id}
 
 /request/getAll
 /request/getbyID/{id}
@@ -33,3 +34,4 @@
 /studentSubject/getByInstructor/{id}
 /studentSubject/getByStudent/{id}
 /studentSubject/getBySubject/{id}
+/studentSubject/accept

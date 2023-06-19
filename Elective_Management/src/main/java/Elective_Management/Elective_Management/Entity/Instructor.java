@@ -1,5 +1,6 @@
 package Elective_Management.Elective_Management.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 @Entity
 @Table(name = "instructor")
 public class Instructor {
+    public Instructor() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +30,7 @@ public class Instructor {
     private String instructor_name;
 
     @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnore
     private List<Subject> subjects;
 
     public Instructor(User user, String instructor_name, String email, String phone) {

@@ -47,12 +47,12 @@ public class StudentController {
     }
 
     @PutMapping("/update")
-    public void updateStudent(@RequestBody Student Student, @RequestHeader String Authorization)
+    public Student updateStudent(@RequestBody Student Student, @RequestHeader String Authorization)
     {
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
         User user = jwtUserDetailsService.getUserByUsername(username);
         Student.setUser(user);
-        this.studentService.updateStudent(Student);
+        return this.studentService.updateStudent(Student);
 
     }
 
