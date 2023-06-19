@@ -54,7 +54,12 @@ public class SubjectService {
         return this.subjectDAO.updateSubject(subject);
     }
 
-    public List<Subject> listByInstructorId(Integer id){
+    public List<Subject> listByInstructorId(Integer id)throws InstructorNotFoundException{
+        Instructor instructor = this.instructorDAO.findInstructorById(id);
+        if(instructor==null)
+        {
+            throw new InstructorNotFoundException();
+        }
         return this.subjectDAO.listSubjectByInstructorId(id);
     }
 
