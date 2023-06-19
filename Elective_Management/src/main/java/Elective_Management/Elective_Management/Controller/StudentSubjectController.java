@@ -28,7 +28,6 @@ public class StudentSubjectController {
         this.studentSubjectService = StudentSubjectService;
         this.instructorService = instructorService;
         this.jwtUserDetailsService = jwtUserDetailsService;
-
         this.requestService = requestService;
     }
 
@@ -76,17 +75,23 @@ public class StudentSubjectController {
             StudentSubject ss = new StudentSubject();
             ss.setEndDate(request.getEndDate());
             ss.setStartDate(request.getStartDate());
+            ss.setStudent(request.getStudent());
             ss.setSubject(request.getSubject());
             Instructor instructor = instructorService.getInstructorBySubjectId(request.getSubject().getSubjectCode());
             ss.getSubject().setInstructor(instructor);
-            ss.setSubject(request.getSubject());
-
+//            ss.setSubject(request.getSubject());
             User user = jwtUserDetailsService.getUserByUsername(request.getStudent().getUser().getUsername());
             ss.getStudent().setUser(user);
 
             StudentSubject ss1 = saveStudentSubject(ss);
             requestService.deleteRequestbyId(request.getSlno());
             return ss1;
+    }
+
+    @GetMapping("/getBySubject/{id}")
+    public List<StudentSubject> getbySubjectId(@PathVariable int id)
+    {
+        return this.studentSubjectService.getAllStudentSubjectbySubjectId(id);
     }
 
 

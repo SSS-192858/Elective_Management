@@ -48,11 +48,11 @@ public class Student {
         this.requests = requests;
     }
 
-    public List<StudentSubject> getBooks() {
+    public List<StudentSubject> getSubjects() {
         return this.subjects;
     }
 
-    public void setBooks(List<StudentSubject> subjects) {
+    public void setSubjects(List<StudentSubject> subjects) {
         this.subjects = subjects;
     }
 

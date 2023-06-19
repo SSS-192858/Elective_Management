@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/instructor")
 public class InstructorController {
-    
+
     private InstructorService instructorService;
 
     private JwtTokenUtil jwtTokenUtil;
@@ -50,12 +50,12 @@ public class InstructorController {
     }
 
     @PutMapping("/update")
-    public void updateInstructor(@RequestBody Instructor Instructor, @RequestHeader String Authorization)
+    public Instructor updateInstructor(@RequestBody Instructor Instructor, @RequestHeader String Authorization)
     {
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
         User user = jwtUserDetailsService.getUserByUsername(username);
         Instructor.setUser(user);
-        this.instructorService.updateInstructor(Instructor);
+        return this.instructorService.updateInstructor(Instructor);
     }
 
     @DeleteMapping("/delete/{id}")

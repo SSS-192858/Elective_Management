@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "subject")
+@Table(name = "subjects")
 public class Subject {
 
     @Id
@@ -21,7 +21,7 @@ public class Subject {
     private String subjectDesc;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "instructor_id")
+    @JoinColumn(name = "instructor_code")
     private Instructor instructor;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")

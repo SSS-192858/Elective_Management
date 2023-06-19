@@ -59,7 +59,7 @@ public class StudentSubjectDAOImpl implements StudentSubjectDAO{
 
     @Override
     public List<StudentSubject> getByInstructorId(Integer id){
-        TypedQuery<StudentSubject> tpq = this.entityManager.createQuery("FROM StudentSubject where student.instructor.Id = :id", StudentSubject.class);
+        TypedQuery<StudentSubject> tpq = this.entityManager.createQuery("FROM StudentSubject where subject.instructor.Id = :id", StudentSubject.class);
         tpq.setParameter("id", id);
         return tpq.getResultList();
     }
