@@ -50,12 +50,12 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((configurer)->{
                     configurer.requestMatchers("/authenticate").permitAll()
-                            .requestMatchers("/register_student", "register_admin", "register_instructor").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.POST,"/register_student", "/register_admin", "/register_instructor").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/student/getAll").hasAnyRole("INSTRUCTOR","ADMIN")
                             .requestMatchers(HttpMethod.GET,"/student/getbyID/**").permitAll()
                             .requestMatchers(HttpMethod.DELETE,"/student/delete/**").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.PUT,"/student/update").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.POST,"/student/save").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/student/update").hasAnyRole("ADMIN","STUDENT")
+                            .requestMatchers(HttpMethod.POST,"/student/save").hasAnyRole("ADMIN","STUDENT")
                             .requestMatchers(HttpMethod.GET,"/subject/allSubjects").permitAll()
                             .requestMatchers(HttpMethod.GET,"/subject/{code}").permitAll()
                             .requestMatchers(HttpMethod.DELETE,"/subject/delete/**").hasAnyRole("ADMIN","INSTRUCTOR")
@@ -81,6 +81,7 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/request/getbySubjectId/**").hasAnyRole("INSTRUCTOR", "ADMIN")
                             .requestMatchers(HttpMethod.POST, "/request/save").hasAnyRole("STUDENT", "ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/request/delete/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/studentSubject/accept").hasAnyRole("INSTRUCTOR", "ADMIN")
                             .anyRequest().authenticated();
                 }).exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

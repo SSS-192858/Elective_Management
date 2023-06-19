@@ -2,9 +2,14 @@ package Elective_Management.Elective_Management.Controller;
 
 
 import Elective_Management.Elective_Management.Entity.Request;
-import Elective_Management.Elective_Management.Service.RequestService;
+import Elective_Management.Elective_Management.Exception.StudentNotFoundException;
+import Elective_Management.Elective_Management.Service.*;
+import Elective_Management.Elective_Management.config.JwtTokenUtil;
+import Elective_Management.Elective_Management.Entity.User;
+import Elective_Management.Elective_Management.Entity.Instructor;
+import Elective_Management.Elective_Management.Entity.Student;
+import Elective_Management.Elective_Management.Entity.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +19,17 @@ import java.util.List;
 public class RequestController {
 
     private RequestService requestService;
+    private JwtTokenUtil jwtTokenUtil;
+    private JwtUserDetailsService jwtUserDetailsService;
+    private InstructorService instructorService;
+    private StudentService studentService;
+    private SubjectService subjectService;
 
     @Autowired
-    public RequestController(RequestService requestService)
-    {
+    public RequestController(RequestService requestService, JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
         this.requestService = requestService;
+        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @GetMapping("/getAll")
@@ -34,8 +45,14 @@ public class RequestController {
     }
 
     @PostMapping("/save")
-    public Request saveRequest(@RequestBody Request request)
-    {
+    public Request saveRequest(@RequestBody Request request, @RequestHeader String Authorization) {
+        request.setSlno(0);
+        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
+        User user = jwtUserDetailsService.getUserByUsername(username);
+        Instructor instructor = instructorService.getInstructorBySubjectId(request.getSubject().getSubjectCode());
+        request.getStudent().setUser(user);
+        request.getStudent().addRequest(request);
+        request.getSubject().setInstructor(instructor);
         return this.requestService.saveRequest(request);
     }
 
@@ -46,7 +63,7 @@ public class RequestController {
     }
 
     @GetMapping("/getbyStudent/{id}")
-    public List<Request> getRequestbyStudentId(@PathVariable int id)
+    public List<Request> getRequestbyStudentId (@PathVariable int id)
     {
         return this.requestService.getRequestByStudentId(id);
     }

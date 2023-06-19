@@ -1,7 +1,10 @@
 package Elective_Management.Elective_Management.Controller;
 
 import Elective_Management.Elective_Management.Entity.Student;
+import Elective_Management.Elective_Management.Service.JwtUserDetailsService;
 import Elective_Management.Elective_Management.Service.StudentService;
+import Elective_Management.Elective_Management.config.JwtTokenUtil;
+import Elective_Management.Elective_Management.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +14,14 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
     private StudentService studentService;
+    private JwtTokenUtil jwtTokenUtil;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Autowired
-    public StudentController(StudentService StudentService)
+    public StudentController(StudentService StudentService, JwtTokenUtil jwtTokenUtil,JwtUserDetailsService jwtUserDetailsService)
     {
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtUserDetailsService = jwtUserDetailsService;
         this.studentService = StudentService;
     }
 
@@ -31,15 +38,22 @@ public class StudentController {
     }
 
     @PostMapping("/save")
-    public Student saveStudent(@RequestBody Student Student)
-    {
+    public Student saveStudent(@RequestBody Student Student, @RequestHeader String Authorization) {
+        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
+        User user = jwtUserDetailsService.getUserByUsername(username);
+        Student.setId(0);
+        Student.setUser(user);
         return this.studentService.saveStudent(Student);
     }
 
     @PutMapping("/update")
-    public void updateStudent(@RequestBody Student Student)
+    public void updateStudent(@RequestBody Student Student, @RequestHeader String Authorization)
     {
+        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
+        User user = jwtUserDetailsService.getUserByUsername(username);
+        Student.setUser(user);
         this.studentService.updateStudent(Student);
+
     }
 
     @DeleteMapping("/delete/{id}")

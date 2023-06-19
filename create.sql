@@ -1,24 +1,24 @@
+drop database if exists elective_management;
 create database elective_management;
 use elective_management;
 create table user(
-    user_id INTEGER PRIMARY KEY,
+    user_id INTEGER PRIMARY KEY auto_increment,
     username varchar(100) NOT NULL,
     password char(68) NOT NULL
 );
 CREATE TABLE role (
-    role_id INTEGER NOT NULL,
+    role_id INTEGER NOT NULL auto_increment,
     role_name varchar(100) NOT NULL,
     constraint pk_role PRIMARY KEY (role_id)
 );
 CREATE TABLE user_roles (
-    user_id INTEGER,
+    user_id INTEGER auto_increment,
     role_id INTEGER NOT NULL,
     PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE student(
-    student_id INTEGER,
-    user_id INTEGER,
+    student_id INTEGER auto_increment,
     user_id INTEGER UNIQUE NOT NULL,
     student_name varchar(100) DEFAULT NULL,
     student_email varchar(100) DEFAULT NULL,
@@ -27,8 +27,7 @@ CREATE TABLE student(
 );
 
 CREATE TABLE instructor(
-    instructor_code INTEGER,
-    user_id INTEGER,
+    instructor_code INTEGER auto_increment,
     user_id INTEGER UNIQUE NOT NULL,
     instructor_name varchar(100) DEFAULT NULL,
     instructor_email varchar(100) DEFAULT NULL,
@@ -36,14 +35,14 @@ CREATE TABLE instructor(
     constraint pk_instructor PRIMARY KEY (instructor_code)
 );
 CREATE TABLE subjects(
-    subject_code INTEGER,
+    subject_code INTEGER auto_increment,
     instructor_code INTEGER,
     subject_name varchar(50) DEFAULT NULL,
     subject_desc varchar(500) DEFAULT NULL,
     constraint pk_subject PRIMARY KEY (subject_code)
 );
 CREATE TABLE request(
-    slno INTEGER,
+    slno INTEGER auto_increment,
     student_id INTEGER,
     subject_code INTEGER,
     start_date timestamp NOT NULL DEFAULT current_timestamp(),
@@ -51,7 +50,7 @@ CREATE TABLE request(
     constraint pk_request PRIMARY KEY (slno)
 );
 CREATE TABLE student_subject(
-    slno INTEGER,
+    slno INTEGER auto_increment,
     student_id INTEGER,
     subject_code INTEGER,
     start_date timestamp NOT NULL DEFAULT current_timestamp(),
@@ -90,7 +89,6 @@ INSERT INTO user values (3,"student","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55f
 
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 1 FROM user WHERE user.username = "admin";
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "instructor";
-INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 3 FROM user WHERE user.username = "student";
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 3 FROM user WHERE user.username = "student";
 
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "admin";

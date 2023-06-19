@@ -33,3 +33,4 @@
 /studentSubject/getByInstructor/{id}
 /studentSubject/getByStudent/{id}
 /studentSubject/getBySubject/{id}
+/studentSubject/accept

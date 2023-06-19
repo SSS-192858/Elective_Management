@@ -15,4 +15,6 @@ public interface InstructorDAO {
     public Instructor updateInstructor(Instructor Instructor);
 
     public List<Instructor> findAllInstructors();
+
+    public Instructor getInstructorBySubjectId(Integer id);
 }

@@ -1,6 +1,7 @@
 package Elective_Management.Elective_Management.dao;
 
 import Elective_Management.Elective_Management.Entity.Instructor;
+import Elective_Management.Elective_Management.Entity.Subject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,11 @@ public class InstructorDAOImpl implements InstructorDAO {
     public List<Instructor> findAllInstructors() {
         TypedQuery<Instructor> tq = this.entityManager.createQuery("From Instructor",Instructor.class);
         return tq.getResultList();
+    }
+
+    @Override
+    public Instructor getInstructorBySubjectId(Integer id){
+        Subject subject = this.entityManager.find(Subject.class, id);
+        return subject.getInstructor();
     }
 }
