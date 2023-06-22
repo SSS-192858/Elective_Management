@@ -3,7 +3,7 @@ create database elective_management;
 use elective_management;
 create table user(
     user_id INTEGER PRIMARY KEY auto_increment,
-    username varchar(100) NOT NULL,
+    username varchar(100) UNIQUE NOT NULL,
     password char(68) NOT NULL
 );
 CREATE TABLE role (

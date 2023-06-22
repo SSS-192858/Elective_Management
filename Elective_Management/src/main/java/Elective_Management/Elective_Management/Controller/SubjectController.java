@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/subject")
+@CrossOrigin(origins = "*")
 public class SubjectController {
 
     private SubjectService subjectService;

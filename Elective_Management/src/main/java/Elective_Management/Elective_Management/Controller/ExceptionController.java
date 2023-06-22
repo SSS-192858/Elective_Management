@@ -4,9 +4,13 @@ import Elective_Management.Elective_Management.Exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @ControllerAdvice
+@CrossOrigin(origins = "*")
 public class ExceptionController {
     @ExceptionHandler(value = StudentSubjectNotFoundException.class)
     public ResponseEntity<Object> customerCabNotFound(StudentSubjectNotFoundException studentSubjectNotFoundException){
@@ -31,5 +35,10 @@ public class ExceptionController {
     @ExceptionHandler(value = SubjectNotFoundException.class)
     public ResponseEntity<Object> subjectNotFound(SubjectNotFoundException subjectNotFoundException) {
         return new ResponseEntity<>("No subject exists with the given ID",HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Object> duplicateValueError(SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException){
+        return new ResponseEntity<>("Username already taken", HttpStatus.CONFLICT);
     }
 }
