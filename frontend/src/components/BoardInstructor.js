@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getDriverBoard } from "../services/user_services";
+import { getInstructorBoard } from "../services/user_services";
 const BoardInstructor = () => {
 
     const [content, setContent] = useState("")

@@ -5,12 +5,13 @@ import { getCurrentUser, logout } from './services/auth_services';
 import { useEffect, useState } from 'react';
 import LoginForm from './components/loginForm';
 import Home from './components/home';
-// import BoardUser from './components/BoardUser';
-// import BoardCustomer from "./components/BoardCustomer";
 import BoardAdmin from "./components/BoardAdmin";
-// import BoardDriver from "./components/BoardInstructor";
 import BoardInstructor from "./components/BoardInstructor";
 import BoardStudent from "./components/BoardStudent";
+import SignupInstructor from "./components/SignupInstructor";
+import SignupAdmin from "./components/SignupAdmin";
+import SignupStudent from "./components/SignupStudent";
+
 function App() {
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -44,7 +45,7 @@ function App() {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            Elective Management
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -87,6 +88,30 @@ function App() {
                   Log out
                 </a>
               </li>
+
+              {isAdmin && (
+                <li>
+                  <a href = "/registerAdmin" className="nav-link">
+                    Register New Admin
+                  </a>
+                </li>
+              )}
+
+              {isAdmin && (
+                <li>
+                  <a href = "/registerInstructor" className="nav-link">
+                    Register New Instructor
+                  </a>
+                </li>
+              )}
+
+              {isAdmin && (
+                <li>
+                  <a href = "/registerStudent" className="nav-link">
+                    Register New Student
+                  </a>
+                </li>
+              )}
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
@@ -96,11 +121,11 @@ function App() {
                 </Link>
               </li>
 
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
                   Sign Up
                 </Link>
-              </li> */}
+              </li>
             </div>
           )}
         </nav>
@@ -110,7 +135,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<LoginForm setCurrentUser = {setCurrentUser} setIsAdmin = {setIsAdmin} setIsStudent = {setIsStudent} setIsInstructor={setIsInstructor}/>} />
-            {/* <Route path="/register" element={<Register />} /> */}
+            <Route path="/registerStudent" element={<SignupStudent />} />
+            <Route path="/registerAdmin" element={<SignupAdmin />} />
+            <Route path="/registerInstructor" element={<SignupInstructor/>} />
             <Route path="/student" element={<BoardStudent/>} />
             <Route path="/admin" element={<BoardAdmin/>}/>
             <Route path="/instructor" element={<BoardInstructor/>}/>
