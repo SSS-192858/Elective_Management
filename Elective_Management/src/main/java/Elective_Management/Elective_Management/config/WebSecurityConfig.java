@@ -59,9 +59,9 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.POST,"/student/save").hasAnyRole("ADMIN","STUDENT")
                             .requestMatchers(HttpMethod.GET,"/subject/allSubjects").permitAll()
                             .requestMatchers(HttpMethod.GET,"/subject/{code}").permitAll()
-                            .requestMatchers(HttpMethod.DELETE,"/subject/delete/**").hasAnyRole("ADMIN","INSTRUCTOR")
+                            .requestMatchers(HttpMethod.DELETE,"/subject/delete/**").hasAnyRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/subject/save").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.PUT,"/subject/update/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/subject/update/**").hasAnyRole("ADMIN","INSTRUCTOR")
                             .requestMatchers(HttpMethod.GET,"/subject/getByInstructorId/{id}").permitAll()
                             .requestMatchers(HttpMethod.GET,"/subject/getInstructor/{id}").permitAll()
                             .requestMatchers(HttpMethod.PUT,"/subject/assignInstructor/{id}").hasRole("ADMIN")
@@ -85,6 +85,8 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/request/save").hasAnyRole("STUDENT", "ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/request/delete/**").permitAll()
                             .requestMatchers(HttpMethod.POST, "/studentSubject/accept").hasAnyRole("INSTRUCTOR", "ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/student/user/getStudent").hasRole("STUDENT")
+                            .requestMatchers(HttpMethod.GET, "/instructor/user/getInstructor").hasRole("INSTRUCTOR")
                             .anyRequest().authenticated();
                 }).exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

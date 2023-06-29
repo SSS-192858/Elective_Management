@@ -72,21 +72,19 @@ public class StudentSubjectController {
     @PostMapping("/accept")
     @Transactional
     public StudentSubject accept(@RequestBody Request request){
+        StudentSubject ss = new StudentSubject();
+        ss.setEndDate(request.getEndDate());
+        ss.setStartDate(request.getStartDate());
+        ss.setStudent(request.getStudent());
+        ss.setSubject(request.getSubject());
+        Instructor instructor = instructorService.getInstructorBySubjectId(request.getSubject().getSubjectCode());
+        ss.getSubject().setInstructor(instructor);
+        User user = jwtUserDetailsService.getUserByUsername(request.getStudent().getUser().getUsername());
+        ss.getStudent().setUser(user);
 
-            StudentSubject ss = new StudentSubject();
-            ss.setEndDate(request.getEndDate());
-            ss.setStartDate(request.getStartDate());
-            ss.setStudent(request.getStudent());
-            ss.setSubject(request.getSubject());
-            Instructor instructor = instructorService.getInstructorBySubjectId(request.getSubject().getSubjectCode());
-            ss.getSubject().setInstructor(instructor);
-//            ss.setSubject(request.getSubject());
-            User user = jwtUserDetailsService.getUserByUsername(request.getStudent().getUser().getUsername());
-            ss.getStudent().setUser(user);
-
-            StudentSubject ss1 = saveStudentSubject(ss);
-            requestService.deleteRequestbyId(request.getSlno());
-            return ss1;
+        StudentSubject ss1 = saveStudentSubject(ss);
+        requestService.deleteRequestbyId(request.getSlno());
+        return ss1;
     }
 
     @GetMapping("/getBySubject/{id}")

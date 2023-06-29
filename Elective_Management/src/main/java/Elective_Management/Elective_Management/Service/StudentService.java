@@ -50,4 +50,8 @@ public class StudentService {
     public List<Student> getAllStudents(){
         return this.studentDAO.findAllstudents();
     }
+
+    public Student getByUserId(Integer id) {
+        return studentDAO.getStudentByUserId(id);
+    }
 }
