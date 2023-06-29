@@ -63,4 +63,7 @@ public class InstructorService {
         return instructorDAO.getInstructorBySubjectId(id);
     }
 
+    public Instructor getByUserId(Integer id) {
+        return instructorDAO.getInstructorByUserId(id);
+    }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoginFormValidator } from "./loginFormValidator";
+import { useLoginFormValidator } from "../validators/loginFormValidator";
 import { getCurrentUser, login } from "../services/auth_services";
 import { useNavigate } from "react-router-dom";
 

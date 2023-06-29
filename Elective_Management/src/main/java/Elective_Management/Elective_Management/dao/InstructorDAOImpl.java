@@ -56,4 +56,11 @@ public class InstructorDAOImpl implements InstructorDAO {
         Subject subject = this.entityManager.find(Subject.class, id);
         return subject.getInstructor();
     }
+
+    @Override
+    public Instructor getInstructorByUserId(Integer id) {
+        TypedQuery<Instructor> query = this.entityManager.createQuery("FROM Instructor where user.id = :id", Instructor.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
 }

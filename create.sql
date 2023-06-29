@@ -59,28 +59,36 @@ CREATE TABLE student_subject(
 );
 ALTER TABLE user_roles
 ADD CONSTRAINT fk_user_userRoles
-FOREIGN KEY (user_id) REFERENCES user(user_id);
+FOREIGN KEY (user_id) REFERENCES user(user_id) on delete cascade;
+
 ALTER TABLE user_roles
 ADD CONSTRAINT fk_role_userRoles
-FOREIGN KEY (role_id) REFERENCES role(role_id);
+FOREIGN KEY (role_id) REFERENCES role(role_id) on delete cascade;
+
 ALTER TABLE student
 ADD CONSTRAINT fk_student_user
-FOREIGN KEY (user_id) REFERENCES user(user_id);
+FOREIGN KEY (user_id) REFERENCES user(user_id) on delete cascade;
+
 ALTER TABLE instructor
 ADD CONSTRAINT fk_instructor_user
-FOREIGN KEY (user_id) REFERENCES user(user_id);
+FOREIGN KEY (user_id) REFERENCES user(user_id) on delete cascade;
+
 ALTER TABLE request
 ADD CONSTRAINT fk_stud_request
-FOREIGN KEY (student_id) REFERENCES student(student_id);
+FOREIGN KEY (student_id) REFERENCES student(student_id) on delete cascade;
+
 ALTER TABLE request
 ADD CONSTRAINT fk_subject_request
-FOREIGN KEY (subject_code) REFERENCES subjects(subject_code);
+FOREIGN KEY (subject_code) REFERENCES subjects(subject_code) on delete cascade;
+
 ALTER TABLE student_subject
 ADD CONSTRAINT fk_sub_stud_id
-FOREIGN KEY (student_id) REFERENCES student(student_id);
+FOREIGN KEY (student_id) REFERENCES student(student_id) on delete cascade;
+
 ALTER TABLE student_subject
 ADD CONSTRAINT fk_sub_stud_subcode
-FOREIGN KEY (subject_code) REFERENCES subjects(subject_code);
+FOREIGN KEY (subject_code) REFERENCES subjects(subject_code) on delete cascade;
+
 INSERT INTO role values (1,'ADMIN'),(2,'INSTRUCTOR'),(3,'STUDENT');
 INSERT INTO user values (1,"admin","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55fwL26G4sX/ypjMk7W4O");
 -- test123

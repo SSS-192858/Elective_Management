@@ -1,28 +1,30 @@
 import React, { useState } from "react";
-import { registerAdmin } from "../services/auth_services";
-import { useAdminSignupFormValidator } from "./signupAdminValidator";
+import { registerInstructor } from "../services/auth_services";
 import { useNavigate } from "react-router-dom";
-
 import Dialog from "@mui/material/Dialog";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import { useInstructorSignupFormValidator } from "../validator/signupInstructorValidator";
 
-const SignupAdmin = () => {
+const SignupInstructor = () => {
 
     const [open, setOpen] = React.useState(false);
 
     const [form, setForm] = useState({
         username: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        instructorName: "",
+        email: "",
+        phone: ""
     });
 
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
 
-    const {errors, validateForm} = useAdminSignupFormValidator(form);
+    const {errors, validateForm} = useInstructorSignupFormValidator(form)
 
     const handleClickToOpen = () => {
         setOpen(true);
@@ -46,12 +48,16 @@ const SignupAdmin = () => {
         e.preventDefault();    
         const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
         if (!isValid) return;
-        registerAdmin(form.username, form.password).then(
+        registerInstructor(form.username, form.password, form.instructorName, form.email, form.phone).then(
             response => {
                 handleClickToOpen()
             },
             error => {
-                const resMessage = "Something went wrong, please try again later"
+                const resMessage = (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
                 setMessage(resMessage)
             }
         )
@@ -118,9 +124,55 @@ const SignupAdmin = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block" type="submit">
-                            Register Admin
-                        </button>
+                    <label htmlFor="instructorName">Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="instructorName"
+                        aria-label="Instructor Name"
+                        value={form.instructorName}
+                        onChange={onUpdateField}
+                    />
+
+                    {errors.instructorName.dirty && errors.instructorName.error ? (
+                            <div className="alert alert-danger" role="alert">{errors.instructorName.message}</div>
+                            ) : null}
+                    </div>
+
+                    <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="email"
+                        aria-label="Email"
+                        value={form.email}
+                        onChange={onUpdateField}
+                    />
+
+                    {errors.email.dirty && errors.email.error ? (
+                            <div className="alert alert-danger" role="alert">{errors.email.message}</div>
+                            ) : null}
+                    </div>
+
+                    <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="phone"
+                        aria-label="Phone"
+                        value={form.phone}
+                        onChange={onUpdateField}
+                    />
+
+                    {errors.phone.dirty && errors.phone.error ? (
+                            <div className="alert alert-danger" role="alert">{errors.phone.message}</div>
+                            ) : null}
+                    </div>
+
+                    <div className="form-group">
+                        <button className="btn btn-primary btn-block">Sign Up</button>
                     </div>
 
                     {message ? 
@@ -133,7 +185,7 @@ const SignupAdmin = () => {
                 <DialogTitle>{"Signup successful"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        New Admin User set up successfully, kindly close the dialog box
+                        New Instructor set up successfully, kindly close the dialog box
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -147,4 +199,4 @@ const SignupAdmin = () => {
     )
 }
 
-export default SignupAdmin;
+export default SignupInstructor;

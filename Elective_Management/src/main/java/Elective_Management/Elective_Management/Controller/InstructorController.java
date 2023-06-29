@@ -64,4 +64,12 @@ public class InstructorController {
     {
         this.instructorService.deleteInstructorById(id);
     }
+
+    @GetMapping("/user/getInstructor")
+    public Instructor getByUserId(@RequestHeader String Authorization){
+        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
+        User user = jwtUserDetailsService.getUserByUsername(username);
+        Instructor instructor = instructorService.getByUserId(user.getId());
+        return instructorService.getByUserId(user.getId());
+    }
 }

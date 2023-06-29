@@ -17,4 +17,6 @@ public interface InstructorDAO {
     public List<Instructor> findAllInstructors();
 
     public Instructor getInstructorBySubjectId(Integer id);
+
+    public Instructor getInstructorByUserId(Integer id);
 }
