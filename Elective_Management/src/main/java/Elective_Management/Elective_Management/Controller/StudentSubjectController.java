@@ -8,6 +8,7 @@ import Elective_Management.Elective_Management.Service.InstructorService;
 import Elective_Management.Elective_Management.Service.JwtUserDetailsService;
 import Elective_Management.Elective_Management.Service.RequestService;
 import Elective_Management.Elective_Management.Service.StudentSubjectService;
+import Elective_Management.Elective_Management.config.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +23,16 @@ public class StudentSubjectController {
     private InstructorService instructorService;
     private JwtUserDetailsService jwtUserDetailsService;
     private RequestService requestService;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public StudentSubjectController(StudentSubjectService StudentSubjectService, InstructorService instructorService, JwtUserDetailsService jwtUserDetailsService, RequestService requestService)
+    public StudentSubjectController(StudentSubjectService StudentSubjectService, InstructorService instructorService, JwtUserDetailsService jwtUserDetailsService, RequestService requestService, JwtTokenUtil jwtTokenUtil)
     {
         this.studentSubjectService = StudentSubjectService;
         this.instructorService = instructorService;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.requestService = requestService;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @GetMapping("/getAll")
@@ -91,6 +94,13 @@ public class StudentSubjectController {
     public List<StudentSubject> getbySubjectId(@PathVariable int id)
     {
         return this.studentSubjectService.getAllStudentSubjectbySubjectId(id);
+    }
+
+    @GetMapping("/getForStudentAndInstructor/{id}")
+    public List<StudentSubject> getForStudentAndInstructor(@PathVariable int id, @RequestHeader String Authorization){
+        User user = jwtUserDetailsService.getUserByUsername(jwtTokenUtil.getUsernameFromToken(Authorization.substring(7)));
+        Instructor instructor = instructorService.getByUserId(user.getId());
+        return this.studentSubjectService.getForStudentAndInstructor(id, instructor.getId());
     }
 
 

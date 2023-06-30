@@ -19,4 +19,6 @@ public interface StudentSubjectDAO {
     public List<StudentSubject> getBySubjectId(Integer id);
 
     public List<StudentSubject> getByInstructorId(Integer id);
+
+    public List<StudentSubject> getForStudentAndInstructor(Integer studentId, Integer instructorId);
 }
