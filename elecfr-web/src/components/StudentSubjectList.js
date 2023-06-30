@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { getSubjectStudents, getSubjectStudentsByStudentId, getSubjectStudentByInstructorId, getSubjectStudentsBySubjectCode } from "../services/request_services";
+import { getSubjectStudents, getSubjectStudentsByStudentId, getSubjectStudentByInstructorId, getSubjectStudentsBySubjectCode, getForInstructorAndStudent } from "../services/request_services";
 import { useEffect } from "react";
 import RequestListItem from "../common/RequestListItem";
 import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage} from "../services/localStorageHandler";
 
-const RequestList = ({choice}) => {
+const StudentSubjectList = ({choice}) => {
     const [requests, setRequests] = useState([]);
     var subject = null;
     var student = null;
@@ -25,6 +25,11 @@ const RequestList = ({choice}) => {
             instructor = getInstructorFromStorage();
             const list = await getSubjectStudentByInstructorId(instructor.id);
             setRequests(list);
+        }else if (choice === 5){
+            instructor = getInstructorFromStorage();
+            student = getStudentFromStorage();
+            const list = await getForInstructorAndStudent(student);
+            setRequests(list)
         }
     }
 
@@ -50,4 +55,4 @@ const RequestList = ({choice}) => {
     )
 }
 
-export default RequestList;
+export default StudentSubjectList;

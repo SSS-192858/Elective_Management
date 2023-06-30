@@ -11,6 +11,21 @@ import BoardStudent from "./components/BoardStudent";
 import SignupInstructor from "./components/SignupInstructor";
 import SignupAdmin from "./components/SignupAdmin";
 import SignupStudent from "./components/SignupStudent";
+import SubjectDetails from "./components/SubjectDetails";
+import SubjectsList from "./components/SubjectsList";
+import SubjectSaveForm from "./components/SubjectSaveForm";
+import SubjectUpdateForm from "./components/UpdateSubjectForm";
+import SubjectRequestForm from "./components/SubjectRequestForm";
+import UpdateStudent from "./components/UpdateStudentForm";
+import UpdateInstructor from "./components/UpdateInstructorForm";
+import StudentSubjectList from "./components/StudentSubjectList";
+import SubjectStudentDetails from "./components/StudentSubjectDetails";
+import StudentList from "./components/StudentList";
+import StudentDetails from "./components/StudentDetails";
+import RequestDetails from "./components/RequestDetails";
+import RequestList from "./components/RequestList";
+import InstructorDetails from "./components/InstructorDetails";
+import InstructorList from "./components/InstructorList";
 
 function App() {
 
@@ -120,18 +135,13 @@ function App() {
                   Login
                 </Link>
               </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
             </div>
           )}
         </nav>
 
         <div className="container mt-3">
           <Routes>
+            {/* Common webpages */}
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<LoginForm setCurrentUser = {setCurrentUser} setIsAdmin = {setIsAdmin} setIsStudent = {setIsStudent} setIsInstructor={setIsInstructor}/>} />
@@ -141,6 +151,22 @@ function App() {
             <Route path="/student" element={<BoardStudent/>} />
             <Route path="/admin" element={<BoardAdmin/>}/>
             <Route path="/instructor" element={<BoardInstructor/>}/>
+            {/* Subject related webpages */}
+            <Route path="/subjects" element={<SubjectsList choice={1}/>} />
+            <Route path="/subjectsByInstructor" element={<SubjectsList choice={2}/>} />
+            <Route path="/moreInfo" element={<SubjectDetails isAdmin={isAdmin} isInstructor={isInstructor} isStudent={isStudent}/>} />
+            <Route path="/addSubject" element={<SubjectSaveForm/>} />
+            <Route path="/subjectUpdate" element={<SubjectUpdateForm/>}/>
+            <Route path="/subjectRequest" element={<SubjectRequestForm/>} />
+            <Route path="/requestsForSubject" element={<RequestList choice={2}/>} />
+            <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
+            <Route path="/instructorForSubject" element={<InstructorDetails isAdmin={isAdmin} isStudent={isStudent} isInstructor={isInstructor}/>} />
+            {/* Student related webpages */}
+            <Route path="/students" element={<StudentList/>}/>
+            <Route path="/updateStudent" element={<UpdateStudent/>} />
+            <Route path="/studentDetail" element={<StudentDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>}/>
+            <Route path="/requestsForSubject" element={<RequestList choice={2}/>} />
+            <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
           </Routes>
         </div>
       </div>
