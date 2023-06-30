@@ -63,4 +63,12 @@ public class StudentSubjectDAOImpl implements StudentSubjectDAO{
         tpq.setParameter("id", id);
         return tpq.getResultList();
     }
+
+    @Override
+    public List<StudentSubject> getForStudentAndInstructor(Integer studentId, Integer instructorId) {
+        TypedQuery<StudentSubject> tpq = this.entityManager.createQuery("FROM StudentSubject where subject.instructor.Id = :instructorId and student.id = :studentId", StudentSubject.class);
+        tpq.setParameter("studentId", studentId);
+        tpq.setParameter("instructorId", instructorId);
+        return tpq.getResultList();
+    }
 }

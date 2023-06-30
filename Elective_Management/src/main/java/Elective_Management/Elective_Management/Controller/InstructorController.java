@@ -53,9 +53,10 @@ public class InstructorController {
     @PutMapping("/update")
     public Instructor updateInstructor(@RequestBody Instructor Instructor, @RequestHeader String Authorization)
     {
-        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
-        User user = jwtUserDetailsService.getUserByUsername(username);
-        Instructor.setUser(user);
+        Instructor instructor = this.instructorService.getInstructorById(Instructor.getId());
+        instructor.setInstructor_name(Instructor.getInstructor_name());
+        instructor.setEmail(Instructor.getEmail());
+        instructor.setPhone(Instructor.getPhone());
         return this.instructorService.updateInstructor(Instructor);
     }
 

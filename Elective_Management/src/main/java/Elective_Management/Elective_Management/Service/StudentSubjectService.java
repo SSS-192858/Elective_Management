@@ -100,4 +100,15 @@ public class StudentSubjectService {
         return this.studentSubjectDAO.getByInstructorId(id);
     }
 
+    public List<StudentSubject> getForStudentAndInstructor(Integer studentId, Integer instructorId) throws StudentSubjectNotFoundException, InstructorNotFoundException{
+        Instructor instructor = this.instructorDAO.findInstructorById(instructorId);
+        if (instructor == null){
+            throw new InstructorNotFoundException();
+        }
+        Student student = this.studentDAO.findStudentById(studentId);
+        if (student == null){
+            throw new StudentSubjectNotFoundException();
+        }
+        return this.studentSubjectDAO.getForStudentAndInstructor(studentId, instructorId);
+    }
 }

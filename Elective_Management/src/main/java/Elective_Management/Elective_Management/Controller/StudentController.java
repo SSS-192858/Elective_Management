@@ -50,11 +50,11 @@ public class StudentController {
     @PutMapping("/update")
     public Student updateStudent(@RequestBody Student Student, @RequestHeader String Authorization)
     {
-        String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
-        User user = jwtUserDetailsService.getUserByUsername(username);
-        Student.setUser(user);
-        return this.studentService.updateStudent(Student);
-
+        Student student = this.studentService.getStudentById(Student.getId());
+        student.setStudentName(Student.getStudentName());
+        student.setEmail(Student.getEmail());
+        student.setPhone(Student.getPhone());
+        return this.studentService.updateStudent(student);
     }
 
     @DeleteMapping("/delete/{id}")
