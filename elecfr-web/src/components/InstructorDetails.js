@@ -37,6 +37,10 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     }
 
     const navFunc3 = () => {
+        navigate("/subjectsByInstructor");
+    }
+
+    const navFunc4 = () => {
         navigate("/subjectStudentByInstructor")
     }
 
@@ -47,23 +51,27 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
             <p>{instructor.email}</p>
             <p>{instructor.phone}</p>
 
-            {isStudent && (
+            {isInstructor && (
                 <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
                 Update Info
                 </button>
             )}
 
             <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
-                See all Book Requests
+                See all subject requests
             </button>
 
             <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
-                See all issued books
+                See all subjects taught
+            </button>
+
+            <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
+                See all children enrolled in courses taught by this instructor
             </button>
 
             {isAdmin && (
                 <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">
-                    Delete Student
+                    Delete Instructor
                 </button>
             )}
 
@@ -71,7 +79,7 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
                 <DialogTitle>{"Delete Student"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete {student.studentName}?
+                        Are you sure you want to delete {instructor.instructor_name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

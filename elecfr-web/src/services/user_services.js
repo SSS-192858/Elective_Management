@@ -136,12 +136,17 @@ export const accept = async(request) => {
 
 
 export const getSubjects = async() => {
-    const books = await axios.get(API_URL + "subject/allSubjects", { headers: { Authorization: "Bearer " + authHeader() } });
-    return books.data;
+    const subjects = await axios.get(API_URL + "subject/allSubjects", { headers: { Authorization: "Bearer " + authHeader() } });
+    return subjects.data;
 }
 
 export const getSubjectByCode = async(subject_code) => {
     const response = await axios.get(API_URL + "subject/" + subject_code, { headers: { Authorization: "Bearer " + authHeader() } });
+    return response.data;
+}
+
+export const getSubjectByInstructorId = async(id) => {
+    const response = await axios.get(API_URL + "subject/getByInstructorId" + id, { headers: { Authorization: "Bearer " + authHeader() } });
     return response.data;
 }
 
@@ -173,6 +178,11 @@ export const getSubjectStudents = async() => {
     return response.data;
 }
 
+export const getForInstructorAndStudent = async(student) => {
+    const response = await axios.get(API_URL + `studentSubject/getForStudentAndInstructor/${student.id}`, {headers:{Authorization:"Bearer "+authHeader()}});
+    return response.data;
+}
+
 export const getSubjectStudentsBySubjectCode = async(id) => {
     const response = await axios.get(API_URL + `studentSubject/getBySubject/${id}`, { headers: { Authorization: "Bearer " + authHeader() } });
     return response.data;
@@ -195,6 +205,6 @@ export const getSubjectStudentsById = async(id) => {
     return response.data;
 }
 
-export const deleteBookStudent = async(id) => {
-    await axios.delete(API_URL + `bookStudent/delete/${id}`, { headers: { Authorization: "Bearer " + authHeader() } });
+export const deleteSubjectStudent = async(id) => {
+    await axios.delete(API_URL + `studentSubject/delete/${id}`, { headers: { Authorization: "Bearer " + authHeader() } });
 }

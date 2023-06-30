@@ -8,7 +8,7 @@ import {deleteStudent} from "../services/user_services"
 import { useNavigate } from "react-router-dom";
 import { getStudentFromStorage, removeStudentFromStorage } from "../services/localStorageHandler";
 
-const StudentDetails = ({isStudent, isAdmin}) => {
+const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -40,6 +40,10 @@ const StudentDetails = ({isStudent, isAdmin}) => {
         navigate("/bookStudentByStudent")
     }
 
+    const navFunc4 = () => {
+        navigate("/bookStudentByStudentAndInstructor")
+    }
+
     return (
         <div>
             <p>{student.id}</p>
@@ -53,13 +57,27 @@ const StudentDetails = ({isStudent, isAdmin}) => {
                 </button>
             )}
 
-            <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
-                See all Book Requests
-            </button>
+            {
+                (isStudent || isAdmin) && (
+                    <>
+                    <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
+                        See all Subject Requests
+                    </button>
+                    </>
+                )
+            }
 
-            <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
-                See all issued books
-            </button>
+                    <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
+                        See all enrolled subjects
+                    </button>
+            
+            {
+                (isInstructor) && (
+                    <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
+                        See all subjects of yours that the student has taken
+                    </button>
+                )
+            }
 
             {isAdmin && (
                 <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">
