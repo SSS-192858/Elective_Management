@@ -26,6 +26,9 @@ import RequestDetails from "./components/RequestDetails";
 import RequestList from "./components/RequestList";
 import InstructorDetails from "./components/InstructorDetails";
 import InstructorList from "./components/InstructorList";
+import SubjectByInstructorAssign from "./components/SubjectInstructorAssign";
+import SubjectInstructorAssignItem from "./common/SubjectInstructorAssignItem";
+import SubjectAssignInstructorConfirmation from "./components/SubjectInstructorAssignConfirm";
 
 function App() {
 
@@ -87,11 +90,18 @@ function App() {
           
 
             {isInstructor&& (
+              <>
               <li className="nav-item">
               <Link to={"/instructor"} className="nav-link">
                 Instructor Board
               </Link>
-            </li>
+              </li>
+              <li>
+                <a href = "/studentSubject" className="nav-link">
+                  All StudentsSubjects Info
+                </a>
+              </li>
+              </>
             )}
           
           </div>
@@ -104,6 +114,28 @@ function App() {
                 </a>
               </li>
 
+              {/* <li className="nav-item">
+                <a href="/subjectsByInstructor" className="nav-link">
+                  Subject By Instructor
+                </a>
+              </li> */}
+              
+              <li className="nav-item">
+                <a href="/subjects" className="nav-link">
+                  Subjects
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/instructors" className="nav-link">
+                  Instructors
+                </a>
+              </li>
+
+              <li className="nav-item">
+                <a href="/students" className="nav-link">
+                  Students
+                </a>
+              </li>
               {isAdmin && (
                 <li>
                   <a href = "/registerAdmin" className="nav-link">
@@ -127,6 +159,33 @@ function App() {
                   </a>
                 </li>
               )}
+
+              {isAdmin && (
+                <li>
+                  <a href = "/addSubject" className="nav-link">
+                    Add a new Subject
+                  </a>
+                </li>
+              )}
+
+              {isAdmin && (
+                <>
+                <li>
+                  <a href = "/requests" className="nav-link">
+                    All Requests
+                  </a>
+                </li>
+
+                <li>
+                  <a href = "/studentSubject" className="nav-link">
+                    All StudentsSubjects Info
+                  </a>
+                </li>
+                </>
+              )}
+
+            
+                  
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
@@ -158,15 +217,20 @@ function App() {
             <Route path="/addSubject" element={<SubjectSaveForm/>} />
             <Route path="/subjectUpdate" element={<SubjectUpdateForm/>}/>
             <Route path="/subjectRequest" element={<SubjectRequestForm/>} />
-            <Route path="/requestsForSubject" element={<RequestList choice={2}/>} />
+            <Route path="/requests" element={<RequestList choice={1}/>} />
             <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
+            <Route path="/instructors" element={<InstructorList/>}/>
             <Route path="/instructorForSubject" element={<InstructorDetails isAdmin={isAdmin} isStudent={isStudent} isInstructor={isInstructor}/>} />
+            <Route path="/studentSubject" element={<StudentSubjectList/>}/>
             {/* Student related webpages */}
             <Route path="/students" element={<StudentList/>}/>
             <Route path="/updateStudent" element={<UpdateStudent/>} />
             <Route path="/studentDetail" element={<StudentDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>}/>
             <Route path="/requestsForSubject" element={<RequestList choice={2}/>} />
             <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
+            <Route path="/instructorDetail" element={<InstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>}/>
+            <Route path="/assignInstructor" element={<SubjectByInstructorAssign/>}/>
+            <Route path="/assignInstructorConfirmation" element={<SubjectAssignInstructorConfirmation/>}/>
           </Routes>
         </div>
       </div>
