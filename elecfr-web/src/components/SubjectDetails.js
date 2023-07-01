@@ -55,6 +55,11 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
         navigate("/instructorForSubject");
     }
 
+    const assignInstructor = ()=>{
+        setSubjectInStorage(subject);
+        navigate("/assignInstructor")
+    }
+
     return (
         <div>
             <p>{subject.subjectCode}</p>
@@ -68,11 +73,14 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
             </button>
             }
 
-            {isAdmin && 
-
+            {isAdmin &&
             <>
             <button onClick={seeRequestsForSubject} className="btn btn-primary btn-block">
                 See all requests for this subject
+            </button>
+
+            <button onClick={assignInstructor} className="btn btn-primary btn-block">
+                Assign Instructor for this course
             </button>
 
             <button onClick={navFunc} className="btn btn-primary btn-block">

@@ -208,3 +208,7 @@ export const getSubjectStudentsById = async(id) => {
 export const deleteSubjectStudent = async(id) => {
     await axios.delete(API_URL + `studentSubject/delete/${id}`, { headers: { Authorization: "Bearer " + authHeader() } });
 }
+
+export const assignInstructortoSubject = async(id,instructor)=>{
+    await axios.put(API_URL+"/subject/assignInstructor/"+id,{instructor},{headers:{Authorization:"Bearer "+authHeader()}});
+}

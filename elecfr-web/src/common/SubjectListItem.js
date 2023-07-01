@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const SubjectListItem = ({subject}) => {
 
     const handleClick = () => {
-        setBookInStorage(subject);
+        // setBookInStorage(subject);
+        setSubjectInStorage(subject);
     }
 
     return (
