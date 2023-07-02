@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLoginFormValidator } from "../validators/loginFormValidator";
 import { getCurrentUser, login } from "../services/auth_services";
 import { useNavigate } from "react-router-dom";
+import { getInstructorByUserId } from "../services/user_services";
+
 
 const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) => {
   const [form, setForm] = useState({
@@ -22,6 +24,11 @@ const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) =
     };
     setForm(nextFormState);
   };
+
+  const setCurrentInstructor = async() => {
+    const temp = await getInstructorByUserId();
+    set
+  }
 
   const onSubmitForm = e => {
     setMessage("")

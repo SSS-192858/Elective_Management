@@ -24,8 +24,21 @@ export const removeStudentFromStorage = () => {
     localStorage.removeItem("student");
 }
 
-export const setInstructorInStorage = (student) => {
-    localStorage.setItem("instructor", JSON.stringify(student));
+export const setPersonalStudentInStorage = (student) => {
+    localStorage.setItem("personalStudent", JSON.stringify(student));
+}
+
+export const getPersonalStudentFromStorage = () => {
+    const student = JSON.parse(localStorage.getItem("personalStudent"));
+    return student;
+}
+
+export const removePersonalStudentFromStorage = () => {
+    localStorage.removeItem("personalStudent");
+}
+
+export const setInstructorInStorage = (instructor) => {
+    localStorage.setItem("instructor", JSON.stringify(instructor));
 }
 
 export const getInstructorFromStorage = () => {
@@ -35,6 +48,19 @@ export const getInstructorFromStorage = () => {
 
 export const removeInstructorFromStorage = () => {
     localStorage.removeItem("instructor");
+}
+
+export const setPersonalInstructorInStorage = (instructor) => {
+    localStorage.setItem("personalInstructor", JSON.stringify(instructor));
+}
+
+export const getPersonalInstructorFromStorage = () => {
+    const student = JSON.parse(localStorage.getItem("personalInstructor"));
+    return student;
+}
+
+export const removePersonalInstructorFromStorage = () => {
+    localStorage.removeItem("personalInstructor");
 }
 
 export const setRequestInStorage = (request) => {

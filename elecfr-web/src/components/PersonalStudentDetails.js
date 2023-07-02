@@ -4,29 +4,24 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import deleteInstructor from "../services/user_services"
+import {deleteStudent} from "../services/user_services"
 import { useNavigate } from "react-router-dom";
-import { getInstructorFromStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorageHandler";
+import { getStudentFromStorage, removeStudentFromStorage } from "../services/localStorageHandler";
 
-const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
+const PersonalStudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
-    const [instructor, setInstructor] = useState(() => {
-        const temp = getInstructorFromStorage();
-        return temp;
-    })
-
-    const [currInstructor, setCurrInstructor] = useState(() => {
-        const temp = getPersonalInstructorFromStorage();
+    const [student, setStudent] = useState(() => {
+        const temp = getStudentFromStorage();
         return temp;
     })
 
     const handleToClose = () => {
-        deleteInstructor(instructor.id);
+        deleteStudent(student.id);
         setOpen(false);
-        removeInstructorFromStorage();
-        navigate("/instructors")
+        removeStudentFromStorage();
+        navigate("/students")
     };
 
     const handleCancel = ()=>{
@@ -34,51 +29,59 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     }
 
     const navFunc1 = () => {
-        navigate("/instructorUpdate");
+        navigate("/updateStudent");
     } 
 
     const navFunc2 = () => {
-        navigate("/requestsForInstructor");
+        navigate("/requestsForStudent");
     }
 
     const navFunc3 = () => {
-        navigate("/subjectsByInstructor");
+        navigate("/bookStudentByStudent")
     }
 
     const navFunc4 = () => {
-        navigate("/studentSubjectByInstructor")
+        navigate("/bookStudentByStudentAndInstructor")
     }
 
     return (
         <div>
-            <p>{instructor.id}</p>
-            <p>{instructor.instructor_name}</p>
-            <p>{instructor.email}</p>
-            <p>{instructor.phone}</p>
+            <p>{student.id}</p>
+            <p>{student.studentName}</p>
+            <p>{student.email}</p>
+            <p>{student.phone}</p>
 
-            {((isInstructor && currInstructor.id === instructor.id) || isAdmin) && (
-                <>
+            {isStudent && (
                 <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
                 Update Info
                 </button>
-
-                <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
-                See all subject requests
-                </button>
-                </>
             )}
 
-            <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
-                See all subjects taught
-            </button>
+            {
+                (isStudent || isAdmin) && (
+                    <>
+                    <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
+                        See all Subject Requests
+                    </button>
+                    </>
+                )
+            }
 
-            <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
-                See all children enrolled in courses taught by this instructor
-            </button>
+                    <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
+                        See all enrolled subjects
+                    </button>
+            
+            {
+                (isInstructor) && (
+                    <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
+                        See all subjects of yours that the student has taken
+                    </button>
+                )
+            }
 
             {isAdmin && (
                 <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">
-                    Delete Instructor
+                    Delete Student
                 </button>
             )}
 
@@ -86,7 +89,7 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
                 <DialogTitle>{"Delete Student"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete {instructor.instructor_name}?
+                        Are you sure you want to delete {student.studentName}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -104,4 +107,4 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     )
 }
 
-export default InstructorDetails;
+export default PersonalStudentDetails;
