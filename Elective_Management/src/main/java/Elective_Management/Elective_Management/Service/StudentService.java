@@ -1,8 +1,10 @@
 package Elective_Management.Elective_Management.Service;
 
+import Elective_Management.Elective_Management.Entity.User;
 import Elective_Management.Elective_Management.Exception.StudentNotFoundException;
 import Elective_Management.Elective_Management.dao.StudentDAO;
 import Elective_Management.Elective_Management.Entity.Student;
+import Elective_Management.Elective_Management.dao.UserDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,10 +13,12 @@ import java.util.List;
 @Service
 public class StudentService {
     private StudentDAO studentDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    public StudentService(StudentDAO studentDAO){
+    public StudentService(StudentDAO studentDAO, UserDAO userDAO){
         this.studentDAO = studentDAO;
+        this.userDAO = userDAO;
     }
 
     public Student saveStudent(Student student){
@@ -43,8 +47,9 @@ public class StudentService {
         if (student == null){
             throw new StudentNotFoundException();
         }
-
+        User user = student.getUser();
         this.studentDAO.deleteById(id);
+        this.userDAO.delete(user);
     }
 
     public List<Student> getAllStudents(){

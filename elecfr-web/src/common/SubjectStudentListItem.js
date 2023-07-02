@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { setSubjectStudentInStorage } from '../services/localStorageHandler';
+import { setSubjectStudentInStorage } from '../services/localStorage_services';
 
 export const SubjectStudentListItem = ({subjectStudent}) => {
   

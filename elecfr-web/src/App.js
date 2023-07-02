@@ -30,6 +30,7 @@ import SubjectByInstructorAssign from "./components/SubjectInstructorAssign";
 import SubjectAssignInstructorConfirmation from "./components/SubjectInstructorAssignConfirm";
 import PersonalInstructorDetails from "./components/personalInstructorDetails";
 import PersonalStudentDetails from "./components/PersonalStudentDetails";
+import { removeInstructorFromStorage, removePersonalInstructorFromStorage, removePersonalStudentFromStorage, removeRequestFromStorage, removeStudentFromStorage, removeSubjectFromStorage, removeSubjectStudentFromStorage } from "./services/localStorage_services";
 
 function App() {
 
@@ -54,6 +55,13 @@ function App() {
     setIsAdmin(false);
     setIsInstructor(false);
     setIsStudent(false);
+    removeInstructorFromStorage();
+    removePersonalInstructorFromStorage();
+    removePersonalStudentFromStorage();
+    removeStudentFromStorage();
+    removeRequestFromStorage();
+    removeSubjectFromStorage();
+    removeSubjectStudentFromStorage();
   }
 
   useEffect(() => {
@@ -73,27 +81,17 @@ function App() {
               </Link>
             </li>
 
-            {isAdmin && (
+            {currentUser && (
               <>
+
+              {isAdmin && (
+              
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
               </li>
-
-              <li className="nav-item">
-                <Link to={"/addSubject"} className="nav-link">
-                  Add a Subject
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/requests"} className="nav-link">
-                  All Requests
-                </Link>
-              </li>
-
-              </>
+              
             )}
 
             {isStudent && (
@@ -106,13 +104,13 @@ function App() {
           
 
             {isInstructor&& (
-              <>
+              
               <li className="nav-item">
               <Link to={"/instructor"} className="nav-link">
                 Instructor Board
               </Link>
               </li>
-              </>
+              
             )}
 
               <li className="nav-item">
@@ -126,6 +124,22 @@ function App() {
                   Instructors
                 </Link>
               </li>
+
+            {isAdmin &&
+            <>
+              <li className="nav-item">
+                <Link to={"/addSubject"} className="nav-link">
+                  Add a Subject
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/requests"} className="nav-link">
+                  All Requests
+                </Link>
+              </li>
+            </>
+            }
 
               {(isAdmin || isInstructor) && 
               <>
@@ -142,7 +156,11 @@ function App() {
                 </li>
               </>
               }
+
+            </>
+            )}
           </div>
+            
             
           {currentUser ? (
             <div className="navbar-nav ml-auto">
@@ -208,7 +226,7 @@ function App() {
                   </li>
 
                   <li className="nav-item">
-                    <Link to={"/subjectsForInstructor"} className="nav-link">
+                    <Link to={"/subjectsByInstructor"} className="nav-link">
                       My Subjects
                     </Link>
                   </li>

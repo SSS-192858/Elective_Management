@@ -94,6 +94,11 @@ INSERT INTO user values (1,"admin","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55fwL
 -- test123
 INSERT INTO user values (2,"instructor","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55fwL26G4sX/ypjMk7W4O");
 INSERT INTO user values (3,"student","$2a$09$vnS0G1MqX2hQEvk2v6O1L.A7x7zZfMnm55fwL26G4sX/ypjMk7W4O");
+INSERT INTO student values (1, 3, "student", "student@gmail.com", "7164518742");
+INSERT INTO instructor values (1, 2, "instructor", "instructor@gmail.com", "8156154623");
+
+INSERT INTO subjects values (1, NULL, "DSA", "Data Structures and Algorithms");
+INSERT INTO subjects values (2, NULL, "Web Dev", "Web Development in React and Spring Boot");
 
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 1 FROM user WHERE user.username = "admin";
 INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "instructor";

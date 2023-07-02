@@ -6,9 +6,9 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { registerRequest } from "../services/request_services";
 import { RequestSubjectValidator } from "../validators/SubjectRequestValidator";
-import { getSubjectFromStorage, getStudentFromStorage } from "../services/localStorageHandler";
+import { getSubjectFromStorage, getStudentFromStorage, } from "../services/localStorage_services";
+import { registerRequest } from "../services/user_services";
 
 const SubjectRequestForm = () => {
 
@@ -116,7 +116,7 @@ const SubjectRequestForm = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block">Request Book</button>
+                        <button className="btn btn-primary btn-block">Request Subject</button>
                     </div>
 
                     {message ? 
@@ -126,7 +126,7 @@ const SubjectRequestForm = () => {
             </div>
 
             <Dialog open={open} onClose={handleToClose}>
-                <DialogTitle>{"Request Book"}</DialogTitle>
+                <DialogTitle>{"Request Subject"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         We have received your request, kindly wait till the Instructor approves it.
@@ -135,7 +135,7 @@ const SubjectRequestForm = () => {
                 <DialogActions>
                     <button onClick={handleToClose}
                         color="primary" autoFocus>
-                        Go to Books list
+                        Go to Subjects list
                     </button>
                 </DialogActions>
             </Dialog>

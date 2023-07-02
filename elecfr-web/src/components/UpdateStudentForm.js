@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useStudentUpdateFormValidator } from "../validators/StudentUpdateValidator";
-import { getStudentFromStorage, setStudentInStorage } from "../services/localStorageHandler";
+import { getStudentFromStorage, setStudentInStorage } from "../services/localStorage_services";
 
 const UpdateStudent = () => {
 

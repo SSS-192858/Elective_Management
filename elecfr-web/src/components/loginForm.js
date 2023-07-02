@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useLoginFormValidator } from "../validators/loginFormValidator";
 import { getCurrentUser, login } from "../services/auth_services";
 import { useNavigate } from "react-router-dom";
-import { getInstructorByUserId } from "../services/user_services";
-
+import { getInstructorByUserId, getStudentByUserId } from "../services/user_services";
+import { setInstructorInStorage, setPersonalInstructorInStorage, setPersonalStudentInStorage, setStudentInStorage } from "../services/localStorage_services";
 
 const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) => {
   const [form, setForm] = useState({
@@ -27,7 +27,17 @@ const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) =
 
   const setCurrentInstructor = async() => {
     const temp = await getInstructorByUserId();
-    set
+    setPersonalInstructorInStorage(temp);
+    setInstructorInStorage(temp);
+    return temp;
+  }
+
+  const setCurrentStudent = async() => {
+    const temp = await getStudentByUserId();
+    console.log(temp);
+    setPersonalStudentInStorage(temp);
+    setStudentInStorage(temp);
+    return temp;
   }
 
   const onSubmitForm = e => {
@@ -47,12 +57,14 @@ const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) =
         }
 
         if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "STUDENT"){
-          setIsStudent(true)
+          setIsStudent(true);
+          setCurrentStudent();
           navigate("/student")
         }
 
         if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "INSTRUCTOR"){
           setIsInstructor(true)
+          setCurrentInstructor();
           navigate("/instructor")
         }
         

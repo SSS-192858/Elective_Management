@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { deleteRequest , accept } from "../services/user_services";
 import { useNavigate } from "react-router-dom";
-import { getRequestFromStorage } from "../services/localStorageHandler";
+import { getRequestFromStorage } from "../services/localStorage_services";
 
 const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
 
@@ -39,9 +39,9 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
         accept(request).then(
             response => {
                 setAcceptOpen(false);
-                navigate("/allRequests")
+                navigate("/home")
             }
-        );
+        )
     }
 
     return (
@@ -57,7 +57,7 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
             <p>{request.startDate}</p>
             <p>{request.endDate}</p>
 
-            {isAdmin &&
+            {(isAdmin || isInstructor) &&
             <button onClick={()=>{setAcceptOpen(true)}} className="btn btn-primary btn-block" type="submit">
                 Accept
             </button>
@@ -65,26 +65,25 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
             <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit" >
                 Delete
             </button>
-            {message==="" ? (
-                <Dialog open={acceptOpen} onClose={handleAccept}>
-                    <DialogTitle>{"Accept Request"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Are you sure?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <button onClick={handleCancelAccept} color="primary" autoFocus>
-                            Cancel
-                        </button>
-                        <button onClick={handleAccept}
-                            color="primary" autoFocus>
-                            Accept
-                        </button>
-                        
-                    </DialogActions>
-                </Dialog>): null  
-            }    
+            
+            <Dialog open={acceptOpen} onClose={handleAccept}>
+                <DialogTitle>{"Accept Request"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button onClick={handleCancelAccept} color="primary" autoFocus>
+                        Cancel
+                    </button>
+                    <button onClick={handleAccept}
+                        color="primary" autoFocus>
+                        Accept
+                    </button>
+                    
+                </DialogActions>
+            </Dialog>
             
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Delete Request"}</DialogTitle>

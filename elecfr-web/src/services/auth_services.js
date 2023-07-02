@@ -23,7 +23,7 @@ export const registerAdmin = async(username, password) => {
     await axios.post(API_URL + "register_admin", {
         username,
         password
-    }, {headers:{Authorization:"Bearer "+authHeader()}});
+    }, { headers: { Authorization: "Bearer " + authHeader() } });
 
     return "Admin added successfully";
 };
@@ -32,13 +32,12 @@ export const registerStudent = async(username, password, studentName, email, pho
     const response = await axios.post(API_URL + "register_student", {
         username,
         password
-    }, {headers:{Authorization:"Bearer "+authHeader()}});
+    }, { headers: { Authorization: "Bearer " + authHeader() } });
 
     var token = "";
 
     if (response.data.token) {
         token = response.data.token;
-        localStorage.setItem("user", JSON.stringify(response.data));
     }
 
     await axios.post(API_URL + "student/save", {
@@ -50,11 +49,11 @@ export const registerStudent = async(username, password, studentName, email, pho
     return "Signup successful";
 }
 
-export const registerInstructor = async(username, password, instructorName, email, phone) => {
+export const registerInstructor = async(username, password, instructor_name, email, phone) => {
     const response = await axios.post(API_URL + "register_instructor", {
         username,
         password
-    }, {headers:{Authorization:"Bearer "+authHeader()}});
+    }, { headers: { Authorization: "Bearer " + authHeader() } });
 
     var token = "";
 
@@ -64,7 +63,7 @@ export const registerInstructor = async(username, password, instructorName, emai
     }
 
     await axios.post(API_URL + "instructor/save", {
-        instructorName,
+        instructor_name,
         email,
         phone
     }, { headers: { Authorization: "Bearer " + token } });

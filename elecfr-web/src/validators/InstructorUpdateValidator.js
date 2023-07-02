@@ -13,7 +13,7 @@ const touchErrors = errors => {
 
 export const useInstructorUpdateFormValidator = form => {
     const [errors, setErrors] = useState({
-        instructorName: {
+        instructor_name: {
             dirty: false,
             error: false,
             message: ""
@@ -41,13 +41,13 @@ export const useInstructorUpdateFormValidator = form => {
             nextErrors = touchErrors(errors);
         }
 
-        const { instructorName, email, phone } = form;
+        const { instructor_name, email, phone } = form;
 
-        if (nextErrors.instructorName.dirty && (field ? field === "instructorName" : true)) {
-            const instructorNameMessage = stringValidator(instructorName, form);
-            nextErrors.instructorName.error = !!instructorNameMessage;
-            nextErrors.instructorName.message = instructorNameMessage;
-            if (!!instructorNameMessage) isValid = false;
+        if (nextErrors.instructor_name.dirty && (field ? field === "instructor_name" : true)) {
+            const instructor_nameMessage = stringValidator(instructor_name, form);
+            nextErrors.instructor_name.error = !!instructor_nameMessage;
+            nextErrors.instructor_name.message = instructor_nameMessage;
+            if (!!instructor_nameMessage) isValid = false;
         }
 
         if (nextErrors.email.dirty && (field ? field === "email" : true)) {

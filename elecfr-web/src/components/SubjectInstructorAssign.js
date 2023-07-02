@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { getInstructors } from '../services/user_services'
 import { getSubjectFromStorage } from '../services/localStorage_services'
+import SubjectInstructorAssignItem from '../common/SubjectInstructorAssignItem'
 
 const SubjectInstructorAssign = () => {
+
     const [subject,setSubject] = useState(()=>{
       const response = getSubjectFromStorage();
       return response;
     })
+    
     const [instructors,setInstructors] = useState([]);
 
-    const getInstructorsOnStart=()=>{
-        const response = getInstructors();
+    const getInstructorsOnStart=async()=>{
+        const response = await getInstructors();
         setInstructors(response);
     }
     useEffect(()=>{
@@ -19,13 +22,13 @@ const SubjectInstructorAssign = () => {
 
     return (
         <>
-        { (instructors.length === 0) ? <div className='container'>
-                <header className='jumbotron'> 
-                    Nothing to show
-                </header>
-            </div>
-                : null
-        }
+        <div className='container'>
+            <header className='jumbotron'>
+                <h3>
+                    Pick Instructor to assign to this course
+                </h3>
+            </header>
+        </div>
         <ul id="remove">
           {instructors.map((data) => (
             <li id="space" key= {data.id}><SubjectInstructorAssignItem instructor={data} subject={subject}/></li>

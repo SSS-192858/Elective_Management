@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class SubjectController {
 
     private SubjectService subjectService;
-
-
     private InstructorService instructorService;
     @Autowired
     public SubjectController (SubjectService subjectService,InstructorService instructorService)
@@ -68,8 +66,13 @@ public class SubjectController {
     }
 
     @PutMapping("/assignInstructor/{id}")
-    public Subject assignInstructor(@PathVariable int id,@RequestBody Instructor instructor)
+    public Subject assignInstructor(@PathVariable int id, @RequestBody Instructor instructor)
     {
         return this.subjectService.assignInstructor(id,instructor);
+    }
+
+    @PutMapping("/removeInstructor/{id}")
+    public Subject removeInstructor(@PathVariable Integer id){
+        return this.subjectService.removeInstructor(id);
     }
 }

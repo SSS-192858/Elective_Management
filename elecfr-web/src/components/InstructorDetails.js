@@ -4,9 +4,9 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import deleteInstructor from "../services/user_services"
+import { deleteInstructor } from "../services/user_services"
 import { useNavigate } from "react-router-dom";
-import { getInstructorFromStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorageHandler";
+import { getInstructorFromStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorage_services";
 
 const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     const [open, setOpen] = useState(false);
@@ -72,9 +72,12 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
                 See all subjects taught
             </button>
 
+            {(isAdmin || isInstructor) && 
             <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
                 See all children enrolled in courses taught by this instructor
             </button>
+            }
+            
 
             {isAdmin && (
                 <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">

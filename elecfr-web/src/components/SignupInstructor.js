@@ -6,7 +6,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { useInstructorSignupFormValidator } from "../validator/signupInstructorValidator";
+import { useInstructorSignupFormValidator } from "../validators/signupInstructorValidator";
 
 const SignupInstructor = () => {
 
@@ -16,7 +16,7 @@ const SignupInstructor = () => {
         username: "",
         password: "",
         confirmPassword: "",
-        instructorName: "",
+        instructor_name: "",
         email: "",
         phone: ""
     });
@@ -48,7 +48,7 @@ const SignupInstructor = () => {
         e.preventDefault();    
         const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
         if (!isValid) return;
-        registerInstructor(form.username, form.password, form.instructorName, form.email, form.phone).then(
+        registerInstructor(form.username, form.password, form.instructor_name, form.email, form.phone).then(
             response => {
                 handleClickToOpen()
             },
@@ -124,18 +124,18 @@ const SignupInstructor = () => {
                     </div>
 
                     <div className="form-group">
-                    <label htmlFor="instructorName">Name</label>
+                    <label htmlFor="instructor_name">Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        name="instructorName"
+                        name="instructor_name"
                         aria-label="Instructor Name"
-                        value={form.instructorName}
+                        value={form.instructor_name}
                         onChange={onUpdateField}
                     />
 
-                    {errors.instructorName.dirty && errors.instructorName.error ? (
-                            <div className="alert alert-danger" role="alert">{errors.instructorName.message}</div>
+                    {errors.instructor_name.dirty && errors.instructor_name.error ? (
+                            <div className="alert alert-danger" role="alert">{errors.instructor_name.message}</div>
                             ) : null}
                     </div>
 

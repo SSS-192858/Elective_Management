@@ -1,13 +1,14 @@
 import React, {useState} from "react";
-import { getSubjectStudents, getSubjectStudentsByStudentId, getSubjectStudentByInstructorId, getSubjectStudentsBySubjectCode, getForInstructorAndStudent } from "../services/request_services";
 import { useEffect } from "react";
 import RequestListItem from "../common/RequestListItem";
-import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage} from "../services/localStorageHandler";
+import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage} from "../services/localStorage_services";
+import {getSubjectStudents, getSubjectStudentsByStudentId, getSubjectStudentByInstructorId, getSubjectStudentsBySubjectCode, getForInstructorAndStudent} from "../services/user_services"
 
 const StudentSubjectList = ({choice}) => {
     const [requests, setRequests] = useState([]);
     var subject = null;
     var student = null;
+    var instructor = null;
 
     const getRequests = async() => {
         if (choice === 1){

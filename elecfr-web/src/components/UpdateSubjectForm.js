@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 import {useSubjectSaveValidator} from "../validators/SubjectSaveValidator";
 import {updateSubject} from '../services/user_services';
-import { getSubjectFromStorage, removeSubjectFromStorage } from "../services/localStorageHandler";
+import { getSubjectFromStorage, removeSubjectFromStorage } from "../services/localStorage_services";
 
 const SubjectUpdateForm = () => {
   
@@ -19,8 +19,8 @@ const SubjectUpdateForm = () => {
     })
 
     const [form, setForm] = useState({
-        subjectName:"",
-        subjectDesc:""
+        subjectName:subject.subjectName,
+        subjectDesc:subject.subjectDesc
   });
 
   const navigate = useNavigate();
@@ -115,6 +115,10 @@ const SubjectUpdateForm = () => {
                     {errors.subjectDesc.dirty && errors.subjectDesc.error ? (
                             <div className="alert alert-danger" role="alert">{errors.subjectDesc.message}</div>
                             ) : null}
+                </div>
+
+                <div className="form-group">
+                    <button className="btn btn-primary btn-block">Update details</button>
                 </div>
 
                 {message ? 

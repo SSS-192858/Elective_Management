@@ -2,10 +2,12 @@ package Elective_Management.Elective_Management.Service;
 
 import Elective_Management.Elective_Management.Entity.Instructor;
 import Elective_Management.Elective_Management.Entity.Subject;
+import Elective_Management.Elective_Management.Entity.User;
 import Elective_Management.Elective_Management.Exception.InstructorNotFoundException;
 import Elective_Management.Elective_Management.Exception.SubjectNotFoundException;
 import Elective_Management.Elective_Management.dao.InstructorDAOImpl;
 import Elective_Management.Elective_Management.dao.SubjectDAO;
+import Elective_Management.Elective_Management.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Elective_Management.Elective_Management.dao.InstructorDAO;
@@ -16,11 +18,13 @@ import java.util.List;
 public class InstructorService {
     private InstructorDAO instructorDAO;
     private SubjectDAO subjectDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    public InstructorService(InstructorDAO instructorDAO, SubjectDAO subjectDAO){
+    public InstructorService(InstructorDAO instructorDAO, SubjectDAO subjectDAO, UserDAO userDAO){
         this.instructorDAO = instructorDAO;
         this.subjectDAO = subjectDAO;
+        this.userDAO = userDAO;
     }
 
     public Instructor saveInstructor(Instructor instructor) {
@@ -44,7 +48,9 @@ public class InstructorService {
         if (instructor == null){
             throw new InstructorNotFoundException();
         }
+        User user = instructor.getUser();
         this.instructorDAO.deleteById(id);
+        this.userDAO.delete(user);
     }
 
     public Instructor updateInstructor(Instructor instructor) throws InstructorNotFoundException {

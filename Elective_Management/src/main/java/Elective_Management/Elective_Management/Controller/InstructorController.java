@@ -57,7 +57,7 @@ public class InstructorController {
         instructor.setInstructor_name(Instructor.getInstructor_name());
         instructor.setEmail(Instructor.getEmail());
         instructor.setPhone(Instructor.getPhone());
-        return this.instructorService.updateInstructor(Instructor);
+        return this.instructorService.updateInstructor(instructor);
     }
 
     @DeleteMapping("/delete/{id}")
