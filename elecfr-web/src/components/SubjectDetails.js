@@ -4,13 +4,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { deleteSubject } from "../services/user_services";
+import { deleteSubject, removeInstructorFromSubject } from "../services/user_services";
 import { useNavigate } from "react-router-dom";
-import { getSubjectFromStorage, removeSubjectFromStorage, setSubjectInStorage, getInstructorFromStorage} from "../services/localStorageHandler";
+import { getSubjectFromStorage, removeSubjectFromStorage, setSubjectInStorage, getInstructorFromStorage} from "../services/localStorage_services";
+import { setInstructorInStorage } from "../services/localStorage_services";
 
 const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
 
     const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
+
     const navigate = useNavigate();
 
     const [subject, setSubject] = useState(() => {
@@ -31,6 +34,7 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
 
     const handleCancel = ()=>{
         setOpen(false);
+        setOpen1(false);
     }
 
     const navFunc = () => {
@@ -39,7 +43,6 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
 
     const handleRequest = ()=>{
         setSubjectInStorage(subject);
-        console.log(book);
         navigate("/subjectRequest")
     }
 
@@ -52,7 +55,8 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
     }
 
     const seeInstructor = () => {
-        navigate("/instructorForSubject");
+        setInstructorInStorage(subject.instructor)
+        navigate("/instructorDetail");
     }
 
     const assignInstructor = ()=>{
@@ -60,11 +64,21 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
         navigate("/assignInstructor")
     }
 
+    const openDialog = () => {
+        setOpen1(true);
+    }
+
+    const handleToClose1 = () => {
+        removeInstructorFromSubject(subject.subjectCode);
+        setOpen1(false);
+        navigate("/subjects");
+    }
+
     return (
         <div>
             <p>{subject.subjectCode}</p>
             <p>{subject.subjectName}</p>
-            <p>{subject.instructor.instructor_name}</p>
+            {subject.instructor ? <p>{subject.instructor.instructor_name}</p> : null}
             <p>{subject.subjectDesc}</p>
 
             {isStudent &&
@@ -98,7 +112,7 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
             </>
             } 
 
-            {(isInstructor && instructor.id === subject.instructor.id) && 
+            {(isInstructor && subject.instructor && instructor.id === subject.instructor.id) && 
 
             <>
             <button onClick={seeRequestsForSubject} className="btn btn-primary btn-block">
@@ -115,10 +129,19 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
             </>
             } 
 
-            <button onClick={seeInstructor} className="btn btn-primary btn-block"> 
-                See instructor details for this course
-            </button>
-            
+            {(subject.instructor) ? 
+                <>
+                <button onClick={seeInstructor} className="btn btn-primary btn-block"> 
+                    See instructor details for this course
+                </button>
+                {isAdmin &&
+                    <button onClick={openDialog} className="btn btn-primary btn-block"> 
+                        Remove Instructor for this course
+                    </button>
+                }
+                </>
+                : null
+            }
             
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Delete Book"}</DialogTitle>
@@ -134,6 +157,25 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
                     <button onClick={handleToClose}
                         color="primary" autoFocus>
                         Delete
+                    </button>
+                    
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={open1} onClose={handleToClose1}>
+                <DialogTitle>{"Remove Instructor for Subject"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to remove the instructor for this subject?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button onClick={handleCancel} color="primary" autoFocus>
+                        Cancel
+                    </button>
+                    <button onClick={handleToClose1}
+                        color="primary" autoFocus>
+                        Remove
                     </button>
                     
                 </DialogActions>

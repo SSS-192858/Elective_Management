@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { updateInstructor, updateStudent } from "../services/user_services";
+import { updateInstructor } from "../services/user_services";
 import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useInstructorUpdateFormValidator } from "../validators/InstructorUpdateValidator";
-import { getInstructorFromStorage, setInstructorInStorage } from "../services/localStorageHandler";
+import { getInstructorFromStorage, setInstructorInStorage } from "../services/localStorage_services";
 
 const UpdateInstructor = () => {
 
@@ -18,7 +18,7 @@ const UpdateInstructor = () => {
     })
 
     const [form, setForm] = useState({
-        instructorName: instructor.instructorName,
+        instructor_name: instructor.instructor_name,
         email: instructor.email,
         phone: instructor.phone
     });
@@ -29,7 +29,7 @@ const UpdateInstructor = () => {
     const {errors, validateForm} = useInstructorUpdateFormValidator(form)
 
     const handleClickToOpen = () => {
-        const temp = {id: instructor.id, studentName: form.instructorName, email: form.email, phone: form.phone}
+        const temp = {id: instructor.id, instructor_name: form.instructor_name, email: form.email, phone: form.phone}
         setInstructorInStorage(temp);
         setOpen(true);
     };
@@ -52,7 +52,7 @@ const UpdateInstructor = () => {
         e.preventDefault();    
         const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
         if (!isValid) return;
-        updateInstructor(instructor.id, form.instructorName, form.email, form.phone).then(
+        updateInstructor(instructor.id, form.instructor_name, form.email, form.phone).then(
             response => {
                 handleClickToOpen()
             },
@@ -80,18 +80,18 @@ const UpdateInstructor = () => {
             <form onSubmit={onSubmitForm}>
 
                     <div className="form-group">
-                    <label htmlFor="studentName">Name</label>
+                    <label htmlFor="instructor_name">Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        name="instructorName"
+                        name="instructor_name"
                         aria-label="Instructor Name"
-                        value={form.instructorName}
+                        value={form.instructor_name}
                         onChange={onUpdateField}
                     />
 
-                    {errors.instructorName.dirty && errors.instructorName.error ? (
-                            <div className="alert alert-danger" role="alert">{errors.instructorName.message}</div>
+                    {errors.instructor_name.dirty && errors.instructor_name.error ? (
+                            <div className="alert alert-danger" role="alert">{errors.instructor_name.message}</div>
                             ) : null}
                     </div>
 

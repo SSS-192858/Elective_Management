@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import {deleteStudent} from "../services/user_services"
 import { useNavigate } from "react-router-dom";
-import { getStudentFromStorage, removeStudentFromStorage } from "../services/localStorageHandler";
+import { getPersonalStudentFromStorage, getStudentFromStorage, removeStudentFromStorage } from "../services/localStorage_services";
 
 const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     const [open, setOpen] = useState(false);
@@ -14,6 +14,11 @@ const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
 
     const [student, setStudent] = useState(() => {
         const temp = getStudentFromStorage();
+        return temp;
+    });
+
+    const [currStudent, setCurrStudent] = useState(() => {
+        const temp = getPersonalStudentFromStorage();
         return temp;
     })
 
@@ -37,11 +42,11 @@ const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     }
 
     const navFunc3 = () => {
-        navigate("/bookStudentByStudent")
+        navigate("/studentSubjectByStudent")
     }
 
     const navFunc4 = () => {
-        navigate("/bookStudentByStudentAndInstructor")
+        navigate("/studentSubjectByStudentAndInstructor")
     }
 
     return (
@@ -51,25 +56,20 @@ const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
             <p>{student.email}</p>
             <p>{student.phone}</p>
 
-            {isStudent && (
-                <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
-                Update Info
-                </button>
-            )}
-
-            {
-                (isStudent || isAdmin) && (
-                    <>
+            {((isStudent && currStudent.id === student.id) || isAdmin) && (
+                <>
+                    <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
+                        Update Info
+                    </button>
                     <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
                         See all Subject Requests
                     </button>
-                    </>
-                )
-            }
+                </>
+            )}
 
-                    <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
-                        See all enrolled subjects
-                    </button>
+            <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
+                See all enrolled subjects
+            </button>
             
             {
                 (isInstructor) && (

@@ -1,6 +1,13 @@
 import { getInstructorFromStorage, getSubjectFromStorage } from "../services/localStorage_services";
-import { useState,useNavigate } from "react";
+import { useState } from "react";
 import { assignInstructortoSubject } from "../services/user_services";
+import Dialog from "@mui/material/Dialog";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import { useNavigate } from "react-router-dom";
+
 const SubjectAssignInstructorConfirmation = () => {
 
     const [subject, setSubject] = useState(() => {
@@ -8,11 +15,13 @@ const SubjectAssignInstructorConfirmation = () => {
         return temp;
     })
 
+    const [open, setOpen] = useState(false);
+
     const [instructor, setInstructor] = useState(() => {
         const temp = getInstructorFromStorage();
         return temp;
     })
-    getDriverFromStorage();
+
     const navigate = useNavigate();
 
     const handleCancel = () => {
@@ -22,7 +31,12 @@ const SubjectAssignInstructorConfirmation = () => {
     const handleAssign = () => {
         // assignDriverToCab(cab.reg_no, driver);
         assignInstructortoSubject(subject.subjectCode,instructor);
-        navigate("/subjects")
+        setOpen(true);
+    }
+
+    const handleToClose = () => {
+        setOpen(false);
+        navigate("/subjects");
     }
 
     return (
@@ -42,6 +56,21 @@ const SubjectAssignInstructorConfirmation = () => {
             <button className="btn btn-primary btn-block" onClick={handleAssign}>
                 Assign
             </button>
+
+            <Dialog open={open} onClose={handleToClose}>
+                <DialogTitle>{"Assignment successful"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Instructor was assigned successfully, kindly click on the button to close the dialog box.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button onClick={handleToClose}
+                        color="primary" autoFocus>
+                        Close
+                    </button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

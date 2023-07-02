@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { deleteSubjectStudent } from "../services/user_services";
 import { useNavigate } from "react-router-dom";
-import { getSubjectStudentFromStorage } from "../services/localStorageHandler";
+import { getSubjectStudentFromStorage } from "../services/localStorage_services";
 
 const SubjectStudentDetails = ({isAdmin}) => {
 
@@ -21,7 +21,7 @@ const SubjectStudentDetails = ({isAdmin}) => {
     const handleToClose = () => {
         deleteSubjectStudent(subjectStudent.slno);
         setOpen(false);
-        navigate("/subjectStudents");
+        navigate("/studentSubjects");
     };
 
     const handleCancel = ()=>{

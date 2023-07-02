@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { getStudents } from '../services/user_services';
+import { getInstructors } from '../services/user_services';
 import InstructorListItem from "../common/InstructorListItem";
 
 function InstructorList(){
@@ -7,7 +7,7 @@ function InstructorList(){
     const [instructors, setInstructors] = useState([]);
 
   const getInstructorComp = async () => {
-    const response = await getStudents();
+    const response = await getInstructors();
     setInstructors(response);
   }
 

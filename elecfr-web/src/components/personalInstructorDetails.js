@@ -4,9 +4,9 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import deleteInstructor from "../services/user_services"
+import { deleteInstructor } from "../services/user_services"
 import { useNavigate } from "react-router-dom";
-import { setInstructorInStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorageHandler";
+import { setInstructorInStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorage_services";
 
 const PersonalInstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     const [open, setOpen] = useState(false);

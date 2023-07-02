@@ -11,8 +11,8 @@ const SubjectListItem = ({subject}) => {
 
     return (
         <a href="/moreInfo">
-            <div class="card" onClick={handleClick}>
-                <div class="card-body">
+            <div className="card" onClick={handleClick}>
+                <div className="card-body">
                         <h1>{subject.subjectCode}. {subject.subjectName}</h1>
                         <br />
                         {subject.instructor ? <h4>Instructor: {subject.instructor.instructor_name}</h4>

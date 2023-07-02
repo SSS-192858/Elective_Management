@@ -33,7 +33,7 @@ function SubjectsList({choice}) {
         } 
       <ul id="remove">
         {subjects.map((data) => (
-          <li id="space" key= {data.bookCode}><SubjectListItem subject={data}/></li>
+          <li id="space" key= {data.subjectCode}><SubjectListItem subject={data}/></li>
         ))}
       </ul>
     </>

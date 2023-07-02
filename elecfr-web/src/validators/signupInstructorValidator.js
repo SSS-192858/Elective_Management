@@ -28,7 +28,7 @@ export const useInstructorSignupFormValidator = form => {
             error: false,
             message: ""
         },
-        instructorName: {
+        instructor_name: {
             dirty: false,
             error: false,
             message: ""
@@ -56,7 +56,7 @@ export const useInstructorSignupFormValidator = form => {
             nextErrors = touchErrors(errors);
         }
 
-        const { username, password, confirmPassword, instructorName, email, phone } = form;
+        const { username, password, confirmPassword, instructor_name, email, phone } = form;
 
         if (nextErrors.username.dirty && (field ? field === "username" : true)) {
             const message = stringValidator(username, form);
@@ -79,11 +79,11 @@ export const useInstructorSignupFormValidator = form => {
             if (!!confirmPasswordMessage) isValid = false;
         }
 
-        if (nextErrors.instructorName.dirty && (field ? field === "instructorName" : true)) {
-            const instructorNameMessage = stringValidator(instructorName, form);
-            nextErrors.instructorName.error = !!instructorNameMessage;
-            nextErrors.instructorName.message = instructorNameMessage;
-            if (!!instructorNameMessage) isValid = false;
+        if (nextErrors.instructor_name.dirty && (field ? field === "instructor_name" : true)) {
+            const instructor_nameMessage = stringValidator(instructor_name, form);
+            nextErrors.instructor_name.error = !!instructor_nameMessage;
+            nextErrors.instructor_name.message = instructor_nameMessage;
+            if (!!instructor_nameMessage) isValid = false;
         }
 
         if (nextErrors.email.dirty && (field ? field === "email" : true)) {

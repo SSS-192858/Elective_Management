@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 import {useSubjectSaveValidator} from "../validators/SubjectSaveValidator";
 import {saveSubject} from '../services/user_services';
-import { removeSubjectFromStorage } from "../services/localStorageHandler";
+import { removeSubjectFromStorage } from "../services/localStorage_services";
 
 const SubjectSaveForm = () => {
   
@@ -90,10 +90,10 @@ const SubjectSaveForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="bookDesc">Subject Desc</label>
+                    <label htmlFor="subjectDesc">Subject Desc</label>
                     <textarea
                     className="form-control"
-                    type="bookDesc"
+                    type="text"
                     aria-label="subjectDesc"
                     name="subjectDesc"
                     placeholder="subject description"

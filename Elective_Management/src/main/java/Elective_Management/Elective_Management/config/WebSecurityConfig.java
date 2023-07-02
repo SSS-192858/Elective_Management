@@ -69,7 +69,7 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.GET,"/studentSubject/getbyID/**").permitAll()
                             .requestMatchers(HttpMethod.POST,"/studentSubject/save").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE,"/studentSubject/delete/**").permitAll()
-                            .requestMatchers(HttpMethod.GET,"/studentSubject/getByInstructor/**").hasAnyRole("ADMIN","INSTRUCTOR")
+                            .requestMatchers(HttpMethod.GET,"/studentSubject/getByInstructor/**").hasAnyRole("ADMIN","INSTRUCTOR", "STUDENT")
                             .requestMatchers(HttpMethod.GET,"/studentSubject/getByStudent/**").permitAll()
                             .requestMatchers(HttpMethod.GET,"/studentSubject/getBySubject/{id}").permitAll()
                             .requestMatchers(HttpMethod.GET, "/instructor/getAll").permitAll()
@@ -88,6 +88,7 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/student/user/getStudent").hasRole("STUDENT")
                             .requestMatchers(HttpMethod.GET, "/instructor/user/getInstructor").hasRole("INSTRUCTOR")
                             .requestMatchers(HttpMethod.GET, "/studentSubject/getForStudentAndInstructor/**").hasRole("INSTRUCTOR")
+                            .requestMatchers(HttpMethod.PUT, "/subject/removeInstructor/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 }).exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

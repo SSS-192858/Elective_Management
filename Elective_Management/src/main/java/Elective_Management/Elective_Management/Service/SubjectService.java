@@ -77,4 +77,13 @@ public class SubjectService {
         subject.setInstructor(i);
         return this.subjectDAO.saveSubject(subject);
     }
+
+    public Subject removeInstructor(Integer id) throws SubjectNotFoundException {
+        Subject subject = subjectDAO.findSubjectById(id);
+        if (subject == null){
+            throw new SubjectNotFoundException();
+        }
+        subject.setInstructor(null);
+        return this.subjectDAO.updateSubject(subject);
+    }
 }
