@@ -6,19 +6,15 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import deleteInstructor from "../services/user_services"
 import { useNavigate } from "react-router-dom";
-import { getInstructorFromStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorageHandler";
+import { setInstructorInStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorageHandler";
 
-const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
+const PersonalInstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
     const [instructor, setInstructor] = useState(() => {
-        const temp = getInstructorFromStorage();
-        return temp;
-    })
-
-    const [currInstructor, setCurrInstructor] = useState(() => {
         const temp = getPersonalInstructorFromStorage();
+        setInstructorInStorage(temp);
         return temp;
     })
 
@@ -56,7 +52,7 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
             <p>{instructor.email}</p>
             <p>{instructor.phone}</p>
 
-            {((isInstructor && currInstructor.id === instructor.id) || isAdmin) && (
+            {((isInstructor) || isAdmin) && (
                 <>
                 <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
                 Update Info
@@ -104,4 +100,4 @@ const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
     )
 }
 
-export default InstructorDetails;
+export default PersonalInstructorDetails;

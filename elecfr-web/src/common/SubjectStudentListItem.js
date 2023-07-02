@@ -10,13 +10,12 @@ export const SubjectStudentListItem = ({subjectStudent}) => {
 
     return (
     <div className="book" onClick={handleClick}>
-    <Link to="/subjectStudentDetail">
-    <p> Subject Details :</p>
+    <Link to="/studentSubjectDetail">
+        <p> Subject Details :</p>
         <p>{request.subject.subjectCode}</p>
         <p>{request.subject.subjectName}</p>
         <p>{request.subject.subjectDesc}</p>
-        {request.subject.instructor ? <h4>Instructor: {request.subject.instructor.instructor_name}</h4>
-        : null}
+        
 
         <p>
             Student Details :

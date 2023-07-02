@@ -27,8 +27,9 @@ import RequestList from "./components/RequestList";
 import InstructorDetails from "./components/InstructorDetails";
 import InstructorList from "./components/InstructorList";
 import SubjectByInstructorAssign from "./components/SubjectInstructorAssign";
-import SubjectInstructorAssignItem from "./common/SubjectInstructorAssignItem";
 import SubjectAssignInstructorConfirmation from "./components/SubjectInstructorAssignConfirm";
+import PersonalInstructorDetails from "./components/personalInstructorDetails";
+import PersonalStudentDetails from "./components/PersonalStudentDetails";
 
 function App() {
 
@@ -73,11 +74,26 @@ function App() {
             </li>
 
             {isAdmin && (
+              <>
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
               </li>
+
+              <li className="nav-item">
+                <Link to={"/addSubject"} className="nav-link">
+                  Add a Subject
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/requests"} className="nav-link">
+                  All Requests
+                </Link>
+              </li>
+
+              </>
             )}
 
             {isStudent && (
@@ -96,46 +112,41 @@ function App() {
                 Instructor Board
               </Link>
               </li>
-              <li>
-                <a href = "/studentSubject" className="nav-link">
-                  All StudentsSubjects Info
-                </a>
-              </li>
               </>
             )}
-          
+
+              <li className="nav-item">
+                <Link to={"/subjects"} className="nav-link">
+                  Subjects
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/instructors"} className="nav-link">
+                  Instructors
+                </Link>
+              </li>
+
+              {(isAdmin || isInstructor) && 
+              <>
+                <li className="nav-item">
+                  <Link to={"/students"} className="nav-link">
+                    All students
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to={"/studentSubjects"} className="nav-link">
+                    All student enrollments
+                  </Link>
+                </li>
+              </>
+              }
           </div>
             
           {currentUser ? (
             <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={Applogout}>
-                  Log out
-                </a>
-              </li>
 
-              {/* <li className="nav-item">
-                <a href="/subjectsByInstructor" className="nav-link">
-                  Subject By Instructor
-                </a>
-              </li> */}
-              
-              <li className="nav-item">
-                <a href="/subjects" className="nav-link">
-                  Subjects
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="/instructors" className="nav-link">
-                  Instructors
-                </a>
-              </li>
-
-              <li className="nav-item">
-                <a href="/students" className="nav-link">
-                  Students
-                </a>
-              </li>
               {isAdmin && (
                 <li>
                   <a href = "/registerAdmin" className="nav-link">
@@ -160,31 +171,61 @@ function App() {
                 </li>
               )}
 
-              {isAdmin && (
-                <li>
-                  <a href = "/addSubject" className="nav-link">
-                    Add a new Subject
-                  </a>
-                </li>
-              )}
-
-              {isAdmin && (
+              {isStudent && (
                 <>
-                <li>
-                  <a href = "/requests" className="nav-link">
-                    All Requests
-                  </a>
-                </li>
+                  <li className="nav-item">
+                    <Link to={"/requestsForStudent"} className="nav-link">
+                      Pending Requests
+                    </Link>
+                  </li>
 
-                <li>
-                  <a href = "/studentSubject" className="nav-link">
-                    All StudentsSubjects Info
-                  </a>
-                </li>
+                  <li className="nav-item">
+                    <Link to={"/studentSubjectByStudent"} className="nav-link">
+                      Subjects Enrolled
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={"/personalStudentDetail"} className="nav-link">
+                      Profile
+                    </Link>
+                  </li>
                 </>
               )}
 
-            
+              {isInstructor && (
+                <>
+                  <li className="nav-item">
+                    <Link to={"/requestsForInstructor"} className="nav-link">
+                      Pending Requests
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={"/studentSubjectByInstructor"} className="nav-link">
+                      My students
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={"/subjectsForInstructor"} className="nav-link">
+                      My Subjects
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={"/personalInstructorDetail"} className="nav-link">
+                      Profile
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={Applogout}>
+                  Log out
+                </a>
+              </li>
                   
             </div>
           ) : (
@@ -200,7 +241,6 @@ function App() {
 
         <div className="container mt-3">
           <Routes>
-            {/* Common webpages */}
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<LoginForm setCurrentUser = {setCurrentUser} setIsAdmin = {setIsAdmin} setIsStudent = {setIsStudent} setIsInstructor={setIsInstructor}/>} />
@@ -210,27 +250,33 @@ function App() {
             <Route path="/student" element={<BoardStudent/>} />
             <Route path="/admin" element={<BoardAdmin/>}/>
             <Route path="/instructor" element={<BoardInstructor/>}/>
-            {/* Subject related webpages */}
             <Route path="/subjects" element={<SubjectsList choice={1}/>} />
             <Route path="/subjectsByInstructor" element={<SubjectsList choice={2}/>} />
             <Route path="/moreInfo" element={<SubjectDetails isAdmin={isAdmin} isInstructor={isInstructor} isStudent={isStudent}/>} />
             <Route path="/addSubject" element={<SubjectSaveForm/>} />
             <Route path="/subjectUpdate" element={<SubjectUpdateForm/>}/>
             <Route path="/subjectRequest" element={<SubjectRequestForm/>} />
-            <Route path="/requests" element={<RequestList choice={1}/>} />
-            <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
             <Route path="/instructors" element={<InstructorList/>}/>
-            <Route path="/instructorForSubject" element={<InstructorDetails isAdmin={isAdmin} isStudent={isStudent} isInstructor={isInstructor}/>} />
-            <Route path="/studentSubject" element={<StudentSubjectList/>}/>
-            {/* Student related webpages */}
+            <Route path="/instructorUpdate" element={<UpdateInstructor/>} />
+            <Route path="/instructorDetail" element={<InstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>}/>
+            <Route path="/personalInstructorDetail" element={<PersonalInstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>} />
             <Route path="/students" element={<StudentList/>}/>
             <Route path="/updateStudent" element={<UpdateStudent/>} />
             <Route path="/studentDetail" element={<StudentDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>}/>
+            <Route path="/personalStudentDetail" element={<PersonalStudentDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>}/>
+            <Route path="/requests" element={<RequestList choice={1}/>} />
+            <Route path="/requestDetails" element={<RequestDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>} />
             <Route path="/requestsForSubject" element={<RequestList choice={2}/>} />
+            <Route path="/requestsForStudent" element={<RequestList choice={3}/>} />
+            <Route path="/requestsForInstructor" element={<RequestList choice={4}/>} />
+            <Route path="/studentSubjectDetail" element={<SubjectStudentDetails isAdmin={isAdmin} isInstructor={isInstructor} isStudent={isStudent}/>}/>
+            <Route path="/studentSubjects" element={<StudentSubjectList choice={1}/>}/>
             <Route path="/studentSubjectBySubject" element={<StudentSubjectList choice={2}/>} />
-            <Route path="/instructorDetail" element={<InstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>}/>
+            <Route path="/studentSubjectByStudent" element={<StudentSubjectList choice={3}/>} />
+            <Route path="/studentSubjectByInstructor" element={<StudentSubjectList choice={4}/>} />
+            <Route path="/studentSubjectByStudentAndInstructor" element={<StudentSubjectList choice={5}/>} />
             <Route path="/assignInstructor" element={<SubjectByInstructorAssign/>}/>
-            <Route path="/assignInstructorConfirmation" element={<SubjectAssignInstructorConfirmation/>}/>
+            <Route path="/assignInstructorConfirmation" element={<SubjectAssignInstructorConfirmation />}/>
           </Routes>
         </div>
       </div>
