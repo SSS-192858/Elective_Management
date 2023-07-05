@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { setSubjectStudentInStorage } from '../services/localStorage_services';
+import dateFormat from 'dateformat';
 
 export const SubjectStudentListItem = ({subjectStudent}) => {
   
@@ -9,28 +10,20 @@ export const SubjectStudentListItem = ({subjectStudent}) => {
     }
 
     return (
-    <div className="book" onClick={handleClick}>
-    <Link to="/studentSubjectDetail">
-        <p> Subject Details :</p>
-        <p>{request.subject.subjectCode}</p>
-        <p>{request.subject.subjectName}</p>
-        <p>{request.subject.subjectDesc}</p>
-        
-
-        <p>
-            Student Details :
-        </p>
-
-        <p>{request.student.id}</p>
-        <p>{request.student.studentName}</p>
-
-        <p>
-            Start Date : {request.startDate}
-        </p>
-        <p>
-            End Date : {request.endDate}
-        </p>
-    </Link>
-</div>
+        <a href="/studentSubjectDetail">
+        <div className="card1" onClick={handleClick}>
+            <div className="card-body">
+                <h3>Subject- {subjectStudent.subject.subjectTitle}</h3>
+                <h3>Student- {subjectStudent.student.studentName}</h3>
+                <br/>
+                <p>
+                    From - {dateFormat(subjectStudent.startDate, "fullDate")}
+                </p>
+                <p>
+                    To - {dateFormat(subjectStudent.endDate, "fullDate")}
+                </p>
+            </div>
+        </div>
+        </a>
   )
 }

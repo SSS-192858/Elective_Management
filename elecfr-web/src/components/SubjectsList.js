@@ -24,18 +24,22 @@ function SubjectsList({choice}) {
     
   return (
     <>
-        { (subjects.length === 0) ? <div className='container'>
-          <header className='jumbotron'> 
-            Nothing to show
-          </header>
-        </div>
-          : null
-        } 
-      <ul id="remove">
-        {subjects.map((data) => (
-          <li id="space" key= {data.subjectCode}><SubjectListItem subject={data}/></li>
-        ))}
-      </ul>
+    { (subjects.length === 0) ? <div className='container banner'>
+      <header className='jumbotron banner'> 
+        <h5>Nothing to show</h5>
+      </header>
+      
+    </div>
+      : null
+    } 
+    <div className='container'>
+      <div className='row'>
+
+      {subjects.map((data) => (
+        <div id="space" key= {data.subjectCode} className='col-lg-4 col-sm-12 col-md-6'><SubjectListItem subject={data}/></div>
+      ))}
+      </div>
+    </div>
     </>
   );
 }

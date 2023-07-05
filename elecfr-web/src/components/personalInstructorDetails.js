@@ -54,26 +54,26 @@ const PersonalInstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
 
             {((isInstructor) || isAdmin) && (
                 <>
-                <button onClick={navFunc1} className="btn btn-primary btn-block" type="submit">
+                <button onClick={navFunc1} className="btn btn-primary" type="submit">
                 Update Info
                 </button>
 
-                <button onClick={navFunc2} className="btn btn-primary btn-block" type="submit">
+                <button onClick={navFunc2} className="btn btn-primary" type="submit">
                 See all subject requests
                 </button>
                 </>
             )}
 
-            <button onClick={navFunc3} className="btn btn-primary btn-block" type="submit">
+            <button onClick={navFunc3} className="btn btn-primary" type="submit">
                 See all subjects taught
             </button>
 
-            <button onClick={navFunc4} className="btn btn-primary btn-block" type="submit">
+            <button onClick={navFunc4} className="btn btn-primary" type="submit">
                 See all children enrolled in courses taught by this instructor
             </button>
 
             {isAdmin && (
-                <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">
+                <button onClick={()=>{setOpen(true)}} className="btn btn-primary" type="submit">
                     Delete Instructor
                 </button>
             )}

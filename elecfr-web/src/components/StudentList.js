@@ -17,18 +17,20 @@ function StudentList(){
   
   return (
     <>
-      { (students.length === 0) ? <div className='container'>
-              <header className='jumbotron'> 
-                  Nothing to show
+      { (students.length === 0) ? <div className='container banner'>
+              <header className='jumbotron banner'> 
+              <h5>Nothing to show</h5>
               </header>
           </div>
               : null
       }
-      <ul id="remove">
-        {students.map((data) => (
-          <li id="space" key= {data.id}><StudentListItem student={data}/></li>
-        ))}
-      </ul>
+      <div className='container'>
+        <div className='row'>
+          {students.map((data) => (
+            <div id="space" key= {data.id} className='col-lg-4 col-sm-12 col-md-6'><StudentListItem student={data}/></div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }

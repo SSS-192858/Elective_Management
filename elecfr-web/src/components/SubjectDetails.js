@@ -82,30 +82,30 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
             <p>{subject.subjectDesc}</p>
 
             {isStudent &&
-            <button onClick={handleRequest} className="btn btn-primary btn-block">
+            <button onClick={handleRequest} className="btn btn-primary">
                 Request Course
             </button>
             }
 
             {isAdmin &&
             <>
-            <button onClick={seeRequestsForSubject} className="btn btn-primary btn-block">
+            <button onClick={seeRequestsForSubject} className="btn btn-primary">
                 See all requests for this subject
             </button>
 
-            <button onClick={assignInstructor} className="btn btn-primary btn-block">
+            <button onClick={assignInstructor} className="btn btn-primary">
                 Assign Instructor for this course
             </button>
 
-            <button onClick={navFunc} className="btn btn-primary btn-block">
+            <button onClick={navFunc} className="btn btn-primary">
                 Update Subject
             </button>
 
-            <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block">
+            <button onClick={()=>{setOpen(true)}} className="btn btn-primary">
                 Delete Subject
             </button>
 
-            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary btn-block">
+            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary">
                 See all records of students taking this course
             </button>
 
@@ -115,15 +115,15 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
             {(isInstructor && subject.instructor && instructor.id === subject.instructor.id) && 
 
             <>
-            <button onClick={seeRequestsForSubject} className="btn btn-primary btn-block">
+            <button onClick={seeRequestsForSubject} className="btn btn-primary">
                 See all requests for this subject
             </button>
 
-            <button onClick={navFunc} className="btn btn-primary btn-block">
+            <button onClick={navFunc} className="btn btn-primary">
                 Update Subject
             </button>
 
-            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary btn-block">
+            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary">
                 See all records of students taking this course
             </button>
             </>
@@ -131,11 +131,11 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
 
             {(subject.instructor) ? 
                 <>
-                <button onClick={seeInstructor} className="btn btn-primary btn-block"> 
+                <button onClick={seeInstructor} className="btn btn-primary"> 
                     See instructor details for this course
                 </button>
                 {isAdmin &&
-                    <button onClick={openDialog} className="btn btn-primary btn-block"> 
+                    <button onClick={openDialog} className="btn btn-primary"> 
                         Remove Instructor for this course
                     </button>
                 }

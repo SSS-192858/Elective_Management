@@ -34,20 +34,22 @@ const RequestList = ({choice}) => {
     }, [])
 
     return (
-    <>
-        { (requests.length === 0) ? <div className='container'>
-            <header className='jumbotron'> 
-                Nothing to show
-            </header>
-        </div>
-            : null
-        }
-        <ul id="remove">
-            {requests.map((data) => (
-                <li id="space" key= {data.slno}><RequestListItem request={data}/></li>
-            ))}
-        </ul>
-    </>
+        <>
+            { (requests.length === 0) ? <div className='container banner'>
+                    <header className='jumbotron banner'> 
+                        <h5>Nothing to show</h5>
+                    </header>
+                </div>
+                : null
+            }
+            <div className='container'>
+                <div className='row'>
+                {requests.map((data) => (
+                    <div id="space" key= {data.slno} className="col-lg-4 col-sm-12 col-md-6"><RequestListItem request={data}/></div>
+                ))}
+                </div>
+            </div>
+        </>
     )
 }
 
