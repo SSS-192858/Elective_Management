@@ -9,30 +9,21 @@ const RequestListItem = ({request}) => {
     }
 
     return (
-        <div className="book" onClick={handleClick}>
-            <Link to="/requestDetails">
-                <p>
-                    Subject Details :
-                </p>
-                <p>{request.subject.subjectCode}</p>
-                <p>{request.subject.subjectName}</p>
-                <p>{request.subject.subjectDesc}</p>
-
-                <p>
-                    Student Details :
-                </p>
-
-                <p>{request.student.id}</p>
-                <p>{request.student.studentName}</p>
-
-                <p>
-                    Start Date : {request.startDate}
-                </p>
-                <p>
-                    End Date : {request.endDate}
-                </p>
-            </Link>
-        </div>
+        <a href="/requestDetails">
+            <div className="card1" onClick={handleClick}>
+                <div className="card-body">
+                    <h3>Subject- {request.subject.subjectTitle}</h3>
+                    <h3>Student- {request.student.studentName}</h3>
+                    <br/>
+                    <p>
+                        From - {dateFormat(request.startDate, "fullDate")}
+                    </p>
+                    <p>
+                        To - {dateFormat(request.endDate, "fullDate")}
+                    </p>
+                </div>
+            </div>
+        </a>
     )
 }
 

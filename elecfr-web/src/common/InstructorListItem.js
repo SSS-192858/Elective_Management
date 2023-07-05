@@ -9,14 +9,16 @@ const InstructorListItem = ({ instructor }) => {
     }
 
     return ( 
-        <div className = "book" onClick = { handleClick } >
-            <Link to = "/instructorDetail" >
-                <p > { instructor.id } </p> 
-                <p> { instructor.instructor_name} </p> 
-                <p> { instructor.email } </p> 
-                <p > { instructor.phone } </p> 
-            </Link> 
-        </div>
+        <a href="/instructorDetail">
+            <div className="card1" onClick={handleClick}>
+                <div className="card-body">
+                    <h1>{instructor.instructor_name}</h1>
+                    <br />
+                    <h6>Email- {instructor.email}</h6>
+                    <h6>Phone- {instructor.phone}</h6>
+                </div>
+            </div>
+        </a>
     )
 }
 

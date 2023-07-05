@@ -9,14 +9,16 @@ const SubjectInstructorAssignItem = ({instructor,subject}) => {
     }
 
     return (
-        <div className = "book" onClick = { handleClick } >
-        <Link to = "/assignInstructorConfirmation" >
-            <p > { instructor.id } </p> 
-            <p> { instructor.instructor_name} </p> 
-            <p> { instructor.email } </p> 
-            <p > { instructor.phone } </p> 
-        </Link> 
+        <a href="/assignInstructorConfirmation">
+        <div className="card1" onClick={handleClick}>
+            <div className="card-body">
+                <h1>{instructor.instructor_name}</h1>
+                <br />
+                <h6>Email- {instructor.email}</h6>
+                <h6>Phone- {instructor.phone}</h6>
+            </div>
         </div>
+    </a>
   )
 }
 

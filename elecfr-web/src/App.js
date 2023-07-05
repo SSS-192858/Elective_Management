@@ -5,9 +5,6 @@ import { getCurrentUser, logout } from './services/auth_services';
 import { useEffect, useState } from 'react';
 import LoginForm from './components/loginForm';
 import Home from './components/home';
-import BoardAdmin from "./components/BoardAdmin";
-import BoardInstructor from "./components/BoardInstructor";
-import BoardStudent from "./components/BoardStudent";
 import SignupInstructor from "./components/SignupInstructor";
 import SignupAdmin from "./components/SignupAdmin";
 import SignupStudent from "./components/SignupStudent";
@@ -34,10 +31,35 @@ import { removeInstructorFromStorage, removePersonalInstructorFromStorage, remov
 
 function App() {
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isStudent, setIsStudent] = useState(false);
-  const [isInstructor, setIsInstructor] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(() => {
+    const user = getCurrentUser();
+    if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "ADMIN"){
+      return true;
+    }else{
+      return false;
+    }
+  });
+  const [isStudent, setIsStudent] = useState(() => {
+    const user = getCurrentUser();
+    if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "STUDENT"){
+      return true;
+    }else{
+      return false;
+    }
+  });
+  const [isInstructor, setIsInstructor] = useState(() => {
+    const user = getCurrentUser();
+    if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "INSTRUCTOR"){
+      return true;
+    }else{
+      return false;
+    }
+  });
+
+  const [currentUser, setCurrentUser] = useState(() => {
+    const temp = getCurrentUser();
+    return temp;
+  });
 
   const resolveLogin = () => {
     const user = getCurrentUser();
@@ -83,35 +105,6 @@ function App() {
 
             {currentUser && (
               <>
-
-              {isAdmin && (
-              
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-              
-            )}
-
-            {isStudent && (
-              <li className="nav-item">
-                <Link to={"/student"} className="nav-link">
-                  Student Board
-                </Link>
-              </li>
-            )}
-          
-
-            {isInstructor&& (
-              
-              <li className="nav-item">
-              <Link to={"/instructor"} className="nav-link">
-                Instructor Board
-              </Link>
-              </li>
-              
-            )}
 
               <li className="nav-item">
                 <Link to={"/subjects"} className="nav-link">
@@ -259,15 +252,12 @@ function App() {
 
         <div className="container mt-3">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home currentUser={currentUser}/>} />
+            <Route path="/home" element={<Home currentUser={currentUser}/>} />
             <Route path="/login" element={<LoginForm setCurrentUser = {setCurrentUser} setIsAdmin = {setIsAdmin} setIsStudent = {setIsStudent} setIsInstructor={setIsInstructor}/>} />
             <Route path="/registerStudent" element={<SignupStudent />} />
             <Route path="/registerAdmin" element={<SignupAdmin />} />
             <Route path="/registerInstructor" element={<SignupInstructor/>} />
-            <Route path="/student" element={<BoardStudent/>} />
-            <Route path="/admin" element={<BoardAdmin/>}/>
-            <Route path="/instructor" element={<BoardInstructor/>}/>
             <Route path="/subjects" element={<SubjectsList choice={1}/>} />
             <Route path="/subjectsByInstructor" element={<SubjectsList choice={2}/>} />
             <Route path="/moreInfo" element={<SubjectDetails isAdmin={isAdmin} isInstructor={isInstructor} isStudent={isStudent}/>} />

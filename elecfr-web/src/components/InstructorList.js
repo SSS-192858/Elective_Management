@@ -17,18 +17,20 @@ function InstructorList(){
   
   return (
     <>
-      { (instructors.length === 0) ? <div className='container'>
-              <header className='jumbotron'> 
-                  Nothing to show
-              </header>
-          </div>
-              : null
-      }
-      <ul id="remove">
+    { (instructors.length === 0) ? <div className='container banner'>
+            <header className='jumbotron banner'> 
+              <h5>Nothing to show</h5>
+            </header>
+        </div>
+            : null
+    }
+    <div className='container'>
+      <div className='row'>
         {instructors.map((data) => (
-          <li id="space" key= {data.id}><InstructorListItem instructor={data}/></li>
+          <div key= {data.id} className='col-lg-4 col-sm-12 col-md-6'><InstructorListItem instructor={data}/></div>
         ))}
-      </ul>
+      </div>
+    </div>
     </>
   );
 }
