@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useStudentUpdateFormValidator } from "../validators/StudentUpdateValidator";
 import { getStudentFromStorage, setStudentInStorage } from "../services/localStorage_services";
+import image1 from "../assets/image1.png";
 
 const UpdateStudent = () => {
 
@@ -72,7 +73,7 @@ const UpdateStudent = () => {
         <div className="col-md-12">
             <div className="card card-container">
             <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                src={image1}
                 alt="profile-img"
                 className="profile-img-card"
             />

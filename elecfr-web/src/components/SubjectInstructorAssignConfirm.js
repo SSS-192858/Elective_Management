@@ -70,6 +70,7 @@ const SubjectAssignInstructorConfirmation = () => {
 
             </div>
             
+            </div></div>
 
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Assignment successful"}</DialogTitle>
@@ -85,7 +86,6 @@ const SubjectAssignInstructorConfirmation = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-            </div></div>
         </>
     )
 }
