@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { RequestSubjectValidator } from "../validators/SubjectRequestValidator";
 import { getSubjectFromStorage, getStudentFromStorage, } from "../services/localStorage_services";
 import { registerRequest } from "../services/user_services";
+import image from "../assets/image1.png";
 
 const SubjectRequestForm = () => {
 
@@ -76,7 +77,7 @@ const SubjectRequestForm = () => {
         <div className="col-md-12">
             <div className="card card-container">
             <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                src={image}
                 alt="profile-img"
                 className="profile-img-card"
             />

@@ -65,7 +65,7 @@ const SubjectStudentDetails = ({isAdmin}) => {
                     <p>Phone : {subjectStudent.student.phone}</p>
 
                     <p>
-                        Start Date : {dateFormat(subjectStudent.student.startDate,"fullDate")}
+                        Start Date : {dateFormat(subjectStudent.startDate,"fullDate")}
                     </p>
                     
                     <p>
