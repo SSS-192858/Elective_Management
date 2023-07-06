@@ -54,19 +54,19 @@ const LoginForm = ({setCurrentUser, setIsAdmin, setIsStudent,setIsInstructor}) =
 
         if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "ADMIN"){
           setIsAdmin(true)
-          navigate("/admin")
+          navigate("/home")
         }
 
         if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "STUDENT"){
           setIsStudent(true);
           setCurrentStudent();
-          navigate("/student")
+          navigate("/home")
         }
 
         if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "INSTRUCTOR"){
           setIsInstructor(true)
           setCurrentInstructor();
-          navigate("/instructor")
+          navigate("/home")
         }
         
       },

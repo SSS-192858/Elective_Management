@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { setRequestInStorage } from "../services/localStorage_services";
+import dateFormat from "dateformat";
 
 const RequestListItem = ({request}) => {
 
@@ -12,7 +12,7 @@ const RequestListItem = ({request}) => {
         <a href="/requestDetails">
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
-                    <h3>Subject- {request.subject.subjectTitle}</h3>
+                    <h3>Subject- {request.subject.subjectName}</h3>
                     <h3>Student- {request.student.studentName}</h3>
                     <br/>
                     <p>

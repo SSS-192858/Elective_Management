@@ -92,17 +92,11 @@ function App() {
   
   return (
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <nav className="navbar navbar-expand navbar-dark nav">
           <Link to={"/"} className="navbar-brand">
             Elective Management
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
-
             {currentUser && (
               <>
 

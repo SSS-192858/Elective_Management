@@ -43,6 +43,7 @@ const SubjectAssignInstructorConfirmation = () => {
         <>
         <div className="container">
         <div className="card">
+            <div className="card-body">
             <h1>Confirmation Page</h1>
             <h3>
                 Subject Details - 
@@ -66,6 +67,9 @@ const SubjectAssignInstructorConfirmation = () => {
             <button className="btn btn-success" onClick={handleAssign}>
                 Assign
             </button>
+
+            </div>
+            
 
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Assignment successful"}</DialogTitle>

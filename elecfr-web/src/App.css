@@ -27,12 +27,12 @@ a:hover {
 }
 
 .nav {
-  background-color: #001C30;
+  background-color: #090580;
   height: 12vh;
 }
 
 .card {
-  background-color: aliceblue;
+  background-color: #F4D3D3;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
@@ -45,7 +45,7 @@ a:hover {
 }
 
 .card1 {
-  background-color: aliceblue;
+  background-color: #F4D3D3;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
@@ -58,7 +58,7 @@ a:hover {
 }
 
 .card1:hover {
-  background-color: #176B87;
+  background-color: #46458C;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
@@ -75,7 +75,7 @@ a:hover {
 }
 
 .banner {
-  background-color: aliceblue;
+  background-color: #F4D3D3;
 }
 
 .heading {
@@ -105,5 +105,5 @@ a:hover {
 }
 
 html, body {
-  background-color: #64CCC5;
+  background-color: #E8A9A9;
 }
