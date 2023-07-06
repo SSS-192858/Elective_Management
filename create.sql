@@ -106,7 +106,7 @@ INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 3 FROM user WHERE
 
 INSERT INTO user values (4,"bmahesh","$2a$12$Yi8Rj1sWIikVcck1XHSKG.904xad0EkhglIk6gXCSAAtOEHzTYucu");
 INSERT INTO instructor values (2,4,"Mahesh B","mahesh@test.com","7848578485");
-INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "Mahesh B";
+INSERT INTO user_roles (user_id, role_id) SELECT user.user_id, 2 FROM user WHERE user.username = "bmahesh";
 
 INSERT INTO user values (5,"sankalpk","$2a$12$Yi8Rj1sWIikVcck1XHSKG.904xad0EkhglIk6gXCSAAtOEHzTYucu");
 INSERT INTO student values (2,5,"Sankalp Kothari","sankalpkothari04@gmail.com","8888777788");
