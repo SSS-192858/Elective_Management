@@ -29,11 +29,15 @@ const SubjectInstructorAssign = () => {
                 </h3>
             </header>
         </div>
-        <ul id="remove">
+
+        <div className='container'>
+          <div className='row'>
+
           {instructors.map((data) => (
-            <li id="space" key= {data.id}><SubjectInstructorAssignItem instructor={data} subject={subject}/></li>
+            <div id="space" key= {data.id} className='col-lg-4 col-sm-12 col-md-6'><SubjectInstructorAssignItem data={data} subject={subject}/></div>
           ))}
-        </ul>
+          </div>
+        </div>
       </>
   )
 }

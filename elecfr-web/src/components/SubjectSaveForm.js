@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import {useSubjectSaveValidator} from "../validators/SubjectSaveValidator";
 import {saveSubject} from '../services/user_services';
 import { removeSubjectFromStorage } from "../services/localStorage_services";
+import image from "../assets/image.png";
 
 const SubjectSaveForm = () => {
   
@@ -66,7 +67,7 @@ const SubjectSaveForm = () => {
     <div className="col-md-12">
         <div className="card card-container">
               <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                src={image}
                 alt="profile-img"
                 className="profile-img-card"
               />
@@ -107,7 +108,7 @@ const SubjectSaveForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <button className="btn btn-primary btn-block" type="submit">
+                    <button className="btn btn-success btn-block" type="submit">
                     Save
                     </button>
                 </div>

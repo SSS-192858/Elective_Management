@@ -29,55 +29,72 @@ const SubjectStudentDetails = ({isAdmin}) => {
     }
 
     return (
-        <div>
-            <div className="book">
-                <p>{subjectStudent.slno}</p>
-                <p>
-                    Subject Details :
-                </p>
-                <p>{subjectStudent.subject.subjectCode}</p>
-                <p>{subjectStudent.subject.subjectName}</p>
-                <p>{subjectStudent.subject.subjectDesc}</p>
-                <p>{subjectStudent.subject.instructor.instructor_name}</p>
+        <div className="container">
+        <div className="card">
+            <div className="card-body">
+                <h1 className="card-title">
+                {subjectStudent.slno}. {subjectStudent.subject.subjectName} - {subjectStudent.student.studentName}
+                </h1>
+                <div className="card-text">
+                    
+                    <h4>
+                        Subject Details :
+                    </h4>
+                    <p></p>
+                    <p>Description : {subjectStudent.subject.subjectDesc}</p>
 
-                <p>
-                    Student Details :
-                </p>
+                    {subjectStudent.subject.instructor ?
+                        <>
+                            <h4>
+                                Instructor Details :
+                            </h4>
+                            <p></p>
+                            <p>Instructor Name : {subjectStudent.subject.instructor.instructor_name}</p>
+                            <p>Email : {subjectStudent.subject.instructor.email}</p>
+                            <p>Phone : {subjectStudent.subject.instructor.phone}</p>
+                        </>
+                    : null }
 
-                <p>{subjectStudent.student.id}</p>
-                <p>{subjectStudent.student.studentName}</p>
-                <p>{subjectStudent.student.email}</p>
-                <p>{subjectStudent.student.phone}</p>
+                    <h4>
+                        Student Details :
+                    </h4>
+                    <p></p>
+                    <p>Email : {subjectStudent.student.email}</p>
+                    
+                    <p>Phone : {subjectStudent.student.phone}</p>
 
-                <p>
-                    Start Date : {subjectStudent.startDate}
-                </p>
-                <p>
-                    End Date : {subjectStudent.endDate}
-                </p>
-            {isAdmin && 
-            <button onClick={()=>{setOpen(true)}} className="btn btn-primary btn-block" type="submit">
-                Delete Record
-            </button>
-            }   
+                    <p>
+                        Start Date : {dateFormat(subjectStudent.student.startDate,"fullDate")}
+                    </p>
+                    
+                    <p>
+                        End Date :{dateFormat(subjectStudent.endDate,"fullDate")}
+                    </p>
+            </div>
+                {isAdmin && 
+                    <button onClick={()=>{setOpen(true)}} className="btn btn-danger">
+                        Delete Record
+                    </button>
+                }
+            </div>
+        </div> 
             <Dialog open={open} onClose={handleToClose}>
-                <DialogTitle>{"Delete BookStudent"}</DialogTitle>
+                <DialogTitle>{"Delete Record"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Are you sure you want to delete this record?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <button onClick={handleCancel} color="primary" autoFocus>
+                    <button onClick={handleCancel} color="light" autoFocus>
                         Cancel
                     </button>
                     <button onClick={handleToClose}
-                        color="primary" autoFocus>
+                        color="warning" autoFocus>
                         Delete Record
                     </button>
                 </DialogActions>
             </Dialog>
-            </div>
         </div>
     )
 }

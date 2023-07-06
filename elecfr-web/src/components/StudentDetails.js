@@ -50,59 +50,67 @@ const StudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     }
 
     return (
-        <div>
-            <p>{student.id}</p>
-            <p>{student.studentName}</p>
-            <p>{student.email}</p>
-            <p>{student.phone}</p>
 
-            {((isStudent && currStudent.id === student.id) || isAdmin) && (
-                <>
-                    <button onClick={navFunc1} className="btn btn-primary" type="submit">
-                        Update Info
-                    </button>
-                    <button onClick={navFunc2} className="btn btn-primary" type="submit">
-                        See all Subject Requests
-                    </button>
-                </>
-            )}
+        <div className="container">
+        <div className="card">
+            <div className="card-body">
+                <h1 className="card-title">
+                    Student Name - {student.studentName}
+                </h1>
+                <div className="card-text">
+                    <p>Student Email - {student.email}</p>
+                    <p>Student Phone - {student.phone}</p>
+                </div>
 
-            <button onClick={navFunc3} className="btn btn-primary" type="submit">
-                See all enrolled subjects
-            </button>
-            
-            {
-                (isInstructor) && (
-                    <button onClick={navFunc4} className="btn btn-primary" type="submit">
-                        See all subjects of yours that the student has taken
-                    </button>
-                )
-            }
+                {((isStudent && currStudent.id === student.id) || isAdmin) && (
+                    <>
+                        <button onClick={navFunc1} className="btn btn-warning" type="submit">
+                            Update Info
+                        </button>
+                        <button onClick={navFunc2} className="btn btn-success" type="submit">
+                            See all Subject Requests
+                        </button>
+                    </>
+                )}
 
-            {isAdmin && (
-                <button onClick={()=>{setOpen(true)}} className="btn btn-primary" type="submit">
-                    Delete Student
+                <button onClick={navFunc3} className="btn btn-info" type="submit">
+                    See all enrolled subjects
                 </button>
-            )}
+                
+                {
+                    (isInstructor) && (
+                        <button onClick={navFunc4} className="btn btn-info" type="submit">
+                            See all subjects of yours that the student has taken
+                        </button>
+                    )
+                }
 
-            <Dialog open={open} onClose={handleToClose}>
-                <DialogTitle>{"Delete Student"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to delete {student.studentName}?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={handleCancel} color="primary" autoFocus>
-                        Cancel
+                {isAdmin && (
+                    <button onClick={()=>{setOpen(true)}} className="btn btn-danger" type="submit">
+                        Delete Student
                     </button>
-                    <button onClick={handleToClose}
-                        color="primary" autoFocus>
-                        Delete
-                    </button>
-                    
-                </DialogActions>
-            </Dialog>
+                )}
+            </div>
+        </div>
+
+
+        <Dialog open={open} onClose={handleToClose}>
+            <DialogTitle>{"Delete Student"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Are you sure you want to delete {student.studentName}?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <button onClick={handleCancel} color="primary" autoFocus>
+                    Cancel
+                </button>
+                <button onClick={handleToClose}
+                    color="primary" autoFocus>
+                    Delete
+                </button>
+            </DialogActions>
+        </Dialog>
         </div>
     )
 }

@@ -75,112 +75,131 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
     }
 
     return (
-        <div>
-            <p>{subject.subjectCode}</p>
-            <p>{subject.subjectName}</p>
-            {subject.instructor ? <p>{subject.instructor.instructor_name}</p> : null}
-            <p>{subject.subjectDesc}</p>
+        <div className="container">
+        <div className="card">
+            <div className="card-body">
+                <h1 className="card-title">
+                    {subject.subjectName}
+                </h1>
+                <div className="card-text">
+                    <p>Subject Code - {subject.subjectCode}</p>
+                    <p>{subject.subjectDesc}</p>
+                    <br />
 
-            {isStudent &&
-            <button onClick={handleRequest} className="btn btn-primary">
-                Request Course
-            </button>
-            }
+                    {subject.instructor ?
+                        <>
+                            <h4>
+                                Instructor Details :
+                            </h4>
+                            <p></p>
+                            <p>Instructor Name : {subject.instructor.instructor_name}</p>
+                            <p>Email : {subject.instructor.email}</p>
+                            <p>Phone : {subject.instructor.phone}</p>
+                        </>
+                    : null }
+                </div>
 
-            {isAdmin &&
-            <>
-            <button onClick={seeRequestsForSubject} className="btn btn-primary">
-                See all requests for this subject
-            </button>
+                {isStudent &&
+                    <button onClick={handleRequest} className="btn btn-info">
+                        Request Course
+                    </button>
+                    }
 
-            <button onClick={assignInstructor} className="btn btn-primary">
-                Assign Instructor for this course
-            </button>
+                    {isAdmin &&
+                    <>
+                    <button onClick={seeRequestsForSubject} className="btn btn-info">
+                        See all requests for this subject
+                    </button>
 
-            <button onClick={navFunc} className="btn btn-primary">
-                Update Subject
-            </button>
+                    <button onClick={assignInstructor} className="btn btn-success">
+                        Assign Instructor for this course
+                    </button>
 
-            <button onClick={()=>{setOpen(true)}} className="btn btn-primary">
-                Delete Subject
-            </button>
+                    <button onClick={navFunc} className="btn btn-warning">
+                        Update Subject
+                    </button>
 
-            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary">
-                See all records of students taking this course
-            </button>
+                    <button onClick={()=>{setOpen(true)}} className="btn btn-danger">
+                        Delete Subject
+                    </button>
 
-            </>
-            } 
+                    <button onClick={seeStudentSubjectsForSubject} className="btn btn-info">
+                        See all records of students taking this course
+                    </button>
 
-            {(isInstructor && subject.instructor && instructor.id === subject.instructor.id) && 
+                    </>
+                    } 
 
-            <>
-            <button onClick={seeRequestsForSubject} className="btn btn-primary">
-                See all requests for this subject
-            </button>
+                    {(isInstructor && subject.instructor && instructor.id === subject.instructor.id) && 
 
-            <button onClick={navFunc} className="btn btn-primary">
-                Update Subject
-            </button>
+                    <>
+                    <button onClick={seeRequestsForSubject} className="btn btn-info">
+                        See all requests for this subject
+                    </button>
 
-            <button onClick={seeStudentSubjectsForSubject} className="btn btn-primary">
-                See all records of students taking this course
-            </button>
-            </>
-            } 
+                    <button onClick={navFunc} className="btn btn-danger">
+                        Update Subject
+                    </button>
 
-            {(subject.instructor) ? 
-                <>
-                <button onClick={seeInstructor} className="btn btn-primary"> 
-                    See instructor details for this course
+                    <button onClick={seeStudentSubjectsForSubject} className="btn btn-info">
+                        See all records of students taking this course
+                    </button>
+                    </>
+                    } 
+
+                    {(subject.instructor) ? 
+                        <>
+                        <button onClick={seeInstructor} className="btn btn-info"> 
+                            See instructor details for this course
+                        </button>
+                        {isAdmin &&
+                            <button onClick={openDialog} className="btn btn-danger"> 
+                                Remove Instructor for this course
+                            </button>
+                        }
+                        </>
+                        : null
+                    }
+            </div>
+        </div>
+
+        <Dialog open={open} onClose={handleToClose}>
+            <DialogTitle>{"Delete Book"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Are you sure you want to delete the subject?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <button onClick={handleCancel} color="primary" autoFocus>
+                    Cancel
                 </button>
-                {isAdmin &&
-                    <button onClick={openDialog} className="btn btn-primary"> 
-                        Remove Instructor for this course
-                    </button>
-                }
-                </>
-                : null
-            }
-            
-            <Dialog open={open} onClose={handleToClose}>
-                <DialogTitle>{"Delete Book"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to delete the subject?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={handleCancel} color="primary" autoFocus>
-                        Cancel
-                    </button>
-                    <button onClick={handleToClose}
-                        color="primary" autoFocus>
-                        Delete
-                    </button>
-                    
-                </DialogActions>
-            </Dialog>
+                <button onClick={handleToClose}
+                    color="primary" autoFocus>
+                    Delete
+                </button>
+                
+            </DialogActions>
+        </Dialog>
 
-            <Dialog open={open1} onClose={handleToClose1}>
-                <DialogTitle>{"Remove Instructor for Subject"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to remove the instructor for this subject?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={handleCancel} color="primary" autoFocus>
-                        Cancel
-                    </button>
-                    <button onClick={handleToClose1}
-                        color="primary" autoFocus>
-                        Remove
-                    </button>
-                    
-                </DialogActions>
-            </Dialog>
-            
+        <Dialog open={open1} onClose={handleToClose1}>
+            <DialogTitle>{"Remove Instructor for Subject"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Are you sure you want to remove the instructor for this subject?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <button onClick={handleCancel} color="primary" autoFocus>
+                    Cancel
+                </button>
+                <button onClick={handleToClose1}
+                    color="primary" autoFocus>
+                    Remove
+                </button>
+                
+            </DialogActions>
+        </Dialog>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useStudentSignupFormValidator } from "../validators/signupStudentValidator";
+import image1 from "../assets/image1.png";
 
 const SignupStudent = () => {
 
@@ -68,7 +69,7 @@ const SignupStudent = () => {
         <div className="col-md-12">
             <div className="card card-container">
             <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                src={image1}
                 alt="profile-img"
                 className="profile-img-card"
             />
@@ -172,7 +173,7 @@ const SignupStudent = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block">Sign Up</button>
+                        <button className="btn-block form-button1">Sign Up</button>
                     </div>
 
                     {message ? 

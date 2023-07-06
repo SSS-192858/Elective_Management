@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useInstructorUpdateFormValidator } from "../validators/InstructorUpdateValidator";
 import { getInstructorFromStorage, setInstructorInStorage } from "../services/localStorage_services";
+import image1 from "../assets/image1.png";
 
 const UpdateInstructor = () => {
 
@@ -128,7 +129,7 @@ const UpdateInstructor = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block">Update details</button>
+                        <button className="btn btn-success btn-block form-button">Update details</button>
                     </div>
 
                     {message ? 
