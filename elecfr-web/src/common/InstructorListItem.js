@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { setInstructorInStorage } from "../services/localStorage_services";
 
 const InstructorListItem = ({ instructor }) => {

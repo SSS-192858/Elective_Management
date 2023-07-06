@@ -7,6 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { deleteRequest , accept } from "../services/user_services";
 import { useNavigate } from "react-router-dom";
 import { getPersonalInstructorFromStorage, getRequestFromStorage } from "../services/localStorage_services";
+import dateFormat from "dateformat";
 
 const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
 
@@ -21,7 +22,7 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
 
     const [instructor, setInstructor] = useState(() => {
         const temp = getPersonalInstructorFromStorage();
-        return instructor;
+        return temp;
     })
 
     const handleToClose = () => {
@@ -85,11 +86,11 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
                     <p>Phone : {request.student.phone}</p>
 
                     <p>
-                        Start Date : {dateFormat(bookStudent.student.startDate,"fullDate")}
+                        Start Date : {dateFormat(request.student.startDate,"fullDate")}
                     </p>
                     
                     <p>
-                        End Date : {dateFormat(bookStudent.endDate,"fullDate")}
+                        End Date : {dateFormat(request.endDate,"fullDate")}
                     </p>
             </div>
 

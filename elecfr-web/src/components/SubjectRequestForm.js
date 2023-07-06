@@ -116,7 +116,7 @@ const SubjectRequestForm = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-success btn-block form-button">Request Subject</button>
+                        <button className="btn btn-primary btn-block form-button">Request Subject</button>
                     </div>
 
                     {message ? 

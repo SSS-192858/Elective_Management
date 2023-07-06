@@ -34,7 +34,7 @@ const SubjectInstructorAssign = () => {
           <div className='row'>
 
           {instructors.map((data) => (
-            <div id="space" key= {data.id} className='col-lg-4 col-sm-12 col-md-6'><SubjectInstructorAssignItem data={data} subject={subject}/></div>
+            <div id="space" key= {data.id} className='col-lg-4 col-sm-12 col-md-6'><SubjectInstructorAssignItem instructor={data} subject={subject}/></div>
           ))}
           </div>
         </div>

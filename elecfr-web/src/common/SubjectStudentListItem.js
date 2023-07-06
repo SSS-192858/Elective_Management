@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from "react-router-dom";
 import { setSubjectStudentInStorage } from '../services/localStorage_services';
 import dateFormat from 'dateformat';
 
@@ -13,7 +12,7 @@ export const SubjectStudentListItem = ({subjectStudent}) => {
         <a href="/studentSubjectDetail">
         <div className="card1" onClick={handleClick}>
             <div className="card-body">
-                <h3>Subject- {subjectStudent.subject.subjectTitle}</h3>
+                <h3>Subject- {subjectStudent.subject.subjectName}</h3>
                 <h3>Student- {subjectStudent.student.studentName}</h3>
                 <br/>
                 <p>

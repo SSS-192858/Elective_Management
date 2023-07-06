@@ -128,7 +128,7 @@ const UpdateStudent = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-success btn-block form-button">Update details</button>
+                        <button className="btn btn-primary btn-block form-button">Update details</button>
                     </div>
 
                     {message ? 
