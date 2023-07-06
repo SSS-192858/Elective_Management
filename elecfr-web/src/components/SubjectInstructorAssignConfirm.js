@@ -41,19 +41,29 @@ const SubjectAssignInstructorConfirmation = () => {
 
     return (
         <>
-            <p>{subject.subjectCode}</p>
-            <p>{subject.subjectName}</p>
-            <p>{subject.subjectDesc}</p>
-            <p>{instructor.Id}</p>
-            <p>{instructor.instructor_name}</p>
-            <p>{instructor.email}</p>
-            <p>{instructor.phone}</p>
+        <div className="container">
+        <div className="card">
+            <h1>Confirmation Page</h1>
+            <h3>
+                Subject Details - 
+            </h3>
+            <p>Subject code - {subject.subjectCode}</p>
+            <p>Subject name - {subject.subjectName}</p>
+            <p>Subject description - {subject.subjectDesc}</p>
+
+            <h3>
+                Instructor Details
+            </h3>
+            <p>Instructor id - {instructor.Id}</p>
+            <p>Instructor name - {instructor.instructor_name}</p>
+            <p>Instructor email - {instructor.email}</p>
+            <p>Instructor phone - {instructor.phone}</p>
             
-            <button className="btn btn-primary btn-block" onClick={handleCancel}>
+            <button className="btn btn-danger" onClick={handleCancel}>
                 Cancel
             </button>
 
-            <button className="btn btn-primary btn-block" onClick={handleAssign}>
+            <button className="btn btn-success" onClick={handleAssign}>
                 Assign
             </button>
 
@@ -71,6 +81,7 @@ const SubjectAssignInstructorConfirmation = () => {
                     </button>
                 </DialogActions>
             </Dialog>
+            </div></div>
         </>
     )
 }
