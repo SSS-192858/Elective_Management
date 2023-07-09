@@ -260,8 +260,8 @@ function App() {
             <Route path="/subjectRequest" element={<SubjectRequestForm/>} />
             <Route path="/instructors" element={<InstructorList/>}/>
             <Route path="/instructorUpdate" element={<UpdateInstructor/>} />
-            <Route path="/instructorDetail" element={<InstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>}/>
-            <Route path="/personalInstructorDetail" element={<PersonalInstructorDetails isInstructor={isInstructor} isStudent={isStudent} isAdmin={isAdmin}/>} />
+            <Route path="/instructorDetail" element={<InstructorDetails isInstructor={isInstructor} isAdmin={isAdmin}/>}/>
+            <Route path="/personalInstructorDetail" element={<PersonalInstructorDetails isInstructor={isInstructor} isAdmin={isAdmin}/>} />
             <Route path="/students" element={<StudentList/>}/>
             <Route path="/updateStudent" element={<UpdateStudent/>} />
             <Route path="/studentDetail" element={<StudentDetails isStudent={isStudent} isAdmin={isAdmin} isInstructor={isInstructor}/>}/>

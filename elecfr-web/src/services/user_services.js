@@ -119,11 +119,9 @@ export const registerRequest = async(student, subject, startDate, endDate) => {
 
 export const deleteRequest = async(slno) => {
     const response = await axios.delete(API_URL + `request/delete/${slno}`, { headers: { Authorization: "Bearer " + authHeader() } });
-    console.log("Request Deleted " + response.data);
 }
 
 export const accept = async(request) => {
-    console.log(request);
     const response = await axios.post(API_URL + `studentSubject/accept`, {
         slno: request.slno,
         subject: request.subject,
@@ -174,7 +172,6 @@ export const getInstructors = async() => {
 
 export const getSubjectStudents = async() => {
     const response = await axios.get(API_URL + `studentSubject/getAll`, { headers: { Authorization: "Bearer " + authHeader() } });
-    console.log(response.data)
     return response.data;
 }
 
