@@ -8,7 +8,7 @@ import { deleteInstructor } from "../services/user_services"
 import { useNavigate } from "react-router-dom";
 import { getInstructorFromStorage, removeInstructorFromStorage, getPersonalInstructorFromStorage }from "../services/localStorage_services";
 
-const InstructorDetails = ({isInstructor, isStudent, isAdmin}) => {
+const InstructorDetails = ({isInstructor,isAdmin}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
