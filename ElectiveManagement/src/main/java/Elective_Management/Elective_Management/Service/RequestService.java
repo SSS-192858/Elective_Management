@@ -35,6 +35,7 @@ public class RequestService {
         this.instructorDAO = instructorDAO;
     }
 
+    //method to save a request, throws exception if subject or student not found
     public Request saveRequest(Request Request) throws SubjectNotFoundException, StudentNotFoundException {
         int sid = Request.getStudent().getId();
         int subid = Request.getSubject().getSubjectCode();
@@ -51,6 +52,7 @@ public class RequestService {
         return this.RequestDAO.saveRequest(Request);
     }
 
+    //method to get request by id, throws exception if request not found
     public Request getRequestbyId(int id) throws RequestNotFoundException {
         Request request = this.RequestDAO.findRequestById(id);
         if (request == null){
@@ -59,10 +61,12 @@ public class RequestService {
         return request;
     }
 
+    //method to get all requests in the db
     public List<Request> getAllRequest() {
         return this.RequestDAO.findAllRequests();
     }
 
+    //method to delete a request by id, throws exception if request not found
     public void deleteRequestbyId(int id) throws RequestNotFoundException{
         Request request = this.RequestDAO.findRequestById(id);
         if (request == null){
@@ -71,6 +75,7 @@ public class RequestService {
         this.RequestDAO.deleteById(id);
     }
 
+    //method to get the requests for a given instructor, throws exception if instructor not found
     public List<Request> getRequestsByInstructorId(Integer id) throws InstructorNotFoundException {
         Instructor instructor = this.instructorDAO.findInstructorById(id);
         if(instructor==null)
@@ -80,6 +85,7 @@ public class RequestService {
         return this.RequestDAO.getRequestByInstructorId(id);
     }
 
+    //method to get requests by subject id, throws exception if subject not found
     public List<Request> getRequestsBySubjectId(Integer id) throws SubjectNotFoundException{
         Subject subject = this.subjectDAO.findSubjectById(id);
         if(subject==null)
@@ -89,6 +95,7 @@ public class RequestService {
         return this.RequestDAO.getRequestBySubjectId(id);
     }
 
+    //method to get requests for a given student, throws error if student not found
     public List<Request> getRequestByStudentId(Integer id) throws StudentNotFoundException{
         Student student = this.studentDAO.findStudentById(id);
         if(student==null)

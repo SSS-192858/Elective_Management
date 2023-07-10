@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/instructor")
 @CrossOrigin(origins = "*")
+// contains and manages all the endpoints pertaining to Instructor.
 public class InstructorController {
 
     private InstructorService instructorService;
@@ -29,18 +30,21 @@ public class InstructorController {
     }
 
     @GetMapping("/getAll")
+    // fn to get all instructors.
     public List<Instructor> getAllInstructor()
     {
         return this.instructorService.getAllInstructor();
     }
 
     @GetMapping("/getbyID/{id}")
+    // fn to get instructor by id.
     public Instructor getInstructorbyId(@PathVariable int id)
     {
         return this.instructorService.getInstructorById(id);
     }
 
     @PostMapping("/save")
+    // fn to save instructor.
     public Instructor saveInstructor(@RequestBody Instructor Instructor, @RequestHeader String Authorization)
     {
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
@@ -51,6 +55,7 @@ public class InstructorController {
     }
 
     @PutMapping("/update")
+    // fn to update the instructor.
     public Instructor updateInstructor(@RequestBody Instructor Instructor, @RequestHeader String Authorization)
     {
         Instructor instructor = this.instructorService.getInstructorById(Instructor.getId());
@@ -61,16 +66,17 @@ public class InstructorController {
     }
 
     @DeleteMapping("/delete/{id}")
+    // fn to delete the instructor.
     public void deleteInstructor(@PathVariable int id)
     {
         this.instructorService.deleteInstructorById(id);
     }
 
     @GetMapping("/user/getInstructor")
+    // fn to get instructor by passing user id.
     public Instructor getByUserId(@RequestHeader String Authorization){
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
         User user = jwtUserDetailsService.getUserByUsername(username);
-        Instructor instructor = instructorService.getByUserId(user.getId());
         return instructorService.getByUserId(user.getId());
     }
 }

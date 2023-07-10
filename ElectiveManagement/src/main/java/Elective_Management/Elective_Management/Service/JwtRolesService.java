@@ -10,6 +10,7 @@ public class JwtRolesService {
     @Autowired
     private RoleDAO roleDAO;
 
+    //method to get role by name
     public Role findByName(String name) {
         return roleDAO.findRoleByName(name);
     }

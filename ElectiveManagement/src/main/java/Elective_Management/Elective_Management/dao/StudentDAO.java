@@ -4,6 +4,7 @@ import Elective_Management.Elective_Management.Entity.Student;
 
 import java.util.List;
 
+// DAO to access and update values from the student table in the database
 public interface StudentDAO {
     public Student saveStudent(Student student);
 

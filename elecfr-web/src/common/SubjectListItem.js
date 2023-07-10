@@ -2,13 +2,15 @@ import React from "react";
 import { setSubjectInStorage } from "../services/localStorage_services"
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//list item to show the subject details
 const SubjectListItem = ({subject}) => {
 
+    //when clicked, set the subject in storage
     const handleClick = () => {
-        // setBookInStorage(subject);
         setSubjectInStorage(subject);
     }
 
+    //component
     return (
         <a href="/moreInfo">
             <div className="card1" onClick={handleClick}>

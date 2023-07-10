@@ -1,5 +1,7 @@
 package Elective_Management.Elective_Management.model;
 
+//intermediate data transfer object to transfer data across the program
+//contains username and password
 public class UserDTO {
     private String username;
     private String password;

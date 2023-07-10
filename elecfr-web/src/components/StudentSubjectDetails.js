@@ -9,8 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { getSubjectStudentFromStorage } from "../services/localStorage_services";
 import dateFormat from "dateformat";
 
+//Component to show the student subject details
 const SubjectStudentDetails = ({isAdmin}) => {
 
+    //get from local storage
     const [subjectStudent, setSubjectStudent] = useState(() => {
         const temp = getSubjectStudentFromStorage();
         return temp;
@@ -19,6 +21,7 @@ const SubjectStudentDetails = ({isAdmin}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
+    //functions to handle the dialog box
     const handleToClose = () => {
         deleteSubjectStudent(subjectStudent.slno);
         setOpen(false);
@@ -30,6 +33,7 @@ const SubjectStudentDetails = ({isAdmin}) => {
     }
 
     return (
+        // Show the details of the subject student record
         <div className="container">
         <div className="card">
             <div className="card-body">
@@ -72,6 +76,8 @@ const SubjectStudentDetails = ({isAdmin}) => {
                         End Date :{dateFormat(subjectStudent.endDate,"fullDate")}
                     </p>
             </div>
+            
+            {/* Button to Delete the record if admin */}
                 {isAdmin && 
                     <button onClick={()=>{setOpen(true)}} className="btn btn-danger">
                         Delete Record
@@ -79,6 +85,8 @@ const SubjectStudentDetails = ({isAdmin}) => {
                 }
             </div>
         </div> 
+
+        {/* Dialog box to handle the deleting of the record */}
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Delete Record"}</DialogTitle>
                 <DialogContent>
@@ -87,9 +95,11 @@ const SubjectStudentDetails = ({isAdmin}) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
+                    {/* Cancel */}
                     <button onClick={handleCancel} color="light" autoFocus>
                         Cancel
                     </button>
+                    {/* Delete */}
                     <button onClick={handleToClose}
                         color="warning" autoFocus>
                         Delete Record

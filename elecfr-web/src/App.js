@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -30,7 +31,7 @@ import PersonalStudentDetails from "./components/PersonalStudentDetails";
 import { removeInstructorFromStorage, removePersonalInstructorFromStorage, removePersonalStudentFromStorage, removeRequestFromStorage, removeStudentFromStorage, removeSubjectFromStorage, removeSubjectStudentFromStorage } from "./services/localStorage_services";
 
 function App() {
-
+  // isAdmin variable used to see if the current user logged in is Admin.
   const [isAdmin, setIsAdmin] = useState(() => {
     const user = getCurrentUser();
     if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "ADMIN"){
@@ -39,6 +40,7 @@ function App() {
       return false;
     }
   });
+  // isStudent variable used to see if the current user logged in is Student.
   const [isStudent, setIsStudent] = useState(() => {
     const user = getCurrentUser();
     if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "STUDENT"){
@@ -47,6 +49,7 @@ function App() {
       return false;
     }
   });
+  // isInstructor variable used to see if the current user logged in is Instructor.
   const [isInstructor, setIsInstructor] = useState(() => {
     const user = getCurrentUser();
     if (user && user.user && user.user.roles[0] && user.user.roles[0].name && user.user.roles[0].name === "INSTRUCTOR"){
@@ -55,12 +58,13 @@ function App() {
       return false;
     }
   });
-
+  // currentUser variable that will store the details of current logged in user.
   const [currentUser, setCurrentUser] = useState(() => {
     const temp = getCurrentUser();
     return temp;
   });
-
+  // this fn will be called when we login, this shall intitialise the required 
+  // variables.
   const resolveLogin = () => {
     const user = getCurrentUser();
     if (user) {
@@ -70,7 +74,9 @@ function App() {
       setIsStudent(user.user.roles[0].name === "STUDENT");
     }
   };
-
+  // app logout function that shall
+  // remove all the data from the local storage and
+  // it will also set the variables to its default values.
   const Applogout = () => {
     logout();
     setCurrentUser(null);
@@ -86,6 +92,7 @@ function App() {
     removeSubjectStudentFromStorage();
   }
 
+
   useEffect(() => {
     resolveLogin();
   }, []);
@@ -94,6 +101,7 @@ function App() {
       <div>
         <nav className="navbar navbar-expand navbar-dark nav">
           <Link to={"/"} className="navbar-brand">
+            {/* Link to Home button*/}
             Elective Management
           </Link>
           <div className="navbar-nav mr-auto">
@@ -102,12 +110,14 @@ function App() {
 
               <li className="nav-item">
                 <Link to={"/subjects"} className="nav-link">
+                  {/* Link to list of subjects. */}
                   Subjects
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to={"/instructors"} className="nav-link">
+                  {/* Link to set of instructors. */}
                   Instructors
                 </Link>
               </li>
@@ -116,12 +126,14 @@ function App() {
             <>
               <li className="nav-item">
                 <Link to={"/addSubject"} className="nav-link">
+                  {/* Option to add a subject.*/}
                   Add a Subject
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to={"/requests"} className="nav-link">
+                  {/* Option to see all the requests. */}
                   All Requests
                 </Link>
               </li>
@@ -132,12 +144,14 @@ function App() {
               <>
                 <li className="nav-item">
                   <Link to={"/students"} className="nav-link">
+                    {/* Option to see all the students. */}
                     All students
                   </Link>
                 </li>
 
                 <li className="nav-item">
                   <Link to={"/studentSubjects"} className="nav-link">
+                    {/* Option to see all the students who have taken a course.*/}
                     All student enrollments
                   </Link>
                 </li>
@@ -155,6 +169,7 @@ function App() {
               {isAdmin && (
                 <li>
                   <a href = "/registerAdmin" className="nav-link">
+                    {/* Register a new admin.*/}
                     Register New Admin
                   </a>
                 </li>
@@ -163,6 +178,7 @@ function App() {
               {isAdmin && (
                 <li>
                   <a href = "/registerInstructor" className="nav-link">
+                    {/* Register a new instructor.*/}
                     Register New Instructor
                   </a>
                 </li>
@@ -171,6 +187,7 @@ function App() {
               {isAdmin && (
                 <li>
                   <a href = "/registerStudent" className="nav-link">
+                    {/* option to register a new student.*/}
                     Register New Student
                   </a>
                 </li>
@@ -180,18 +197,21 @@ function App() {
                 <>
                   <li className="nav-item">
                     <Link to={"/requestsForStudent"} className="nav-link">
+                      {/* option to see self's pending requests. */}
                       Pending Requests
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link to={"/studentSubjectByStudent"} className="nav-link">
+                      {/* option to see all the subjects the student has enrolled in. */}
                       Subjects Enrolled
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link to={"/personalStudentDetail"} className="nav-link">
+                      {/* Option to see his/her profile. */}
                       Profile
                     </Link>
                   </li>
@@ -202,24 +222,28 @@ function App() {
                 <>
                   <li className="nav-item">
                     <Link to={"/requestsForInstructor"} className="nav-link">
+                      {/* Option to see the pending requests for the instructor. */}
                       Pending Requests
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link to={"/studentSubjectByInstructor"} className="nav-link">
+                      {/* Option to see his/her students. */}
                       My students
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link to={"/subjectsByInstructor"} className="nav-link">
+                      {/* Option to see the subjects taught by self. */}
                       My Subjects
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link to={"/personalInstructorDetail"} className="nav-link">
+                      {/* Option to see his/her profile. */}
                       Profile
                     </Link>
                   </li>
@@ -228,6 +252,7 @@ function App() {
 
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={Applogout}>
+                  {/* option to logout. */}
                   Log out
                 </a>
               </li>
@@ -237,6 +262,7 @@ function App() {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
+                  {/* option to login. */}
                   Login
                 </Link>
               </li>

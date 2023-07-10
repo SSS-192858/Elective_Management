@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { setStudentInStorage } from "../services/localStorage_services";
 
+//clickable list item to show student details
 const StudentListItem = ({student}) => {
 
+    //when clicked, set the student in storage, and show details of the student
     const handleClick = () => {
         setStudentInStorage(student);
     }
 
+    //component
     return (
         <a href="/studentDetail">
             <div className="card1" onClick={handleClick}>

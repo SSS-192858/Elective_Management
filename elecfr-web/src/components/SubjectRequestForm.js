@@ -1,32 +1,34 @@
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
-
 import Dialog from "@mui/material/Dialog";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { RequestSubjectValidator } from "../validators/SubjectRequestValidator";
-import { getSubjectFromStorage, getStudentFromStorage, } from "../services/localStorage_services";
+import { getSubjectFromStorage, getPersonalStudentFromStorage, } from "../services/localStorage_services";
 import { registerRequest } from "../services/user_services";
 import image from "../assets/image1.png";
 
+//Request subject form
 const SubjectRequestForm = () => {
 
     const [open, setOpen] = React.useState(false);
 
+    //form state variable 
     const [form, setForm] = useState({
         startDate:"",
         endDate:""
     });
 
+    //subject and student data is taken from local storage
     const [subject, setSubject] = useState(() => {
         const temp = getSubjectFromStorage();
         return temp;
     })
 
     const [student, setStudent] = useState(() => {
-        const temp = getStudentFromStorage();
+        const temp = getPersonalStudentFromStorage();
         return temp;
     })
 
@@ -35,6 +37,7 @@ const SubjectRequestForm = () => {
 
     const {errors, validateForm} = RequestSubjectValidator(form);
 
+    //functions to handle opening and closing of dialog boxes
     const handleClickToOpen = () => {
         setOpen(true);
     };
@@ -44,6 +47,7 @@ const SubjectRequestForm = () => {
         navigate("/subjects")
     };
 
+    //function to handle changes to the form state variable
     const onUpdateField = e => {
         const nextFormState = {
           ...form,
@@ -52,16 +56,20 @@ const SubjectRequestForm = () => {
         setForm(nextFormState);
     };
 
+    //function to be called when the submit button is clicked
     const onSubmitForm = e => {
         setMessage("")
         e.preventDefault();    
         const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
         if (!isValid) return;
+        //if valid parameters, register the request
         registerRequest(student,subject,form.startDate,form.endDate).then(
             response => {
+                //show dialog box on success
                 handleClickToOpen()
             },
             error => {
+                //else set reqd error message
                 const resMessage = (error.response &&
                     error.response.data &&
                     error.response.data.message) ||
@@ -85,6 +93,7 @@ const SubjectRequestForm = () => {
             <form onSubmit={onSubmitForm}>
                 
                 <div className="form-group">
+                    {/* Start date input */}
                     <label htmlFor="startDate">startDate</label>
                     <input
                         type="date"
@@ -100,6 +109,7 @@ const SubjectRequestForm = () => {
                             ) : null}
                     </div>
 
+                    {/* End date input */}
                     <div className="form-group">
                         <label htmlFor="endDate">End Date</label>
                         <input
@@ -120,12 +130,14 @@ const SubjectRequestForm = () => {
                         <button className="btn btn-primary btn-block form-button">Request Subject</button>
                     </div>
 
+                    {/* Conditionally show the error message */}
                     {message ? 
                         <div className="alert alert-danger" role="alert">{message}</div>
                         : null}
                 </form>
             </div>
 
+            {/* If successful, dialog box is shown confirming the same */}
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Request Subject"}</DialogTitle>
                 <DialogContent>

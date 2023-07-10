@@ -1,3 +1,14 @@
+//The following variables are stored in local storage, to avoid loss on refresh
+//1. Currently logged in student (represented by personalStudent)
+//2. Currently logged in instructor (represented by personalInstructor)
+//3. Current student
+//4. Current instructor
+//5. Current subject
+//6. Current Request
+//7. Current StudentSubject record
+
+//the following are the methods to set, get and remove the same from local storage.
+
 export const setSubjectInStorage = (subject) => {
     localStorage.setItem("subject", JSON.stringify(subject));
 }

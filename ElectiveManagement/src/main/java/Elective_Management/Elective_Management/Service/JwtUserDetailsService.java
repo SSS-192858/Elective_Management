@@ -31,6 +31,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserDAO userDao;
 
+    //method to load the user details object by username, throws exception if user not found
+    //used in security logic
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -42,6 +44,8 @@ public class JwtUserDetailsService implements UserDetailsService {
                 getAuthority(user));
     }
 
+    //method to get user by username, used in controllers
+    //throws exception if user not found
     public User getUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
         if (user == null) {
@@ -51,6 +55,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return user;
     }
 
+    //to get the roles for a given user
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRoles().forEach(role -> {
@@ -59,6 +64,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return authorities;
     }
 
+    //method to save a student in the db
     public User saveStudent(UserDTO user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
@@ -73,6 +79,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return userDao.save(newUser);
     }
 
+    //method to save an instructor in the db
     public User saveInstructor(UserDTO user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
@@ -87,6 +94,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return userDao.save(newUser);
     }
 
+    //method to save an admin to the db
     public User saveAdmin(UserDTO user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());

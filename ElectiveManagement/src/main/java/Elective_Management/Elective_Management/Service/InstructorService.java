@@ -25,11 +25,13 @@ public class InstructorService {
         this.subjectDAO = subjectDAO;
         this.userDAO = userDAO;
     }
-
+    
+    //method to save the instructor data
     public Instructor saveInstructor(Instructor instructor) {
         return this.instructorDAO.saveInstructor(instructor);
     }
-
+    
+    //method to get the instructor by id, throws exception if instructor not found
     public Instructor getInstructorById(int id) throws InstructorNotFoundException {
         Instructor instructor = this.instructorDAO.findInstructorById(id);
         if (instructor == null){
@@ -38,10 +40,12 @@ public class InstructorService {
         return instructor;
     }
     
+    //method to get all instructors
     public List<Instructor> getAllInstructor() {
         return this.instructorDAO.findAllInstructors();
     }
 
+    //method to delete instructor by id, subsequently also deletes the user data for the instructor
     public void deleteInstructorById(int id) throws InstructorNotFoundException {
         Instructor instructor = this.instructorDAO.findInstructorById(id);
         if (instructor == null){
@@ -52,6 +56,7 @@ public class InstructorService {
         this.userDAO.delete(user);
     }
 
+    //method to update instructor data, throws exception if instructor not found
     public Instructor updateInstructor(Instructor instructor) throws InstructorNotFoundException {
         Instructor inst = this.instructorDAO.findInstructorById(instructor.getId());
         if (inst == null){
@@ -60,6 +65,7 @@ public class InstructorService {
         return this.instructorDAO.updateInstructor(instructor);
     }
 
+    //method to get the instructor for a given subject, throws exception if subject not found
     public Instructor getInstructorBySubjectId(Integer id) throws SubjectNotFoundException {
         Subject subject = this.subjectDAO.findSubjectById(id);
         if (subject == null){
@@ -67,7 +73,8 @@ public class InstructorService {
         }
         return instructorDAO.getInstructorBySubjectId(id);
     }
-
+    
+    //method to get instructor data using USER ID
     public Instructor getByUserId(Integer id) {
         return instructorDAO.getInstructorByUserId(id);
     }

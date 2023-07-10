@@ -3,6 +3,7 @@ import { getInstructors } from '../services/user_services'
 import { getSubjectFromStorage } from '../services/localStorage_services'
 import SubjectInstructorAssignItem from '../common/SubjectInstructorAssignItem'
 
+//component to assign an instructor for the given subject
 const SubjectInstructorAssign = () => {
 
     const [subject,setSubject] = useState(()=>{
@@ -10,6 +11,7 @@ const SubjectInstructorAssign = () => {
       return response;
     })
     
+    //the list of instructors is obtained from backend, and subject from storage
     const [instructors,setInstructors] = useState([]);
 
     const getInstructorsOnStart=async()=>{
@@ -20,8 +22,10 @@ const SubjectInstructorAssign = () => {
         getInstructorsOnStart();
     },[])
 
+    
     return (
         <>
+        {/* User prompt */}
         <div className='container'>
             <header className='jumbotron'>
                 <h3>
@@ -30,6 +34,7 @@ const SubjectInstructorAssign = () => {
             </header>
         </div>
 
+        {/* List of instructors to choose from */}
         <div className='container'>
           <div className='row'>
 

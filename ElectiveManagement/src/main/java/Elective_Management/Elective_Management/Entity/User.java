@@ -7,18 +7,22 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
+// User Entity that will be used to map to user table.
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+//     user id.
     private Integer id;
 
     @Column(name = "username")
+//    name of the user.
     private String username;
 
     @Column(name = "password")
     @JsonIgnore
+//    password of the user.
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

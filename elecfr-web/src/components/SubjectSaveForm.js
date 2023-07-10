@@ -10,10 +10,12 @@ import {saveSubject} from '../services/user_services';
 import { removeSubjectFromStorage } from "../services/localStorage_services";
 import image from "../assets/image.png";
 
+//component to save a subject 
 const SubjectSaveForm = () => {
-  
+
     const [open,setOpen] = React.useState(false);
 
+    //form state variable
     const [form, setForm] = useState({
         subjectName:"",
         subjectDesc:""
@@ -21,19 +23,9 @@ const SubjectSaveForm = () => {
 
   const navigate = useNavigate();
 
+  //functions to handle the opening and closing of dialog boxes
   const handleClickToOpen = () => {
     setOpen(true);
-    };
-  const [message, setMessage] = useState("");
-
-  const {errors, validateForm} = useSubjectSaveValidator(form)
-
-  const onUpdateField = e => {
-    const nextFormState = {
-      ...form,
-      [e.target.name]: e.target.value,
-    };
-    setForm(nextFormState);
   };
 
   const handleToClose = () => {
@@ -42,16 +34,33 @@ const SubjectSaveForm = () => {
     removeSubjectFromStorage();
   };
 
+  const [message, setMessage] = useState("");
+
+  const {errors, validateForm} = useSubjectSaveValidator(form)
+
+  //function to handle changes to the form state 
+  const onUpdateField = e => {
+    const nextFormState = {
+      ...form,
+      [e.target.name]: e.target.value,
+    };
+    setForm(nextFormState);
+  };
+
+  //function to be called when we press the submit button
   const onSubmitForm = e => {
     setMessage("")
-    e.preventDefault();    
+    e.preventDefault();   
+    //if entries are valid, allow, else not 
     const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
     if (!isValid) return;
     saveSubject(form.subjectName, form.subjectDesc).then(
         response => {
+            //if save successful, open dialog box
             handleClickToOpen()
         },
         error => {
+            //else set error message
             const resMessage = (error.response &&
               error.response.data &&
               error.response.data.message) ||
@@ -72,6 +81,7 @@ const SubjectSaveForm = () => {
                 className="profile-img-card"
               />
 
+              {/* Subject name input */}
             <form onSubmit={onSubmitForm}>
                 <div className="form-group">
                     <label htmlFor="subjectName">Subject Name</label>
@@ -90,6 +100,7 @@ const SubjectSaveForm = () => {
                             ) : null}
                 </div>
 
+                {/* Subject description input */}
                 <div className="form-group">
                     <label htmlFor="subjectDesc">Subject Desc</label>
                     <textarea
@@ -107,17 +118,21 @@ const SubjectSaveForm = () => {
                             ) : null}
                 </div>
 
+                {/* Save subject button */}
                 <div className="form-group">
                     <button className="btn btn-primary btn-block" type="submit">
                     Save
                     </button>
                 </div>
 
+                {/* Conditionally show error message if any */}
                 {message ? 
                   <div className="alert alert-danger" role="alert">{message}</div>
                 : null}
             </form>
         </div>
+
+        {/* Dialog box shown if successfully save subject */}
         <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Subject Saved successfully"}</DialogTitle>
                 <DialogContent>

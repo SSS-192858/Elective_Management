@@ -19,17 +19,20 @@ public class SubjectDAOImpl implements SubjectDAO{
         this.entityManager = entityManager;
     }
 
+    //save a new subject
     @Override
     @Transactional
     public Subject saveSubject(Subject Subject) {
         return this.entityManager.merge(Subject);
     }
 
+    //find subject by subject code
     @Override
     public Subject findSubjectById(Integer id) {
         return this.entityManager.find(Subject.class,id);
     }
 
+    //delete a subject by its subject code
     @Override
     @Transactional
     public void deleteById(Integer id) {
@@ -37,18 +40,21 @@ public class SubjectDAOImpl implements SubjectDAO{
         this.entityManager.remove(Subject);
     }
 
+    //update existing subject record
     @Override
     @Transactional
     public Subject updateSubject(Subject Subject) {
         return this.entityManager.merge(Subject);
     }
 
+    //get all subjects
     @Override
     public List<Subject> findAllSubjects() {
         TypedQuery<Subject> tq = this.entityManager.createQuery("From Subject",Subject.class);
         return tq.getResultList();
     }
 
+    // get list of subjects taught by a particular instructor
     @Override
     public List<Subject> listSubjectByInstructorId(Integer id){
         TypedQuery<Subject> query = this.entityManager.createQuery("FROM Subject where instructor.id = :id", Subject.class);

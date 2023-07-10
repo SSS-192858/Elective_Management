@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
+// first page that shows up, in case user is logged in takes them to the subjects page, if not then to the login page
 const Home = ({currentUser}) => {
     const navigate = useNavigate();
 
