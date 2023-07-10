@@ -4,6 +4,7 @@ import Elective_Management.Elective_Management.Entity.Instructor;
 
 import java.util.List;
 
+// DAO to access and update values from the instructor table in the database
 public interface InstructorDAO {
 
     public Instructor saveInstructor(Instructor Instructor);

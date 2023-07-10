@@ -7,17 +7,19 @@ import DialogContent from "@mui/material/DialogContent";
 import {deleteStudent} from "../services/user_services"
 import { useNavigate } from "react-router-dom";
 import { removeStudentFromStorage, getPersonalStudentFromStorage, setStudentInStorage } from "../services/localStorage_services";
-
+// will be used in showing details of personal student.
 const PersonalStudentDetails = ({isStudent, isAdmin, isInstructor}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
+    // student variable that will be used in storing the student details.
     const [student, setStudent] = useState(() => {
         const temp = getPersonalStudentFromStorage();
         setStudentInStorage(temp);
         return temp;
     });
 
+    // this fn will be called when we want to delete the student.
     const handleToClose = () => {
         deleteStudent(student.id);
         setOpen(false);
@@ -25,22 +27,27 @@ const PersonalStudentDetails = ({isStudent, isAdmin, isInstructor}) => {
         navigate("/students")
     };
 
+    // fn will be called when we want to cancel the operation.
     const handleCancel = ()=>{
         setOpen(false);
     }
 
+    // fn will be called when we want to update the student.
     const navFunc1 = () => {
         navigate("/updateStudent");
     } 
 
+    // fn to see all the request made by that student.
     const navFunc2 = () => {
         navigate("/requestsForStudent");
     }
 
+    // fn to see the student -subject records the student has enrolled in(subjects).
     const navFunc3 = () => {
         navigate("/studentSubjectByStudent")
     }
 
+    // fn to see the student-subjects records by student and instructor.
     const navFunc4 = () => {
         navigate("/studentSubjectByStudentAndInstructor")
     }
@@ -60,35 +67,31 @@ const PersonalStudentDetails = ({isStudent, isAdmin, isInstructor}) => {
                 {(isStudent || isAdmin) && (
                     <>
                         <button onClick={navFunc1} className="btn btn-warning" type="submit">
+                            {/* option to update the info */}
                             Update Info
                         </button>
                         <button onClick={navFunc2} className="btn btn-success" type="submit">
+                            {/* option to see all the requests. */}
                             See all Subject Requests
                         </button>
                     </>
                 )}
 
                 <button onClick={navFunc3} className="btn btn-info" type="submit">
+                    {/* option to see all the subjects enrolled in */}
                     See all enrolled subjects
                 </button>
-                
-                {
-                    (isInstructor) && (
-                        <button onClick={navFunc4} className="btn btn-info" type="submit">
-                            See all subjects of yours that the student has taken
-                        </button>
-                    )
-                }
 
                 {isAdmin && (
                     <button onClick={()=>{setOpen(true)}} className="btn btn-danger" type="submit">
+                        {/* option to delete the student. */}
                         Delete Student
                     </button>
                 )}
             </div>
         </div>
 
-
+        {/* Dialog box that will be used in confirming the deleting of the student. */}
         <Dialog open={open} onClose={handleToClose}>
             <DialogTitle>{"Delete Student"}</DialogTitle>
             <DialogContent>
@@ -98,10 +101,12 @@ const PersonalStudentDetails = ({isStudent, isAdmin, isInstructor}) => {
             </DialogContent>
             <DialogActions>
                 <button onClick={handleCancel} color="primary" autoFocus>
+                    {/* option to cancel the operation. */}
                     Cancel
                 </button>
                 <button onClick={handleToClose}
                     color="primary" autoFocus>
+                        {/* option to delete the student */}
                     Delete
                 </button>
             </DialogActions>

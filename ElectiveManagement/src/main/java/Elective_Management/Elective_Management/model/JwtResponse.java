@@ -4,6 +4,7 @@ import Elective_Management.Elective_Management.Entity.User;
 
 import java.io.Serializable;
 
+//the response to send to the user, it contains the user object, excluding the password, and the token
 public class JwtResponse implements Serializable {
 
     private static final long serialVersionUID = -8091879091924046844L;

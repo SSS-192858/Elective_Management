@@ -19,17 +19,20 @@ public class RequestDAOImpl implements RequestDAO {
         this.entityManager = entityManager;
     }
 
+    // save a request for a subject
     @Override
     @Transactional
     public Request saveRequest(Request Request) {
         return this.entityManager.merge(Request);
     }
 
+    // get a particular request by id
     @Override
     public Request findRequestById(Integer id) {
         return this.entityManager.find(Request.class,id);
     }
 
+    // delete a request
     @Override
     @Transactional
     public void deleteById(Integer id) {
@@ -37,13 +40,14 @@ public class RequestDAOImpl implements RequestDAO {
         this.entityManager.remove(Request);
     }
 
-
+    // find all requests made across the institute
     @Override
     public List<Request> findAllRequests() {
         TypedQuery<Request> tq = this.entityManager.createQuery("From Request",Request.class);
         return tq.getResultList();
     }
 
+    // find all pending requests made by a particular student
     @Override
     public List<Request> getRequestsByStudentId(Integer id){
         TypedQuery<Request> tpq = this.entityManager.createQuery("FROM Request where student.id = :id", Request.class);
@@ -51,6 +55,7 @@ public class RequestDAOImpl implements RequestDAO {
         return tpq.getResultList();
     }
 
+    // get all pending requests for a subject by its code
     @Override
     public List<Request> getRequestBySubjectId(Integer id){
         TypedQuery<Request> tpq = this.entityManager.createQuery("FROM Request where subject.subjectCode = :id", Request.class);
@@ -58,6 +63,7 @@ public class RequestDAOImpl implements RequestDAO {
         return tpq.getResultList();
     }
 
+    // get all requests for any subjects taught by a particular instructor
     @Override
     public List<Request> getRequestByInstructorId(Integer id){
         TypedQuery<Request> tpq = this.entityManager.createQuery("FROM Request where subject.instructor.Id = :id", Request.class);

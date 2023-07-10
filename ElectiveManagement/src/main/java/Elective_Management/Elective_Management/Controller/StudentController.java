@@ -26,18 +26,21 @@ public class StudentController {
         this.studentService = StudentService;
     }
 
+    //endpoint to get all the student records
     @GetMapping("/getAll")
     public List<Student> getAllStudent()
     {
         return this.studentService.getAllStudents();
     }
 
+    //endpoint to get student record by using student id
     @GetMapping("/getbyID/{id}")
     public Student getStudentbyId(@PathVariable int id)
     {
         return this.studentService.getStudentById(id);
     }
 
+    //endpoint to save a student, the user object is assigned using the token
     @PostMapping("/save")
     public Student saveStudent(@RequestBody Student Student, @RequestHeader String Authorization) {
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
@@ -47,6 +50,7 @@ public class StudentController {
         return this.studentService.saveStudent(Student);
     }
 
+    //endpoint to update the student records, the user object is extracted from the token, and then assigned
     @PutMapping("/update")
     public Student updateStudent(@RequestBody Student Student, @RequestHeader String Authorization)
     {
@@ -57,17 +61,18 @@ public class StudentController {
         return this.studentService.updateStudent(student);
     }
 
+    //endpoint to delete the student
     @DeleteMapping("/delete/{id}")
     public void deleteStudent(@PathVariable int id)
     {
         this.studentService.deleteStudentById(id);
     }
 
+    //endpoint to get the student details using user id, which is extracted from the token
     @GetMapping("/user/getStudent")
     public Student getByUserId(@RequestHeader String Authorization){
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
         User user = jwtUserDetailsService.getUserByUsername(username);
-        Student student = studentService.getByUserId(user.getId());
         return studentService.getByUserId(user.getId());
     }
 }

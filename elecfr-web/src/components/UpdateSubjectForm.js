@@ -10,36 +10,29 @@ import {updateSubject} from '../services/user_services';
 import { getSubjectFromStorage, removeSubjectFromStorage } from "../services/localStorage_services";
 import image from "../assets/image.png";
 
+//component to update the details of a book
 const SubjectUpdateForm = () => {
-  
-    const [open,setOpen] = React.useState(false);
 
-    const [subject, setSubject] = useState(() => {
-      const temp = getSubjectFromStorage();
-      return temp;
-    })
+  //state variable to show the dialog box
+  const [open,setOpen] = React.useState(false);
 
-    const [form, setForm] = useState({
-        subjectName:subject.subjectName,
-        subjectDesc:subject.subjectDesc
+  //subject is taken from local storage, to display on screen
+  const [subject, setSubject] = useState(() => {
+    const temp = getSubjectFromStorage();
+    return temp;
+  })
+    
+  //form component, initialised to the subject variables
+  const [form, setForm] = useState({
+    subjectName:subject.subjectName,
+    subjectDesc:subject.subjectDesc
   });
 
   const navigate = useNavigate();
 
+  //functions to handle dialog box
   const handleClickToOpen = () => {
     setOpen(true);
-  };
-
-  const [message, setMessage] = useState("");
-
-  const {errors, validateForm} = useSubjectSaveValidator(form)
-
-  const onUpdateField = e => {
-    const nextFormState = {
-      ...form,
-      [e.target.name]: e.target.value,
-    };
-    setForm(nextFormState);
   };
 
   const handleToClose = () => {
@@ -48,15 +41,33 @@ const SubjectUpdateForm = () => {
     removeSubjectFromStorage();
   };
 
+  const [message, setMessage] = useState("");
+
+  const {errors, validateForm} = useSubjectSaveValidator(form)
+
+  //to take care of form state variable changes
+  const onUpdateField = e => {
+    const nextFormState = {
+      ...form,
+      [e.target.name]: e.target.value,
+    };
+    setForm(nextFormState);
+  };
+
+  //called when the submit button is pressed
   const onSubmitForm = e => {
     setMessage("")
-    e.preventDefault();    
+    e.preventDefault(); 
+    //check if valid, if not return   
     const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
     if (!isValid) return;
+    //otherwise update the subject in the db
     updateSubject(subject.subjectCode, form.subjectName, form.subjectDesc).then(
+      //show dialog box for success
         response => {
             handleClickToOpen()
         },
+        // else set error message 
         error => {
             const resMessage = (error.response &&
                 error.response.data &&
@@ -84,6 +95,8 @@ const SubjectUpdateForm = () => {
                         Subject Code : {subject.subjectCode}
                     </p>
                </div>
+
+              {/* subject name input box */}
                 <div className="form-group">
                     <label htmlFor="subjectName">Subject Name</label>
                     <input
@@ -101,6 +114,7 @@ const SubjectUpdateForm = () => {
                             ) : null}
                 </div>
 
+                {/* subject description input */}
                 <div className="form-group">
                     <label htmlFor="subjectDesc">Subject Desc</label>
                     <textarea
@@ -122,11 +136,14 @@ const SubjectUpdateForm = () => {
                     <button className="btn btn-primary btn-block">Update details</button>
                 </div>
 
+                {/* show error message if unsuccessful */}
                 {message ? 
                   <div className="alert alert-danger" role="alert">{message}</div>
                 : null}
             </form>
         </div>
+
+        {/* dialog box for success notification */}
         <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Subject Saved successfully"}</DialogTitle>
                 <DialogContent>

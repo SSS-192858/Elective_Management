@@ -8,8 +8,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 
+//component to confirm the assignment of instructor to a subject 
 const SubjectAssignInstructorConfirmation = () => {
 
+    //subject and instructor are obtained from storage
     const [subject, setSubject] = useState(() => {
         const temp = getSubjectFromStorage();
         return temp;
@@ -24,6 +26,8 @@ const SubjectAssignInstructorConfirmation = () => {
 
     const navigate = useNavigate();
 
+
+    //functions to handle the buttons and the dialog box
     const handleCancel = () => {
         navigate("/assignInstructor");
     }
@@ -41,6 +45,7 @@ const SubjectAssignInstructorConfirmation = () => {
 
     return (
         <>
+        {/* Display the details of subject and instructor */}
         <div className="container">
         <div className="card">
             <div className="card-body">
@@ -72,6 +77,7 @@ const SubjectAssignInstructorConfirmation = () => {
             
             </div></div>
 
+            {/* Dialog box shown to confirm that the assignment was successful */}
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Assignment successful"}</DialogTitle>
                 <DialogContent>

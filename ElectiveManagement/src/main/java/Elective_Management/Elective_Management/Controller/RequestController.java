@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/request")
 @CrossOrigin(origins = "*")
+// contains and manages all the endpoints pertaining to requests.
 public class RequestController {
 
     private RequestService requestService;
@@ -34,18 +35,21 @@ public class RequestController {
     }
 
     @GetMapping("/getAll")
+//     fn to get all requests.
     public List<Request> getAllRequest()
     {
         return this.requestService.getAllRequest();
     }
 
     @GetMapping("/getbyID/{id}")
+//    fn to get request by id.
     public Request getRequestbyId(@PathVariable int id)
     {
         return this.requestService.getRequestbyId(id);
     }
 
     @PostMapping("/save")
+//    fn to dave request.
     public Request saveRequest(@RequestBody Request request, @RequestHeader String Authorization) {
         request.setSlno(0);
         String username = jwtTokenUtil.getUsernameFromToken(Authorization.substring(7));
@@ -58,24 +62,28 @@ public class RequestController {
     }
 
     @DeleteMapping("/delete/{id}")
+//    fn to delete request by id.
     public void deleteRequest(@PathVariable int id)
     {
         this.requestService.deleteRequestbyId(id);
     }
 
     @GetMapping("/getbyStudent/{id}")
+//    fn to get requests by student id.
     public List<Request> getRequestbyStudentId (@PathVariable int id)
     {
         return this.requestService.getRequestByStudentId(id);
     }
 
     @GetMapping("/getbyInstructorId/{id}")
+//    fn to get instructor by instructor id.
     public List<Request> getRequestbyInstructorId(@PathVariable int id)
     {
         return this.requestService.getRequestsByInstructorId(id);
     }
 
     @GetMapping("/getbySubjectId/{id}")
+//    fn to get subjects by subject id.
     public List<Request> getSubjectbyInstructorId(@PathVariable int id)
     {
         return this.requestService.getRequestsBySubjectId(id);

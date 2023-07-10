@@ -9,6 +9,8 @@ import DialogContent from "@mui/material/DialogContent";
 import { useInstructorSignupFormValidator } from "../validators/signupInstructorValidator";
 import image1 from "../assets/image1.png";
 
+// instructor signup form
+// admin registers instructor and then instructor uses the credentials to login
 const SignupInstructor = () => {
 
     const [open, setOpen] = React.useState(false);
@@ -27,15 +29,19 @@ const SignupInstructor = () => {
 
     const {errors, validateForm} = useInstructorSignupFormValidator(form)
 
+    //opens dialog box
     const handleClickToOpen = () => {
         setOpen(true);
     };
- 
+
+
+    // closes dialog box
     const handleToClose = () => {
         setOpen(false);
         navigate("/home")
     };
 
+    // when any form field is updated, check validity of the field
     const onUpdateField = e => {
         const nextFormState = {
           ...form,
@@ -44,12 +50,19 @@ const SignupInstructor = () => {
         setForm(nextFormState);
     };
 
+    // when register button is clicked, perform all validation checks ( including backend checks such as unique username )
+    // and if valid, display dialog box signifying completion and take admin to home page and ask instructor to login with the credentials
+    // else display error message 
     const onSubmitForm = e => {
         setMessage("")
-        e.preventDefault();    
+        e.preventDefault();  
+        // check validity of form fields   
         const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
+        // if invalid
         if (!isValid) return;
+        // if valid
         registerInstructor(form.username, form.password, form.instructor_name, form.email, form.phone).then(
+            //if successful, open dialog box
             response => {
                 handleClickToOpen()
             },
@@ -64,6 +77,7 @@ const SignupInstructor = () => {
         )
     };
 
+    // rendering form components on the screen
     return (
 
         <div className="col-md-12">
@@ -74,9 +88,11 @@ const SignupInstructor = () => {
                 className="profile-img-card"
             />
 
+            {/* actual form */}
             <form onSubmit={onSubmitForm}>
-                
-                <div className="form-group">
+            
+                {/* username field */}
+                    <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
                         type="text"
@@ -91,7 +107,8 @@ const SignupInstructor = () => {
                             <div className="alert alert-danger" role="alert">{errors.username.message}</div>
                             ) : null}
                     </div>
-
+                
+                {/* password field */}
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input
@@ -108,6 +125,7 @@ const SignupInstructor = () => {
                             ) : null}
                     </div>
 
+                {/* confirm password field */}
                     <div className="form-group">
                         <label htmlFor="password">Confirm Password</label>
                         <input
@@ -124,6 +142,7 @@ const SignupInstructor = () => {
                             ) : null}
                     </div>
 
+                {/* instructor name field */}
                     <div className="form-group">
                     <label htmlFor="instructor_name">Name</label>
                     <input
@@ -140,6 +159,7 @@ const SignupInstructor = () => {
                             ) : null}
                     </div>
 
+                {/* email field */}
                     <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
@@ -156,6 +176,7 @@ const SignupInstructor = () => {
                             ) : null}
                     </div>
 
+                {/* phone field */}
                     <div className="form-group">
                     <label htmlFor="phone">Phone</label>
                     <input
@@ -172,16 +193,19 @@ const SignupInstructor = () => {
                             ) : null}
                     </div>
 
+                {/* register button */}
                     <div className="form-group">
                         <button className="btn-block form-button1">Sign Up</button>
                     </div>
 
+                {/* display error message (if exists) */}
                     {message ? 
                         <div className="alert alert-danger" role="alert">{message}</div>
                         : null}
                 </form>
             </div>
 
+            {/* Display dialog box when driver has been successfully registered */}
             <Dialog open={open} onClose={handleToClose}>
                 <DialogTitle>{"Signup successful"}</DialogTitle>
                 <DialogContent>
@@ -190,6 +214,7 @@ const SignupInstructor = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
+                    {/* close dialog box, ask instructor to use same credentials entered here to login as a instructor */}
                     <button onClick={handleToClose}
                         color="primary" autoFocus>
                         Close

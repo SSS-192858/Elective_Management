@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/studentSubject")
 @CrossOrigin(origins = "*")
+// contains and managees all the endpoints pertaining to studnesubject.
 public class StudentSubjectController {
     private StudentSubjectService studentSubjectService;
     private InstructorService instructorService;
@@ -36,18 +37,21 @@ public class StudentSubjectController {
     }
 
     @GetMapping("/getAll")
+//    get all student subjects.
     public List<StudentSubject> getAllStudentSubject()
     {
         return this.studentSubjectService.getAllStudentSubject();
     }
 
     @GetMapping("/getbyID/{id}")
+//    get student subject by id.
     public StudentSubject getStudentSubjectbyId(@PathVariable int id)
     {
         return this.studentSubjectService.getStudentSubjectById(id);
     }
 
     @PostMapping("/save")
+//    save student subject.
     public StudentSubject saveStudentSubject(@RequestBody StudentSubject StudentSubject)
     {
         return this.studentSubjectService.saveStudentSubject(StudentSubject);
@@ -55,18 +59,21 @@ public class StudentSubjectController {
 
 
     @DeleteMapping("/delete/{id}")
+//    delete student subject by id.
     public void deleteStudentSubject(@PathVariable int id)
     {
         this.studentSubjectService.deleteStudentSubjectById(id);
     }
 
     @GetMapping("/getByInstructor/{id}")
+//    get list of student subjects by instructor id.
     public List<StudentSubject> getbyInstructorId(@PathVariable int id)
     {
         return this.studentSubjectService.getAllStudentSubjectbyInstructorId(id);
     }
 
     @GetMapping("/getByStudent/{id}")
+//    get list of student subject by student id.
     public List<StudentSubject> getbyStudentId(@PathVariable int id)
     {
         return this.studentSubjectService.getAllStudentSubjectbyStudentId(id);
@@ -74,6 +81,7 @@ public class StudentSubjectController {
 
     @PostMapping("/accept")
     @Transactional
+//    accpet a request from the student and save it as a Student Subject.
     public StudentSubject accept(@RequestBody Request request){
         StudentSubject ss = new StudentSubject();
         ss.setEndDate(request.getEndDate());
@@ -90,12 +98,14 @@ public class StudentSubjectController {
         return ss1;
     }
 
+    //endpoint to get records by subject code
     @GetMapping("/getBySubject/{id}")
     public List<StudentSubject> getbySubjectId(@PathVariable int id)
     {
         return this.studentSubjectService.getAllStudentSubjectbySubjectId(id);
     }
 
+    //endpoint to get student subject records for a given student instructor combo
     @GetMapping("/getForStudentAndInstructor/{id}")
     public List<StudentSubject> getForStudentAndInstructor(@PathVariable int id, @RequestHeader String Authorization){
         User user = jwtUserDetailsService.getUserByUsername(jwtTokenUtil.getUsernameFromToken(Authorization.substring(7)));

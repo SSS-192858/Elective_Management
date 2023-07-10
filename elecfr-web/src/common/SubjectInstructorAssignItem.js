@@ -1,13 +1,15 @@
 import React from 'react'
 import { setInstructorInStorage } from '../services/localStorage_services'
-import { Link } from "react-router-dom";
 
+//list item to show the instructor records when assigning to a particular subject
 const SubjectInstructorAssignItem = ({instructor,subject}) => {
+
+    //clicking sets the instructor in storage, and takes to confirmation page
     const handleClick = () => {
-        // setBookInStorage(subject);
         setInstructorInStorage(instructor)
     }
 
+    //component
     return (
         <a href="/assignInstructorConfirmation">
         <div className="card1" onClick={handleClick}>

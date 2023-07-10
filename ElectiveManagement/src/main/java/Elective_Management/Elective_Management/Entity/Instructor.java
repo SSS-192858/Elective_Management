@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "instructor")
+// instructor entity that will be mapped to instructor table.
 public class Instructor {
     public Instructor() {
     }
@@ -14,6 +15,7 @@ public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "instructor_code")
+//    instructor id.
     private int Id;
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -21,16 +23,20 @@ public class Instructor {
     private User user;
 
     @Column(name = "instructor_email")
+//    email id of the instructor
     private String email;
 
     @Column(name = "instructor_phno")
+//    phone number of the instructor.
     private String phone;
 
     @Column(name="instructor_name")
+//    name of the instructor.
     private String instructor_name;
 
     @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnore
+//   List of subjects taught by the instructor.
     private List<Subject> subjects;
 
     public Instructor(User user, String instructor_name, String email, String phone) {

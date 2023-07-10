@@ -1,12 +1,15 @@
 import React from "react";
 import { setInstructorInStorage } from "../services/localStorage_services";
 
+//component to show the instructor list item
 const InstructorListItem = ({ instructor }) => {
 
+    //when clicked, sets the current instructor in local storage
     const handleClick = () => {
         setInstructorInStorage(instructor);
     }
 
+    //component
     return ( 
         <a href="/instructorDetail">
             <div className="card1" onClick={handleClick}>

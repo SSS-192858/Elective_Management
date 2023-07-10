@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { stringValidator } from "./validators";
 
+// checks for errors in the form fields
 const touchErrors = errors => {
     return Object.entries(errors).reduce((acc, [field, fieldError]) => {
         acc[field] = {
@@ -25,6 +26,8 @@ export const useSubjectSaveValidator = form => {
         }
     });
 
+    // calling the validators from validators.js
+    // and checking whether they can constitute a valid form entry
     const validateForm = ({ form, field, errors, forceTouchErrors = false }) => {
         let isValid = true;
 
@@ -37,6 +40,8 @@ export const useSubjectSaveValidator = form => {
         }
 
         const { subjectName, subjectDesc } = form;
+
+        // checking the validity of data entered in various fields of the add a new subject form
 
         if (nextErrors.subjectName.dirty && (field ? field === "subjectName" : true)) {
             const message = stringValidator(subjectName, form);
@@ -52,6 +57,7 @@ export const useSubjectSaveValidator = form => {
             if (!!subjectDescMessage) isValid = false;
         }
 
+        // in case there are errors, return the error messages
         setErrors(nextErrors);
 
         return {

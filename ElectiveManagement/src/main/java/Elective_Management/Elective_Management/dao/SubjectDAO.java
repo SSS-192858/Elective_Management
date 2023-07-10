@@ -4,6 +4,7 @@ import Elective_Management.Elective_Management.Entity.Subject;
 
 import java.util.List;
 
+// DAO to access and update values from the subject table in the database
 public interface SubjectDAO {
     public Subject saveSubject(Subject Subject);
 

@@ -21,10 +21,12 @@ public class StudentService {
         this.userDAO = userDAO;
     }
 
+    //method to save student records to db
     public Student saveStudent(Student student){
         return this.studentDAO.saveStudent(student);
     }
 
+    //method to update student records, throws exception if student not found
     public Student updateStudent(Student student) throws StudentNotFoundException{
         Student student1 = this.studentDAO.findStudentById(student.getId());
         if (student1 == null){
@@ -33,6 +35,7 @@ public class StudentService {
         return this.studentDAO.updateStudent(student);
     }
 
+    //method to get student records by id, throws exception if student not found
     public Student getStudentById(Integer id) throws StudentNotFoundException {
         Student student = this.studentDAO.findStudentById(id);
         if (student == null){
@@ -41,7 +44,8 @@ public class StudentService {
 
         return student;
     }
-
+    
+    //method to delete student record by id, throws exception if student not found
     public void deleteStudentById(Integer id) throws StudentNotFoundException {
         Student student = this.studentDAO.findStudentById(id);
         if (student == null){
@@ -52,10 +56,12 @@ public class StudentService {
         this.userDAO.delete(user);
     }
 
+    //method to get all students data
     public List<Student> getAllStudents(){
         return this.studentDAO.findAllstudents();
     }
 
+    //method to get student data using USER ID
     public Student getByUserId(Integer id) {
         return studentDAO.getStudentByUserId(id);
     }

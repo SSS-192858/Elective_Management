@@ -2,10 +2,12 @@ package Elective_Management.Elective_Management.model;
 
 import java.io.Serializable;
 
+//request class to get the request from the user, this is used for authentication and registering a customer/driver/admin
 public class JwtRequest implements Serializable {
 
     private static final long serialVersionUID = 5926468583005150707L;
 
+    //contains username, and password
     private String username;
     private String password;
 

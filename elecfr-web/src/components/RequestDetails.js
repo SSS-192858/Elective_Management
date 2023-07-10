@@ -9,22 +9,26 @@ import { useNavigate } from "react-router-dom";
 import { getPersonalInstructorFromStorage, getRequestFromStorage } from "../services/localStorage_services";
 import dateFormat from "dateformat";
 
+// used in showing details regarding requests.
 const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
 
     const [open, setOpen] = useState(false);
     const [acceptOpen, setAcceptOpen] = useState(false);
     const navigate = useNavigate();
     
+    // Request variable that shall store the selected request.
     const [request, setRequest] = useState(() => {
         const temp = getRequestFromStorage();
         return temp;
     })
 
+    // instructor variable that shall store the selected instructor.
     const [instructor, setInstructor] = useState(() => {
         const temp = getPersonalInstructorFromStorage();
         return temp;
     })
 
+    // fn that shall delete the request.
     const handleToClose = () => {
         deleteRequest(request.slno);
         setOpen(false);
@@ -33,14 +37,17 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
         else if(isInstructor){navigate("/requestsforInstructor")}
     };
 
+    // fn that shall be used in cancelling the operation.
     const handleCancel = ()=>{
         setOpen(false);
     }
 
+    // fn that shall be used in cancelling the accept request operation.
     const handleCancelAccept = () => {
         setAcceptOpen(false);
     }
 
+    // fn that shall accept the request.
     const handleAccept = async() => {
         accept(request).then(
             response => {
@@ -96,12 +103,14 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
 
             {(isAdmin || (isInstructor && instructor && instructor.id === request.subject.instructor.id)) &&
                 <button onClick={()=>{setAcceptOpen(true)}} className="btn btn-primary" type="submit">
+                    {/* option that shall accept the request. */}
                     Accept
                 </button>
             }
 
             {(isAdmin || (isInstructor && instructor && instructor.id === request.subject.instructor.id) || isStudent) &&
                 <button onClick={()=>{setOpen(true)}} className="btn btn-primary" type="submit" >
+                    {/* option that shall delete the request. */}
                     Delete
                 </button>
             }
@@ -117,10 +126,12 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
                 </DialogContent>
                 <DialogActions>
                     <button onClick={handleCancelAccept} color="light" autoFocus>
+                        {/* option to cancel the operation. */}
                         Cancel
                     </button>
                     <button onClick={handleAccept}
                         color="success" autoFocus>
+                            {/* option to accept eh request. */}
                         Accept
                     </button>
                     
@@ -135,10 +146,12 @@ const RequestDetails = ({isStudent,isAdmin,isInstructor}) => {
                 </DialogContent>
                 <DialogActions>
                     <button onClick={handleCancel} color="primary" autoFocus>
+                        {/* option to cancel the delete operation. */}
                         Cancel
                     </button>
                     <button onClick={handleToClose}
                         color="warning" autoFocus>
+                            {/* option to delete the request. */}
                         Delete Request
                     </button>   
                 </DialogActions>

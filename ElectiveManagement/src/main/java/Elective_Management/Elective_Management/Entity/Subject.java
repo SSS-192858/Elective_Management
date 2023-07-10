@@ -7,25 +7,31 @@ import java.util.List;
 
 @Entity
 @Table(name = "subjects")
+// the subjects entity which will be mapped to subject table.
 public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_code")
+//    the subject id.
     private int subjectCode;
 
     @Column(name = "subject_name")
+//    the name of the subject.
     private String subjectName;
 
     @Column(name = "subject_desc")
+//    the subject description.
     private String subjectDesc;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "instructor_code")
+//    The instructor teaching the subject.
     private Instructor instructor;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
     @JsonIgnore
+//    List of students enrolled in the subject.
     private List<StudentSubject> students;
 
     public Subject() {}
