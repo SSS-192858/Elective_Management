@@ -1,5 +1,6 @@
 import React from "react";
 import { setStudentInStorage } from "../services/localStorage_services";
+import {Link} from 'react-router-dom';
 
 //clickable list item to show student details
 const StudentListItem = ({student}) => {
@@ -11,7 +12,7 @@ const StudentListItem = ({student}) => {
 
     //component
     return (
-        <a href="/studentDetail">
+        <Link to={"/studentDetail"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
                     <h1>{student.studentName}</h1>
@@ -20,7 +21,7 @@ const StudentListItem = ({student}) => {
                     <h6>Phone- {student.phone}</h6>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 

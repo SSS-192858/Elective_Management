@@ -1,6 +1,7 @@
 import React from "react";
 import { setRequestInStorage } from "../services/localStorage_services";
 import dateFormat from "dateformat";
+import {Link} from 'react-router-dom';
 
 //clickable list item component to show requests 
 const RequestListItem = ({request}) => {
@@ -12,7 +13,7 @@ const RequestListItem = ({request}) => {
 
     //component
     return (
-        <a href="/requestDetails">
+        <Link to={"/requestDetails"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
                     <h3>Subject- {request.subject.subjectName}</h3>
@@ -27,7 +28,7 @@ const RequestListItem = ({request}) => {
                     </p>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 

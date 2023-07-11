@@ -1,6 +1,6 @@
 import React from "react";
 import { setInstructorInStorage } from "../services/localStorage_services";
-
+import {Link} from 'react-router-dom';
 //component to show the instructor list item
 const InstructorListItem = ({ instructor }) => {
 
@@ -11,7 +11,7 @@ const InstructorListItem = ({ instructor }) => {
 
     //component
     return ( 
-        <a href="/instructorDetail">
+        <Link to ={"/instructorDetail"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
                     <h1>{instructor.instructor_name}</h1>
@@ -20,7 +20,7 @@ const InstructorListItem = ({ instructor }) => {
                     <h6>Phone- {instructor.phone}</h6>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 
