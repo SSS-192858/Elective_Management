@@ -1,7 +1,7 @@
 import React from "react";
 import { setSubjectInStorage } from "../services/localStorage_services"
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import {Link} from 'react-router-dom';
 //list item to show the subject details
 const SubjectListItem = ({subject}) => {
 
@@ -12,7 +12,7 @@ const SubjectListItem = ({subject}) => {
 
     //component
     return (
-        <a href="/moreInfo">
+        <Link to={"/moreInfo"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
                         <h1>{subject.subjectName}</h1>
@@ -22,7 +22,7 @@ const SubjectListItem = ({subject}) => {
                         <p>{subject.subjectDesc}</p>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 export default SubjectListItem;

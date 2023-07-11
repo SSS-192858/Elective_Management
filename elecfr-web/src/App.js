@@ -168,28 +168,28 @@ function App() {
 
               {isAdmin && (
                 <li>
-                  <a href = "/registerAdmin" className="nav-link">
+                  <Link to= {"/registerAdmin"} className="nav-link">
                     {/* Register a new admin.*/}
                     Register New Admin
-                  </a>
+                  </Link>
                 </li>
               )}
 
               {isAdmin && (
                 <li>
-                  <a href = "/registerInstructor" className="nav-link">
+                  <Link to={"/registerInstructor"} className="nav-link">
                     {/* Register a new instructor.*/}
                     Register New Instructor
-                  </a>
+                  </Link>
                 </li>
               )}
 
               {isAdmin && (
                 <li>
-                  <a href = "/registerStudent" className="nav-link">
+                  <Link to= {"/registerStudent"} className="nav-link">
                     {/* option to register a new student.*/}
                     Register New Student
-                  </a>
+                  </Link>
                 </li>
               )}
 
@@ -251,10 +251,10 @@ function App() {
               )}
 
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={Applogout}>
+                <Link to={"/login"} className="nav-link" onClick={Applogout}>
                   {/* option to logout. */}
                   Log out
-                </a>
+                </Link>
               </li>
                   
             </div>
