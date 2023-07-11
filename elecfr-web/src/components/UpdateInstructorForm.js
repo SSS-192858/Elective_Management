@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useInstructorUpdateFormValidator } from "../validators/InstructorUpdateValidator";
-import { getInstructorFromStorage, setInstructorInStorage } from "../services/localStorage_services";
+import { getInstructorFromStorage, setInstructorInStorage, setPersonalInstructorInStorage } from "../services/localStorage_services";
 import image1 from "../assets/image1.png";
 
 // form to update instructor
@@ -36,6 +36,7 @@ const UpdateInstructor = () => {
     const handleClickToOpen = () => {
         const temp = {id: instructor.id, instructor_name: form.instructor_name, email: form.email, phone: form.phone}
         setInstructorInStorage(temp);
+        setPersonalInstructorInStorage(temp);
         setOpen(true);
     };
 
