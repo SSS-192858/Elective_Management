@@ -35,9 +35,10 @@ public class RequestDAOImpl implements RequestDAO {
     // delete a request
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public Request deleteById(Integer id) {
         Request Request = this.entityManager.find(Request.class, id);
         this.entityManager.remove(Request);
+        return Request;
     }
 
     // find all requests made across the institute

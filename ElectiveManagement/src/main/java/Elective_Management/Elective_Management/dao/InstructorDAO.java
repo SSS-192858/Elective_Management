@@ -11,7 +11,7 @@ public interface InstructorDAO {
 
     public Instructor findInstructorById(Integer id);
 
-    public void deleteById(Integer id);
+    public Instructor deleteById(Integer id);
 
     public Instructor updateInstructor(Instructor Instructor);
 

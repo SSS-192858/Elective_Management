@@ -10,7 +10,7 @@ public interface SubjectDAO {
 
     public Subject findSubjectById(Integer id);
 
-    public void deleteById(Integer id);
+    public Subject deleteById(Integer id);
 
     public Subject updateSubject(Subject Subject);
 

@@ -33,12 +33,13 @@ public class SubjectService {
     }
 
     //method to delete a subject by id, throws exception if subject not found
-    public void deleteSubjectById(Integer id) throws SubjectNotFoundException{
+    public Subject deleteSubjectById(Integer id) throws SubjectNotFoundException{
         Subject sub = this.subjectDAO.findSubjectById(id);
         if (sub == null) {
             throw new SubjectNotFoundException();
         }
         subjectDAO.deleteById(id);
+        return sub;
     }
 
     //method to find subject by id, throws exception if subject not found

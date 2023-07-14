@@ -34,9 +34,10 @@ public class StudentSubjectDAOImpl implements StudentSubjectDAO{
     // delete a record by id
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public StudentSubject deleteById(Integer id) {
         StudentSubject StudentSubject = this.entityManager.find(StudentSubject.class, id);
         this.entityManager.remove(StudentSubject);
+        return StudentSubject;
     }
 
     // all student subject pairing records

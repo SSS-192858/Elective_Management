@@ -37,9 +37,10 @@ public class InstructorDAOImpl implements InstructorDAO {
     // delete instructor by id
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public Instructor deleteById(Integer id) {
         Instructor Instructor = this.entityManager.find(Instructor.class,id);
         this.entityManager.remove(Instructor);
+        return Instructor;
     }
 
     // update records of instructor

@@ -66,12 +66,13 @@ public class StudentSubjectService {
     }
 
     //method to delete a student subject object by id, throws exception if not found
-    public void deleteStudentSubjectById(int id) throws StudentSubjectNotFoundException {
+    public StudentSubject deleteStudentSubjectById(int id) throws StudentSubjectNotFoundException {
         StudentSubject ss = this.studentSubjectDAO.findStudentSubjectById(id);
         if (ss == null){
             throw new StudentSubjectNotFoundException();
         }
         this.studentSubjectDAO.deleteById(id);
+        return ss;
     }
 
     //method to get all records by sibject id, throws exception if subject not found

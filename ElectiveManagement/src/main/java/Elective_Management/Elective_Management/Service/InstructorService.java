@@ -46,14 +46,15 @@ public class InstructorService {
     }
 
     //method to delete instructor by id, subsequently also deletes the user data for the instructor
-    public void deleteInstructorById(int id) throws InstructorNotFoundException {
+    public Instructor deleteInstructorById(int id) throws InstructorNotFoundException {
         Instructor instructor = this.instructorDAO.findInstructorById(id);
         if (instructor == null){
             throw new InstructorNotFoundException();
         }
         User user = instructor.getUser();
-        this.instructorDAO.deleteById(id);
         this.userDAO.delete(user);
+        return this.instructorDAO.deleteById(id);
+
     }
 
     //method to update instructor data, throws exception if instructor not found

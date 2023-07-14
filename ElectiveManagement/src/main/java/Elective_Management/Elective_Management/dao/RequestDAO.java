@@ -10,7 +10,7 @@ public interface RequestDAO {
 
     public Request findRequestById(Integer id);
 
-    public void deleteById(Integer id);
+    public Request deleteById(Integer id);
 
     public List<Request> findAllRequests();
 

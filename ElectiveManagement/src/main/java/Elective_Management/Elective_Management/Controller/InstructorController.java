@@ -67,9 +67,9 @@ public class InstructorController {
 
     @DeleteMapping("/delete/{id}")
     // fn to delete the instructor.
-    public void deleteInstructor(@PathVariable int id)
+    public Instructor deleteInstructor(@PathVariable int id)
     {
-        this.instructorService.deleteInstructorById(id);
+        return this.instructorService.deleteInstructorById(id);
     }
 
     @GetMapping("/user/getInstructor")
