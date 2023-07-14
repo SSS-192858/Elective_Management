@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { getSubjects, getSubjectByInstructorId } from '../services/user_services';
 import SubjectListItem from '../common/SubjectListItem';
-import { getInstructorFromStorage } from '../services/localStorage_services';
+import { getInstructorFromStorage, getPersonalInstructorFromStorage } from '../services/localStorage_services';
 
 //component to show the subjects list, based on choice prop
 function SubjectsList({choice}) {
@@ -19,11 +19,17 @@ function SubjectsList({choice}) {
       const response = await getSubjectByInstructorId(instructor.id);
       setSubjects(response);
     }
+    else if(choice===3)
+    {
+      const instructor = getPersonalInstructorFromStorage();
+      const response = await getSubjectByInstructorId(instructor.id);
+      setSubjects(response);
+    }
   }
 
   useEffect(() => {
     getSubjectsComp()
-  },[])
+  },[choice])
     
   return (
     <>

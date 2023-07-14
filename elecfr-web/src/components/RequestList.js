@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import RequestListItem from "../common/RequestListItem";
-import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage} from "../services/localStorage_services";
+import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage, getPersonalInstructorFromStorage, getPersonalStudentFromStorage} from "../services/localStorage_services";
 import { getAllRequests, getRequestByStudentId, getRequestByInstructorId, getRequestBySubjectCode } from "../services/user_services";
 
 //component to show the list of requests 
@@ -32,12 +32,23 @@ const RequestList = ({choice}) => {
             instructor = getInstructorFromStorage();
             const list = await getRequestByInstructorId(instructor.id);
             setRequests(list);
+        }else if(choice===5)
+        {
+            instructor = getPersonalInstructorFromStorage();
+            const list = await getRequestByInstructorId(instructor.id);
+            setRequests(list);
+        }
+        else if(choice===6)
+        {
+            student = getPersonalStudentFromStorage();
+            const list = await getRequestByStudentId(student.id);
+            setRequests(list);
         }
     }
 
     useEffect(() => {
         getRequests();
-    }, [])
+    }, [choice])
 
     return (
         <>

@@ -14,7 +14,7 @@ const InstructorListItem = ({ instructor }) => {
         <Link to ={"/instructorDetail"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
-                    <h1>{instructor.instructor_name}</h1>
+                    <h1>Name - {instructor.instructor_name}</h1>
                     <br />
                     <h6>Email- {instructor.email}</h6>
                     <h6>Phone- {instructor.phone}</h6>

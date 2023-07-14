@@ -15,9 +15,9 @@ const SubjectListItem = ({subject}) => {
         <Link to={"/moreInfo"}>
             <div className="card1" onClick={handleClick}>
                 <div className="card-body">
-                        <h1>{subject.subjectName}</h1>
+                        <h1>Name -{subject.subjectName}</h1>
                         <br />
-                        {subject.instructor ? <h4>Instructor: {subject.instructor.instructor_name}</h4>
+                        {subject.instructor ? <h4>Instructor: Name -{subject.instructor.instructor_name}</h4>
                         : null}
                         <p>{subject.subjectDesc}</p>
                 </div>
