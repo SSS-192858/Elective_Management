@@ -35,9 +35,10 @@ public class SubjectDAOImpl implements SubjectDAO{
     //delete a subject by its subject code
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public Subject deleteById(Integer id) {
         Subject Subject = this.entityManager.find(Subject.class,id);
         this.entityManager.remove(Subject);
+        return Subject;
     }
 
     //update existing subject record

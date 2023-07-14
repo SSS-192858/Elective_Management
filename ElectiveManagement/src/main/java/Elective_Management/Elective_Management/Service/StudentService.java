@@ -46,7 +46,7 @@ public class StudentService {
     }
     
     //method to delete student record by id, throws exception if student not found
-    public void deleteStudentById(Integer id) throws StudentNotFoundException {
+    public Student deleteStudentById(Integer id) throws StudentNotFoundException {
         Student student = this.studentDAO.findStudentById(id);
         if (student == null){
             throw new StudentNotFoundException();
@@ -54,6 +54,7 @@ public class StudentService {
         User user = student.getUser();
         this.studentDAO.deleteById(id);
         this.userDAO.delete(user);
+        return student;
     }
 
     //method to get all students data

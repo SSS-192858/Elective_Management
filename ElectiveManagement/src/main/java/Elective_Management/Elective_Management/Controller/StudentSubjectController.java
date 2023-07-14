@@ -60,9 +60,9 @@ public class StudentSubjectController {
 
     @DeleteMapping("/delete/{id}")
 //    delete student subject by id.
-    public void deleteStudentSubject(@PathVariable int id)
+    public StudentSubject deleteStudentSubject(@PathVariable int id)
     {
-        this.studentSubjectService.deleteStudentSubjectById(id);
+        return this.studentSubjectService.deleteStudentSubjectById(id);
     }
 
     @GetMapping("/getByInstructor/{id}")

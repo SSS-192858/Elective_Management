@@ -63,9 +63,9 @@ public class StudentController {
 
     //endpoint to delete the student
     @DeleteMapping("/delete/{id}")
-    public void deleteStudent(@PathVariable int id)
+    public Student deleteStudent(@PathVariable int id)
     {
-        this.studentService.deleteStudentById(id);
+        return this.studentService.deleteStudentById(id);
     }
 
     //endpoint to get the student details using user id, which is extracted from the token

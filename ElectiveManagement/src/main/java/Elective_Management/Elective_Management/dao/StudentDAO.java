@@ -10,7 +10,7 @@ public interface StudentDAO {
 
     public Student findStudentById(Integer id);
 
-    public void deleteById(Integer id);
+    public Student deleteById(Integer id);
 
     public Student updateStudent(Student student);
 

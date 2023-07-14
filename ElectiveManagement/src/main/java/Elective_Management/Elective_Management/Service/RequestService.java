@@ -43,7 +43,7 @@ public class RequestService {
         Student student = this.studentDAO.findStudentById(sid);
         if(student==null)
         {
-            throw new SubjectNotFoundException();
+            throw new StudentNotFoundException();
         }
         if(subject==null)
         {
@@ -67,12 +67,13 @@ public class RequestService {
     }
 
     //method to delete a request by id, throws exception if request not found
-    public void deleteRequestbyId(int id) throws RequestNotFoundException{
+    public Request deleteRequestbyId(int id) throws RequestNotFoundException{
         Request request = this.RequestDAO.findRequestById(id);
         if (request == null){
             throw new RequestNotFoundException();
         }
         this.RequestDAO.deleteById(id);
+        return request;
     }
 
     //method to get the requests for a given instructor, throws exception if instructor not found

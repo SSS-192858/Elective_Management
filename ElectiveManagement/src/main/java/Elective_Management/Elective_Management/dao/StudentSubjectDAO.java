@@ -10,7 +10,7 @@ public interface StudentSubjectDAO {
 
     public StudentSubject findStudentSubjectById(Integer id);
 
-    public void deleteById(Integer id);
+    public StudentSubject deleteById(Integer id);
 
     public List<StudentSubject> findAllStudentSubjects();
 

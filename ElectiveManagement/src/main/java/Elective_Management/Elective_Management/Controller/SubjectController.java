@@ -38,8 +38,8 @@ public class SubjectController {
 
     //endpoint to delete the subject by subject code
     @DeleteMapping("/delete/{code}")
-    public void deleteSubjectById(@PathVariable Integer code){
-        this.subjectService.deleteSubjectById(code);
+    public Subject deleteSubjectById(@PathVariable Integer code){
+        return this.subjectService.deleteSubjectById(code);
     }
 
     //endpoint to update subject details

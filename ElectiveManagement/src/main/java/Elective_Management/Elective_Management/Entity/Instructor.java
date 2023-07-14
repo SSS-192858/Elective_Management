@@ -39,8 +39,8 @@ public class Instructor {
 //   List of subjects taught by the instructor.
     private List<Subject> subjects;
 
-    public Instructor(User user, String instructor_name, String email, String phone) {
-        this.user = user;
+    public Instructor(String instructor_name, String email, String phone) {
+//        this.user = user;
         this.instructor_name = instructor_name;
         this.email = email;
         this.phone = phone;
