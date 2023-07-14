@@ -196,7 +196,7 @@ function App() {
               {isStudent && (
                 <>
                   <li className="nav-item">
-                    <Link to={"/requestsForStudent"} className="nav-link">
+                    <Link to={"/requestforPersonalStudent"} className="nav-link">
                       {/* option to see self's pending requests. */}
                       Pending Requests
                     </Link>
@@ -221,21 +221,21 @@ function App() {
               {isInstructor && (
                 <>
                   <li className="nav-item">
-                    <Link to={"/requestsForInstructor"} className="nav-link">
+                    <Link to={"/requestforPersonalInstructor"} className="nav-link">
                       {/* Option to see the pending requests for the instructor. */}
                       Pending Requests
                     </Link>
                   </li>
 
                   <li className="nav-item">
-                    <Link to={"/studentSubjectByInstructor"} className="nav-link">
+                    <Link to={"/studentSubjectByPersonalInstructor"} className="nav-link">
                       {/* Option to see his/her students. */}
                       My students
                     </Link>
                   </li>
 
                   <li className="nav-item">
-                    <Link to={"/subjectsByInstructor"} className="nav-link">
+                    <Link to={"/subjectByPersonalInstructor"} className="nav-link">
                       {/* Option to see the subjects taught by self. */}
                       My Subjects
                     </Link>
@@ -305,6 +305,11 @@ function App() {
             <Route path="/studentSubjectByStudentAndInstructor" element={<StudentSubjectList choice={5}/>} />
             <Route path="/assignInstructor" element={<SubjectByInstructorAssign/>}/>
             <Route path="/assignInstructorConfirmation" element={<SubjectAssignInstructorConfirmation />}/>
+            <Route path="/requestforPersonalInstructor" element={<RequestList choice={5}/>}/>
+            <Route path="/requestforPersonalStudent" element={<RequestList choice={6}/>}/>            
+            <Route path="/studentSubjectByPersonalInstructor" element={<StudentSubjectList choice={6}/>}/>
+            <Route path="/studentSubjectByPersonalStudent" element={<StudentSubjectList choice={7}/>}/>
+            <Route path="/subjectByPersonalInstructor" element={<SubjectsList choice={3}/>}/>
           </Routes>
         </div>
       </div>

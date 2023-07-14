@@ -48,9 +48,14 @@ services:
       MYSQL_PASSWORD: springstudent
       MYSQL_ROOT_PASSWORD: root
     networks:
-      - backend  
+      - backend
+    volumes:
+      - db-data:/var/lib/mysql
 
 # Networks to be created to facilitate communication between containers
 networks:
   backend:
   frontend:    
+  
+volumes:
+  db-data:

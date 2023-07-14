@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import { SubjectStudentListItem } from "../common/SubjectStudentListItem";
-import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage, getPersonalInstructorFromStorage} from "../services/localStorage_services";
+import { getSubjectFromStorage, getStudentFromStorage, getInstructorFromStorage, getPersonalInstructorFromStorage, getPersonalStudentFromStorage} from "../services/localStorage_services";
 import {getSubjectStudents, getSubjectStudentsByStudentId, getSubjectStudentByInstructorId, getSubjectStudentsBySubjectCode, getForInstructorAndStudent} from "../services/user_services"
 
 //component to show the student subject list, based on the choice prop
@@ -38,11 +38,23 @@ const StudentSubjectList = ({choice}) => {
             const list = await getForInstructorAndStudent(student);
             setStudentSubjects(list)
         }
+        else if (choice===6)
+        {
+            instructor = getPersonalInstructorFromStorage();
+            const list = await getSubjectStudentByInstructorId(instructor.id);
+            setStudentSubjects(list);
+        }
+        else if(choice===7)
+        {
+            student = getPersonalStudentFromStorage();
+            const list = await getSubjectStudentsByStudentId(student.id);
+            setStudentSubjects(list);
+        }
     }
 
     useEffect(() => {
         getStudentSubjects();
-    }, [])
+    }, [choice])
 
     return (
 
