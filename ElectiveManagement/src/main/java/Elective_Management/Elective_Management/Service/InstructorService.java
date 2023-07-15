@@ -51,10 +51,15 @@ public class InstructorService {
         if (instructor == null){
             throw new InstructorNotFoundException();
         }
+        List<Subject> subjects = subjectDAO.listSubjectByInstructorId(id);
+        for (Subject subject : subjects){
+            subject.setInstructor(null);
+            this.subjectDAO.updateSubject(subject);
+        }
         User user = instructor.getUser();
+        Instructor instructor1 = this.instructorDAO.deleteById(id);
         this.userDAO.delete(user);
-        return this.instructorDAO.deleteById(id);
-
+        return instructor1;
     }
 
     //method to update instructor data, throws exception if instructor not found
