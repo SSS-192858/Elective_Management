@@ -247,6 +247,8 @@ The frontend of the application is written in React.js. The folder containing th
 
 4. **Components** - These are the screens of the application which are shown to the user. They contain forms to create/ update data present in the db, lists to see lists of various entities requested by the user (students, subjects, requests etc) and details components to see the details of a particular entity. The names of the files can be used to identify which screen serves which purpose. We only show screens to the user which he is allowed to access. Kindly refer to the comments present in various screens to find details of implementation. They are present in the components subdirectory of the src folder.
 
+**One thing we would like to mention is that if an instructor is assigned to a subject, then the subject can't be deleted. You have to manually remove the instructor first, and then delete the subject.**
+
 5. **Dockerfile** - The dockerfile is also available for the frontend. It builds the project, installs required node modules, and runs the command to provide an image for the frontend.
 
 ## Other links
