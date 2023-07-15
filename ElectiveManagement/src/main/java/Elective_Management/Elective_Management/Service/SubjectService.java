@@ -38,8 +38,9 @@ public class SubjectService {
         if (sub == null) {
             throw new SubjectNotFoundException();
         }
-        subjectDAO.deleteById(id);
-        return sub;
+        sub.setInstructor(null);
+        this.subjectDAO.updateSubject(sub);
+        return subjectDAO.deleteById(id);
     }
 
     //method to find subject by id, throws exception if subject not found

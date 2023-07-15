@@ -138,11 +138,6 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
                         Update Subject
                     </button>
 
-                    <button onClick={()=>{setOpen(true)}} className="btn btn-danger">
-                        {/* option for deleting a subject */}
-                        Delete Subject
-                    </button>
-
                     <button onClick={seeStudentSubjectsForSubject} className="btn btn-info">
                         {/* option for seeing all students who have taken the subject */}
                         See all records of students taking this course
@@ -184,7 +179,16 @@ const SubjectDetails = ({isStudent,isAdmin,isInstructor}) => {
                             </button>
                         }
                         </>
-                        : null
+                        :
+                        <>
+                        {isAdmin && 
+                            <button onClick={()=>{setOpen(true)}} className="btn btn-danger">
+                            {/* option for deleting a subject */}
+                            Delete Subject
+                            </button>
+
+                        }
+                        </>
                     }
             </div>
         </div>
