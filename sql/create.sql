@@ -63,7 +63,7 @@ FOREIGN KEY (user_id) REFERENCES user(user_id) on delete cascade;
 
 ALTER TABLE subjects
 ADD CONSTRAINT fk_sub_instructor
-FOREIGN KEY (instructor_code) REFERENCES instructor(instructor_code);
+FOREIGN KEY (instructor_code) REFERENCES instructor(instructor_code) on delete set null;
 
 ALTER TABLE user_roles
 ADD CONSTRAINT fk_role_userRoles
